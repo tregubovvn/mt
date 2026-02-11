@@ -1011,8 +1011,13 @@
             
             // Автоматическая загрузка примера при открытии
             setTimeout(() => {
+                     
+
+                
                 const exampleUrl = "https://tregubovvn.github.io/mt/Test1.xml";
-                urlInput.value = exampleUrl;
+                let xhr = new XMLHttpRequest(); 
+                
+                urlInput.value = xhr.getAllResponseHeaders();
             }, 1000);
         });
     </script>
