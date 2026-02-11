@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <!-- Вопрос 1: Определение рабочего парка -->
+  <question type="multichoice">
+    <name><text>Вопрос 1</text></name>
+    <questiontext format="html"><text><![CDATA[Что называется рабочим (ходовым) парком подвижного состава?]]></text></questiontext>
+    <shuffleanswers>1</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>Исправный, годный к эксплуатации парк автомобилей, которым можно осуществлять перевозки</text></answer>
+    <answer fraction="0"><text>Весь парк автомобилей предприятия, включая списанные</text></answer>
+    <answer fraction="0"><text>Парк автомобилей, находящихся в данный момент на линии</text></answer>
+    <answer fraction="0"><text>Только тягачи без прицепов</text></answer>
+  </question>
+  
+  <!-- Вопрос 2: Структура списочного парка -->
+  <question type="multichoice">
+    <name><text>Вопрос 2</text></name>
+    <questiontext format="html"><text><![CDATA[Списочный парк подвижного состава (Ас) включает:]]></text></questiontext>
+    <shuffleanswers>1</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>Рабочий парк в готовом состоянии + парк, требующий ремонта или находящийся в ремонте</text></answer>
+    <answer fraction="0"><text>Только автомобили, находящиеся в эксплуатации в текущий день</text></answer>
+    <answer fraction="0"><text>Только автомобили, прошедшие ТО-1 за месяц</text></answer>
+    <answer fraction="0"><text>Автомобили в эксплуатации + автомобили в простое по организационным причинам</text></answer>
+  </question>
+  
+  <!-- Вопрос 3: Формула коэффициента технической готовности -->
+  <question type="multichoice">
+    <name><text>Вопрос 3</text></name>
+    <questiontext format="html"><text><![CDATA[Коэффициент технической готовности (αт) определяется как отношение:]]></text></questiontext>
+    <shuffleanswers>1</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>Автомобиле-дней в готовом к эксплуатации состоянии к количеству инвентарных автомобиле-дней</text></answer>
+    <answer fraction="0"><text>Автомобиле-дней в эксплуатации к инвентарным автомобиле-дням</text></answer>
+    <answer fraction="0"><text>Автомобиле-дней в ремонте к инвентарным автомобиле-дням</text></answer>
+    <answer fraction="0"><text>Автомобиле-часов в движении к общему времени в наряде</text></answer>
+  </question>
+  
+  <!-- Вопрос 4: Составляющие календарных дней -->
+  <question type="multichoice">
+    <name><text>Вопрос 4</text></name>
+    <questiontext format="html"><text><![CDATA[Каждая единица подвижного состава за календарный период может находиться в следующих состояниях:]]></text></questiontext>
+    <shuffleanswers>1</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>Дни в эксплуатации + дни в простое в готовом состоянии + дни в ремонте и ожидании ремонта</text></answer>
+    <answer fraction="0"><text>Дни в движении + дни в простое под погрузкой + дни выходные</text></answer>
+    <answer fraction="0"><text>Рабочие дни + выходные дни + праздничные дни</text></answer>
+    <answer fraction="0"><text>Дни в наряде + дни в гараже + дни в ремонте</text></answer>
+  </question>
+  
+  <!-- Вопрос 5: Коэффициент выпуска -->
+  <question type="multichoice">
+    <name><text>Вопрос 5</text></name>
+    <questiontext format="html"><text><![CDATA[Коэффициент выпуска подвижного состава учитывает:]]></text></questiontext>
+    <shuffleanswers>1</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>Нормированный простой (выходные и праздничные дни)</text></answer>
+    <answer fraction="0"><text>Только время простоя в ремонте</text></answer>
+    <answer fraction="0"><text>Время простоя под погрузкой и разгрузкой</text></answer>
+    <answer fraction="0"><text>Время движения автомобиля</text></answer>
+  </question>
+  
+  <!-- Вопрос 6: Коэффициент использования подвижного состава -->
+  <question type="numerical">
+    <name><text>Вопрос 6</text></name>
+    <questiontext format="html"><text><![CDATA[Коэффициент использования подвижного состава определяется как отношение количества дней работы подвижного состава к:]]></text></questiontext>
+    <answer fraction="100"><text>инвентарным дням</text><tolerance>0</tolerance></answer>
+  </question>
+  
+  <!-- Вопрос 7: Время в наряде -->
+  <question type="multichoice">
+    <name><text>Вопрос 7</text></name>
+    <questiontext format="html"><text><![CDATA[Время пребывания автомобиля на линии (в наряде) включает:]]></text></questiontext>
+    <shuffleanswers>1</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>Время движения + время простоя под погрузкой/разгрузкой + время простоя по техническим и организационным причинам</text></answer>
+    <answer fraction="0"><text>Только время движения автомобиля</text></answer>
+    <answer fraction="0"><text>Только время простоя под погрузкой и разгрузкой</text></answer>
+    <answer fraction="0"><text>Время движения + время в гараже до выезда</text></answer>
+  </question>
+  
+  <!-- Вопрос 8: Расчёт автомобиле-дней простоя в ремонте -->
+  <question type="multichoice">
+    <name><text>Вопрос 8</text></name>
+    <questiontext format="html"><text><![CDATA[Для определения автомобиле-дней простоя в ремонте и ожидании ремонта необходимо:]]></text></questiontext>
+    <shuffleanswers>1</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>Сложить количество дней простоя в ремонте каждого автомобиля за определённый период</text></answer>
+    <answer fraction="0"><text>Умножить количество автомобилей на среднее время ремонта одного автомобиля</text></answer>
+    <answer fraction="0"><text>Разделить списочное количество автомобилей на количество дней в месяце</text></answer>
+    <answer fraction="0"><text>Вычесть из инвентарных автомобиле-дней количество автомобиле-дней в эксплуатации</text></answer>
+  </question>
+  
+  <!-- Вопрос 9: Составляющие рабочего парка в готовом состоянии -->
+  <question type="multichoice">
+    <name><text>Вопрос 9</text></name>
+    <questiontext format="html"><text><![CDATA[Рабочий парк подвижного состава в готовом к эксплуатации состоянии включает:]]></text></questiontext>
+    <shuffleanswers>1</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>Парк, находящийся в эксплуатации + парк, находящийся в простое, но в готовом состоянии</text></answer>
+    <answer fraction="0"><text>Только автомобили, вышедшие на линию сегодня</text></answer>
+    <answer fraction="0"><text>Все автомобили списочного парка без учёта состояния</text></answer>
+    <answer fraction="0"><text>Автомобили в движении + автомобили под погрузкой</text></answer>
+  </question>
+  
+  <!-- Вопрос 10: Расчёт среднего времени в наряде -->
+  <question type="multichoice">
+    <name><text>Вопрос 10</text></name>
+    <questiontext format="html"><text><![CDATA[Среднее значение времени пребывания автомобиля в наряде рассчитывается как отношение:]]></text></questiontext>
+    <shuffleanswers>1</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>Автомобиле-часов пребывания на линии к автомобиле-дням в эксплуатации</text></answer>
+    <answer fraction="0"><text>Автомобиле-часов в движении к автомобиле-дням в эксплуатации</text></answer>
+    <answer fraction="0"><text>Автомобиле-дней в эксплуатации к инвентарным автомобиле-дням</text></answer>
+    <answer fraction="0"><text>Времени движения к времени простоя под погрузкой</text></answer>
+  </question>
+</quiz>
