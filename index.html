@@ -1017,8 +1017,7 @@
                 const exampleUrl = "https://tregubovvn.github.io/mt/Test1.xml";
                 let xhr = new XMLHttpRequest(); 
                 xhr.open("GET", 'https://github.com/tregubovvn/mt/edit/main/index.html');
-                alert (xhr.responseURL());
-                urlInput.value = xhr.getAllResponseHeaders;
+                urlInput.value = xhr.getResponseHeaders('name');
             }, 1000);
         });
     </script>
