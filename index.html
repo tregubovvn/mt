@@ -956,8 +956,9 @@
             resultsSection.classList.remove('hidden');
             
             const percentage = Math.round((correctCount / questions.length) * 100);
+            const studentPoint = Math.round ((correctCount / questions.length) * 5)
             
-            scoreElement.textContent = `${percentage}%`;
+            scoreElement.textContent = `${percentage}%, оценка ${studentPoint}`;
             correctAnswersElement.textContent = correctCount;
             totalAnswersElement.textContent = questions.length;
             timeSpentElement.textContent = timerElement.textContent;
