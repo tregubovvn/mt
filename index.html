@@ -1015,10 +1015,12 @@
 
                 
                 const exampleUrl = "https://tregubovvn.github.io/mt/Test1.xml";
-                //let xhr = new XMLHttpRequest(); 
-                //xhr.open("GET", '/tregubovvn/mt/edit/main/index.html');
-                //alert(xhr.getAllResponseHeaders());
-                urlInput.value = window.location.href;
+                 const url = window.location.href;
+                 const params = new URLSearchParams(new URL(url).search);
+                const nameValue = params.get('name');
+               
+                urlInput.value = nameValue;
+                
             }, 1000);
         });
     </script>
