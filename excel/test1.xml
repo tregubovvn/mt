@@ -1,0 +1,1158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+
+<!-- Вопрос 1: Множественный выбор (один правильный) -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 1 - Тип ссылки по умолчанию</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Какой тип ссылок в Excel используется по умолчанию?</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html">
+        <text><![CDATA[<p>Верно.</p>]]></text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text><![CDATA[<p>Частично верно.</p>]]></text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text><![CDATA[<p>Неверно.</p>]]></text>
+    </incorrectfeedback>
+    <shownumbercorrect>1</shownumbercorrect>
+    <answer fraction="100">
+        <text><![CDATA[<p>Относительная ссылка</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>Абсолютная ссылка</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>Смешанная ссылка</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+
+<!-- Вопрос 2: Множественный выбор (один правильный) -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 2 - Создание абсолютной ссылки</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Как в Excel создать абсолютную ссылку?</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html">
+        <text><![CDATA[<p>Верно.</p>]]></text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text><![CDATA[<p>Частично верно.</p>]]></text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text><![CDATA[<p>Неверно.</p>]]></text>
+    </incorrectfeedback>
+    <shownumbercorrect>1</shownumbercorrect>
+    <answer fraction="100">
+        <text><![CDATA[<p>С помощью символа $ перед столбцом и строкой</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>С помощью символа % перед столбцом и строкой</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>С помощью символа &amp; перед столбцом и строкой</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>С помощью символа # перед столбцом и строкой</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+
+<!-- Вопрос 3: Множественный выбор (один правильный) -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 3 - Относительная ссылка</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Закончите предложение: Относительная ссылка соответствует местоположению ячейки в книге и изменяется, когда пользователь перемещает формулу в другую _______.</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html">
+        <text><![CDATA[<p>Верно.</p>]]></text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text><![CDATA[<p>Частично верно.</p>]]></text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text><![CDATA[<p>Неверно.</p>]]></text>
+    </incorrectfeedback>
+    <shownumbercorrect>1</shownumbercorrect>
+    <answer fraction="100">
+        <text><![CDATA[<p>ячейку</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>лист</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>книгу</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>файл</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+
+<!-- Вопрос 4: Множественный выбор (один правильный) -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 4 - Цель разных типов ссылок</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Какова цель использования разных типов ссылок на ячейки в книге?</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html">
+        <text><![CDATA[<p>Верно.</p>]]></text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text><![CDATA[<p>Частично верно.</p>]]></text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text><![CDATA[<p>Неверно.</p>]]></text>
+    </incorrectfeedback>
+    <shownumbercorrect>1</shownumbercorrect>
+    <answer fraction="100">
+        <text><![CDATA[<p>позволить динамически обновлять формулы при их копировании</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>ограничить изменения в определенных ячейках</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>улучшить визуальное оформление книги</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>повысить скорость вычислений</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+
+<!-- Вопрос 5: Множественный выбор (один правильный) -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 5 - Структурированная ссылка</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Какой из вариантов является примером формулы со структурированной ссылкой?</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html">
+        <text><![CDATA[<p>Верно.</p>]]></text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text><![CDATA[<p>Частично верно.</p>]]></text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text><![CDATA[<p>Неверно.</p>]]></text>
+    </incorrectfeedback>
+    <shownumbercorrect>1</shownumbercorrect>
+    <answer fraction="100">
+        <text><![CDATA[<p>=СУММ(Таблица1[Продажи])</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>=СУММ(A1:A10)</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>=СРЗНАЧ(A1:A10)</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+
+<!-- Вопрос 6: Верно/Неверно -->
+<question type="truefalse">
+    <name>
+        <text>Вопрос 6 - Пустые ячейки и нули в среднем</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Определите утверждение как истинное или ложное: Пустые ячейки и нули не учитываются при расчете среднего значения.</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>1.0</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <answer fraction="0">
+        <text>true</text>
+        <feedback format="html">
+            <text><![CDATA[<p>Неверно. Нули учитываются при расчете среднего значения, пустые ячейки игнорируются.</p>]]></text>
+        </feedback>
+    </answer>
+    <answer fraction="100">
+        <text>false</text>
+        <feedback format="html">
+            <text><![CDATA[<p>Верно. Нули учитываются при расчете среднего значения, пустые ячейки игнорируются.</p>]]></text>
+        </feedback>
+    </answer>
+</question>
+
+<!-- Вопрос 7: Множественный выбор (один правильный) -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 7 - Функция COUNTBLANK</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Какая функция в Excel подсчитывает только пустые ячейки в диапазоне данных?</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html">
+        <text><![CDATA[<p>Верно.</p>]]></text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text><![CDATA[<p>Частично верно.</p>]]></text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text><![CDATA[<p>Неверно.</p>]]></text>
+    </incorrectfeedback>
+    <shownumbercorrect>1</shownumbercorrect>
+    <answer fraction="100">
+        <text><![CDATA[<p>СЧИТАТЬПУСТОТЫ</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>СЧЁТ</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>СЧЁТЗ</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>СУММ</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+
+<!-- Вопрос 8: Эссе (открытый вопрос) -->
+<question type="essay">
+    <name>
+        <text>Вопрос 8 - Назначение функции СЧЁТ</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Каково назначение функции СЧЁТ в Excel?</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <responseformat>editor</responseformat>
+    <responserequired>1</responserequired>
+    <responsefieldlines>5</responsefieldlines>
+    <attachments>0</attachments>
+    <attachmentsrequired>0</attachmentsrequired>
+    <graderinfo format="html">
+        <text><![CDATA[<p>Правильный ответ: Функция СЧЁТ подсчитывает количество ячеек в диапазоне, содержащих числовые значения.</p>]]></text>
+    </graderinfo>
+    <responsetemplate format="html">
+        <text></text>
+    </responsetemplate>
+</question>
+
+<!-- Вопрос 9: Множественный выбор (один правильный) -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 9 - Функция COUNTIF</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Какую функцию следует использовать, чтобы подсчитать количество оценок больше 70 в ячейках B4:M4?</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html">
+        <text><![CDATA[<p>Верно.</p>]]></text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text><![CDATA[<p>Частично верно.</p>]]></text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text><![CDATA[<p>Неверно.</p>]]></text>
+    </incorrectfeedback>
+    <shownumbercorrect>1</shownumbercorrect>
+    <answer fraction="100">
+        <text><![CDATA[<p>СЧЁТЕСЛИ</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>СЧЁТЗ</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>СЧИТАТЬПУСТОТЫ</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>СЧЁТЕСЛИМН</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+
+<!-- Вопрос 10: Множественный выбор (один правильный) -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 10 - Функция COUNT для подсчета оценок</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Какую функцию следует использовать в ячейке U4 для подсчета количества оценок в ячейках B4:M4?</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html">
+        <text><![CDATA[<p>Верно.</p>]]></text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text><![CDATA[<p>Частично верно.</p>]]></text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text><![CDATA[<p>Неверно.</p>]]></text>
+    </incorrectfeedback>
+    <shownumbercorrect>1</shownumbercorrect>
+    <answer fraction="100">
+        <text><![CDATA[<p>СЧЁТ</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>СУММ</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>СРЗНАЧ</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>МАКС</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+
+<!-- Вопрос 11: Множественный выбор (один правильный) -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 11 - Подсчет пропущенных оценок</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Какую функцию следует использовать в ячейке V4 для подсчета пропущенных баллов (оценок) в ячейках B4:M4?</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html">
+        <text><![CDATA[<p>Верно.</p>]]></text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text><![CDATA[<p>Частично верно.</p>]]></text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text><![CDATA[<p>Неверно.</p>]]></text>
+    </incorrectfeedback>
+    <shownumbercorrect>1</shownumbercorrect>
+    <answer fraction="100">
+        <text><![CDATA[<p>СЧИТАТЬПУСТОТЫ</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>СЧЁТЕСЛИ</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>СЧЁТЗ</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>СЧЁТ</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>СУММ</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+
+<!-- Вопрос 12: Множественный выбор (один правильный) -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 12 - Функция ЕСЛИ для пропущенных оценок</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Используйте функцию ЕСЛИ в ячейках W4:W18 для проверки пропущенных оценок. Ячейка должна отображать «ДА», если у студента есть пропущенные оценки.</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html">
+        <text><![CDATA[<p>Верно.</p>]]></text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text><![CDATA[<p>Частично верно.</p>]]></text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text><![CDATA[<p>Неверно.</p>]]></text>
+    </incorrectfeedback>
+    <shownumbercorrect>1</shownumbercorrect>
+    <answer fraction="100">
+        <text><![CDATA[<p>=ЕСЛИ(W4:W18=""; «ДА»; «НЕТ»)</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>=ЕСЛИ(ЕЧИСЛО(W4:W18); «ДА»; «НЕТ»)</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>=ЕСЛИ(W4:W18>0; «ДА»; «НЕТ»)</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+
+<!-- Вопрос 13: Эссе (открытый вопрос) -->
+<question type="essay">
+    <name>
+        <text>Вопрос 13 - Условие ЛОЖЬ в функции ЕСЛИ</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>По умолчанию что отображается в ячейке при выполнении условия ЛОЖЬ в функции ЕСЛИ?</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <responseformat>editor</responseformat>
+    <responserequired>1</responserequired>
+    <responsefieldlines>5</responsefieldlines>
+    <attachments>0</attachments>
+    <attachmentsrequired>0</attachmentsrequired>
+    <graderinfo format="html">
+        <text><![CDATA[<p>Правильный ответ: Если аргумент "значение_если_ложь" не указан, функция возвращает ЛОЖЬ. Если указан, отображается указанное значение.</p>]]></text>
+    </graderinfo>
+    <responsetemplate format="html">
+        <text></text>
+    </responsetemplate>
+</question>
+
+<!-- Вопрос 14: Множественный выбор (один правильный) -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 14 - Функция УНИК</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Используйте функцию в ячейке G4 для создания списка уникальных значений из ячеек A4:A18. Какую функцию следует использовать?</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html">
+        <text><![CDATA[<p>Верно.</p>]]></text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text><![CDATA[<p>Частично верно.</p>]]></text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text><![CDATA[<p>Неверно.</p>]]></text>
+    </incorrectfeedback>
+    <shownumbercorrect>1</shownumbercorrect>
+    <answer fraction="100">
+        <text><![CDATA[<p>УНИК</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>ФИЛЬТР</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>СОРТ</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>ИНДЕКС</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+
+<!-- Вопрос 15: Эссе (открытый вопрос) -->
+<question type="essay">
+    <name>
+        <text>Вопрос 15 - Назначение функции ЛЕВСИМВ</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Каково назначение функции ЛЕВСИМВ в Excel?</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <responseformat>editor</responseformat>
+    <responserequired>1</responserequired>
+    <responsefieldlines>5</responsefieldlines>
+    <attachments>0</attachments>
+    <attachmentsrequired>0</attachmentsrequired>
+    <graderinfo format="html">
+        <text><![CDATA[<p>Правильный ответ: Функция ЛЕВСИМВ возвращает заданное количество символов с начала текстовой строки.</p>]]></text>
+    </graderinfo>
+    <responsetemplate format="html">
+        <text></text>
+    </responsetemplate>
+</question>
+
+<!-- Вопрос 16: Множественный выбор (один правильный) -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 16 - Функция ПСТР</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Какая функция извлекает указанное количество символов из середины текстовой строки в Excel?</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html">
+        <text><![CDATA[<p>Верно.</p>]]></text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text><![CDATA[<p>Частично верно.</p>]]></text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text><![CDATA[<p>Неверно.</p>]]></text>
+    </incorrectfeedback>
+    <shownumbercorrect>1</shownumbercorrect>
+    <answer fraction="100">
+        <text><![CDATA[<p>ПСТР</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>ЛЕВСИМВ</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>ПРАВСИМВ</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>СЖПРОБЕЛЫ</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+
+<!-- Вопрос 17: Множественный выбор (один правильный) -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 17 - Назначение функции СЦЕП</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Каково назначение функции СЦЕП в Excel?</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html">
+        <text><![CDATA[<p>Верно.</p>]]></text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text><![CDATA[<p>Частично верно.</p>]]></text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text><![CDATA[<p>Неверно.</p>]]></text>
+    </incorrectfeedback>
+    <shownumbercorrect>1</shownumbercorrect>
+    <answer fraction="100">
+        <text><![CDATA[<p>Объединять текст из нескольких ячеек в одну ячейку</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>Суммировать числа в диапазоне ячеек</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>Находить среднее значение набора чисел</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>Сортировать данные по возрастанию</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+
+<!-- Вопрос 18: Множественный выбор (один правильный) -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 18 - Разница между СЦЕП и ОБЪЕДИНИТЬ</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>В чем разница между функциями СЦЕП и ОБЪЕДИНИТЬ в Excel?</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html">
+        <text><![CDATA[<p>Верно.</p>]]></text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text><![CDATA[<p>Частично верно.</p>]]></text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text><![CDATA[<p>Неверно.</p>]]></text>
+    </incorrectfeedback>
+    <shownumbercorrect>1</shownumbercorrect>
+    <answer fraction="100">
+        <text><![CDATA[<p>СЦЕП объединяет текст из нескольких диапазонов без разделителя, а ОБЪЕДИНИТЬ объединяет текст из нескольких диапазонов с разделителем</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>СЦЕП объединяет текст из нескольких диапазонов с разделителем, а ОБЪЕДИНИТЬ объединяет текст из нескольких диапазонов без разделителя</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+
+<!-- Вопрос 19: Множественный выбор (один правильный) -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 19 - Разделитель - точка</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Какой разделитель следует использовать при объединении текста из столбцов A и B с точкой между именами?</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html">
+        <text><![CDATA[<p>Верно.</p>]]></text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text><![CDATA[<p>Частично верно.</p>]]></text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text><![CDATA[<p>Неверно.</p>]]></text>
+    </incorrectfeedback>
+    <shownumbercorrect>1</shownumbercorrect>
+    <answer fraction="100">
+        <text><![CDATA[<p>Точка</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>Запятая</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>Точка с запятой</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>Пробел</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+
+<!-- Вопрос 20: Верно/Неверно -->
+<question type="truefalse">
+    <name>
+        <text>Вопрос 20 - Изменение типа диаграммы</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Определите утверждение как истинное или ложное: Типы диаграмм нельзя изменить после их создания.</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>1.0</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <answer fraction="0">
+        <text>true</text>
+        <feedback format="html">
+            <text><![CDATA[<p>Неверно. Тип диаграммы можно изменить в любой момент.</p>]]></text>
+        </feedback>
+    </answer>
+    <answer fraction="100">
+        <text>false</text>
+        <feedback format="html">
+            <text><![CDATA[<p>Верно. Тип диаграммы можно изменить в любой момент.</p>]]></text>
+        </feedback>
+    </answer>
+</question>
+
+<!-- Вопрос 21: Множественный выбор (один правильный) -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 21 - Выбор несмежных диапазонов</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Какая клавиша используется при выборе несмежных (не соединенных и не имеющих общей границы) диапазонов данных?</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html">
+        <text><![CDATA[<p>Верно.</p>]]></text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text><![CDATA[<p>Частично верно.</p>]]></text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text><![CDATA[<p>Неверно.</p>]]></text>
+    </incorrectfeedback>
+    <shownumbercorrect>1</shownumbercorrect>
+    <answer fraction="100">
+        <text><![CDATA[<p>Клавиша Ctrl используется при выборе несмежных диапазонов данных</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>Клавиша Shift используется при выборе несмежных диапазонов данных</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>Клавиша Alt используется при выборе несмежных диапазонов данных</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>Клавиша Tab используется при выборе несмежных диапазонов данных</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+
+<!-- Вопрос 22: Множественный выбор (один правильный) -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 22 - Цель добавления ряда данных</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Какова цель добавления ряда данных на диаграмму?</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html">
+        <text><![CDATA[<p>Верно.</p>]]></text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text><![CDATA[<p>Частично верно.</p>]]></text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text><![CDATA[<p>Неверно.</p>]]></text>
+    </incorrectfeedback>
+    <shownumbercorrect>1</shownumbercorrect>
+    <answer fraction="100">
+        <text><![CDATA[<p>визуализировать тренды во времени</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>добавить декоративные элементы</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>увеличить размер файла</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>сделать диаграмму красочной</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+
+<!-- Вопрос 23: Множественный выбор (один правильный) -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 23 - Переключение строки/столбца на круговой диаграмме</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Почему функция «Строка/Столбец» плохо работает на круговой диаграмме?</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html">
+        <text><![CDATA[<p>Верно.</p>]]></text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text><![CDATA[<p>Частично верно.</p>]]></text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text><![CDATA[<p>Неверно.</p>]]></text>
+    </incorrectfeedback>
+    <shownumbercorrect>1</shownumbercorrect>
+    <answer fraction="100">
+        <text><![CDATA[<p>Круговые диаграммы требуют определенного формата данных</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>Эта функция несовместима с круговыми диаграммами</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>Круговые диаграммы не имеют строк и столбцов</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>Смена строк и столбцов не влияет на круговые диаграммы</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+
+<!-- Вопрос 24: Множественный выбор (один правильный) -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 24 - Абсолютная ссылка</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Какая из следующих ссылок на ячейки не изменится при копировании формулы в другую ячейку?</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html">
+        <text><![CDATA[<p>Верно.</p>]]></text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text><![CDATA[<p>Частично верно.</p>]]></text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text><![CDATA[<p>Неверно.</p>]]></text>
+    </incorrectfeedback>
+    <shownumbercorrect>1</shownumbercorrect>
+    <answer fraction="100">
+        <text><![CDATA[<p>$A$1</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>A1</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>A$1</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>$A1</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+
+<!-- Вопрос 25: Верно/Неверно -->
+<question type="truefalse">
+    <name>
+        <text>Вопрос 25 - Точное значение vs ссылка на ячейку</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Всегда лучше использовать точное значение вместо ссылки на ячейку при использовании формул.</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>1.0</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <answer fraction="0">
+        <text>true</text>
+        <feedback format="html">
+            <text><![CDATA[<p>Неверно. Использование ссылок на ячейки делает формулы более гибкими и удобными для обновления.</p>]]></text>
+        </feedback>
+    </answer>
+    <answer fraction="100">
+        <text>false</text>
+        <feedback format="html">
+            <text><![CDATA[<p>Верно. Использование ссылок на ячейки предпочтительнее, так как позволяет автоматически обновлять результаты при изменении исходных данных.</p>]]></text>
+        </feedback>
+    </answer>
+</question>
+
+</quiz>
