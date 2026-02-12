@@ -1,0 +1,1330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+
+<!-- Вопрос 1: МНОЖЕСТВЕННЫЙ ВЫБОР - СУММ -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 1 - Функция СУММ</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Что считает функция =СУММ(А1:А2)?</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html">
+        <text><![CDATA[<p>Верно.</p>]]></text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text><![CDATA[<p>Частично верно.</p>]]></text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text><![CDATA[<p>Неверно.</p>]]></text>
+    </incorrectfeedback>
+    <shownumbercorrect>1</shownumbercorrect>
+    <answer fraction="0">
+        <text><![CDATA[<p>количество строк в указанном диапазоне</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>количество ячеек в указанном диапазоне</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="100">
+        <text><![CDATA[<p>сумму всех значений в указанном диапазоне</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>это ошибочная функция</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+
+<!-- Вопрос 2: ЗАПОЛНИТЬ ПРОБЕЛ - СУММ -->
+<question type="shortanswer">
+    <name>
+        <text>Вопрос 2 - Функция суммирования</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Какая функция суммирует числовые данные?</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <usecase>0</usecase>
+    <answer fraction="100">
+        <text>СУММ</text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="100">
+        <text>сумм</text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="100">
+        <text>=сумм</text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="100">
+        <text>=СУММ</text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+
+<!-- Вопрос 3: МНОЖЕСТВЕННЫЙ ВЫБОР - синтаксис СУММ -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 3 - Синтаксис СУММ</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Выберите верный синтаксис функции СУММ:</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html">
+        <text><![CDATA[<p>Верно.</p>]]></text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text><![CDATA[<p>Частично верно.</p>]]></text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text><![CDATA[<p>Неверно.</p>]]></text>
+    </incorrectfeedback>
+    <shownumbercorrect>1</shownumbercorrect>
+    <answer fraction="100">
+        <text><![CDATA[<p>=СУММ(D1:D4)</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>=СУММ*(D1:D4)</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>=СУММ(D1;D3;D4)</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>=СУММ(D1...D4)</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+
+<!-- Вопрос 4: ЗАПОЛНИТЬ ПРОБЕЛ - СУММЕСЛИ -->
+<question type="shortanswer">
+    <name>
+        <text>Вопрос 4 - Функция СУММЕСЛИ</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Какая функция суммирует значения, соответствующие указанному критерию?</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <usecase>0</usecase>
+    <answer fraction="100">
+        <text>СУММЕСЛИ</text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="100">
+        <text>суммесли</text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="100">
+        <text>=суммесли</text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="100">
+        <text>=СУММЕСЛИ</text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+
+<!-- Вопрос 5: МНОЖЕСТВЕННЫЙ ВЫБОР - синтаксис СУММЕСЛИ -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 5 - Синтаксис СУММЕСЛИ</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Выберите верный синтаксис функции СУММЕСЛИ:</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html">
+        <text><![CDATA[<p>Верно.</p>]]></text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text><![CDATA[<p>Частично верно.</p>]]></text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text><![CDATA[<p>Неверно.</p>]]></text>
+    </incorrectfeedback>
+    <shownumbercorrect>1</shownumbercorrect>
+    <answer fraction="100">
+        <text><![CDATA[<p>=СУММЕСЛИ(А1:А10;"Фрукты";C2:C7)</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>=СУММЕСЛИ(А1:А10;Фрукты;C2:C7)</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>=СУММЕСЛИ(А1;А10;Фрукты;C2;C7)</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>=СУММЕСЛИ(А1...А10;"Фрукты";C2...C7)</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+
+<!-- Вопрос 6: МНОЖЕСТВЕННЫЙ ВЫБОР - что считает СУММЕСЛИ -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 6 - Результат СУММЕСЛИ</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Что считает функция =СУММЕСЛИ(А1:А10;"Фрукты";C2:C7)?</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html">
+        <text><![CDATA[<p>Верно.</p>]]></text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text><![CDATA[<p>Частично верно.</p>]]></text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text><![CDATA[<p>Неверно.</p>]]></text>
+    </incorrectfeedback>
+    <shownumbercorrect>1</shownumbercorrect>
+    <answer fraction="0">
+        <text><![CDATA[<p>подсчет объема продаж всех продуктов категории «Фрукты»</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>количество ячеек в указанном диапазоне, где содержится слово «Фрукты»</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="100">
+        <text><![CDATA[<p>сумму всех значений в указанном диапазоне, где содержится слово «Фрукты»</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>это ошибочная функция</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+
+<!-- Вопрос 7: МНОЖЕСТВЕННЫЙ ВЫБОР - синтаксис МИН -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 7 - Синтаксис МИН</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Выберите верный синтаксис функции МИН:</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html">
+        <text><![CDATA[<p>Верно.</p>]]></text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text><![CDATA[<p>Частично верно.</p>]]></text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text><![CDATA[<p>Неверно.</p>]]></text>
+    </incorrectfeedback>
+    <shownumbercorrect>1</shownumbercorrect>
+    <answer fraction="100">
+        <text><![CDATA[<p>=МИН(D1:D4)</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>=МИН*(D1:D4)</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>=МИН(D1;D3;D4)</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>=МИН(D1...D4)</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+
+<!-- Вопрос 8: ЗАПОЛНИТЬ ПРОБЕЛ - МИН -->
+<question type="shortanswer">
+    <name>
+        <text>Вопрос 8 - Функция МИН</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Какая функция выбирает минимальное значение чисел?</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <usecase>0</usecase>
+    <answer fraction="100">
+        <text>МИН</text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="100">
+        <text>мин</text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="100">
+        <text>=мин</text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="100">
+        <text>=МИН</text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+
+<!-- Вопрос 9: ЗАПОЛНИТЬ ПРОБЕЛ - МАКС -->
+<question type="shortanswer">
+    <name>
+        <text>Вопрос 9 - Функция МАКС</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Какая функция выбирает максимальное значение чисел?</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <usecase>0</usecase>
+    <answer fraction="100">
+        <text>МАКС</text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="100">
+        <text>макс</text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="100">
+        <text>=макс</text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="100">
+        <text>=МАКС</text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+
+<!-- Вопрос 10: МНОЖЕСТВЕННЫЙ ВЫБОР - синтаксис МАКС -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 10 - Синтаксис МАКС</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Выберите верный синтаксис функции МАКС:</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html">
+        <text><![CDATA[<p>Верно.</p>]]></text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text><![CDATA[<p>Частично верно.</p>]]></text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text><![CDATA[<p>Неверно.</p>]]></text>
+    </incorrectfeedback>
+    <shownumbercorrect>1</shownumbercorrect>
+    <answer fraction="100">
+        <text><![CDATA[<p>=МАКС(D1:D4)</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>=МАКС*(D1:D4)</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>=МАКС(D1;D3;D4)</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>=МАКС(D1...D4)</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+
+<!-- Вопрос 11: МНОЖЕСТВЕННЫЙ ВЫБОР - что считает МАКС -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 11 - Результат МАКС</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Что считает функция =МАКС(А1:А2)?</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html">
+        <text><![CDATA[<p>Верно.</p>]]></text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text><![CDATA[<p>Частично верно.</p>]]></text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text><![CDATA[<p>Неверно.</p>]]></text>
+    </incorrectfeedback>
+    <shownumbercorrect>1</shownumbercorrect>
+    <answer fraction="0">
+        <text><![CDATA[<p>максимальное количество строк в указанном диапазоне</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>максимальное количество ячеек в указанном диапазоне</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="100">
+        <text><![CDATA[<p>максимальное значение чисел в указанном диапазоне</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>это ошибочная функция</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+
+<!-- Вопрос 12: ЗАПОЛНИТЬ ПРОБЕЛ - СРЗНАЧ -->
+<question type="shortanswer">
+    <name>
+        <text>Вопрос 12 - Функция СРЗНАЧ</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Какая функция выбирает среднее значение чисел?</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <usecase>0</usecase>
+    <answer fraction="100">
+        <text>СРЗНАЧ</text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="100">
+        <text>срзнач</text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="100">
+        <text>=срзнач</text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="100">
+        <text>=СРЗНАЧ</text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+
+<!-- Вопрос 13: МНОЖЕСТВЕННЫЙ ВЫБОР - синтаксис СРЗНАЧ -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 13 - Синтаксис СРЗНАЧ</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Выберите верный синтаксис функции СРЗНАЧ:</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html">
+        <text><![CDATA[<p>Верно.</p>]]></text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text><![CDATA[<p>Частично верно.</p>]]></text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text><![CDATA[<p>Неверно.</p>]]></text>
+    </incorrectfeedback>
+    <shownumbercorrect>1</shownumbercorrect>
+    <answer fraction="100">
+        <text><![CDATA[<p>=СРЗНАЧ(D1:D4)</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>=СРЗНАЧ*(D1:D4)</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>=СРЗНАЧ(D1;D3;D4)</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>=СРЗНАЧ(D1...D4)</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+
+<!-- Вопрос 14: МНОЖЕСТВЕННЫЙ ВЫБОР - что считает СРЗНАЧ -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 14 - Результат СРЗНАЧ</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Что считает функция =СРЗНАЧ(А1:А2)?</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html">
+        <text><![CDATA[<p>Верно.</p>]]></text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text><![CDATA[<p>Частично верно.</p>]]></text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text><![CDATA[<p>Неверно.</p>]]></text>
+    </incorrectfeedback>
+    <shownumbercorrect>1</shownumbercorrect>
+    <answer fraction="0">
+        <text><![CDATA[<p>среднее количество строк в указанном диапазоне</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>среднее количество ячеек в указанном диапазоне</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="100">
+        <text><![CDATA[<p>среднее значение чисел в указанном диапазоне</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>это ошибочная функция</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+
+<!-- Вопрос 15: ЗАПОЛНИТЬ ПРОБЕЛ - СЧЁТ -->
+<question type="shortanswer">
+    <name>
+        <text>Вопрос 15 - Функция СЧЁТ</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Какая функция подсчитывает количество заполненных ячеек, содержащих числа?</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <usecase>0</usecase>
+    <answer fraction="100">
+        <text>СЧЁТ</text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="100">
+        <text>счёт</text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="100">
+        <text>=счёт</text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="100">
+        <text>=СЧЁТ</text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+
+<!-- Вопрос 16: МНОЖЕСТВЕННЫЙ ВЫБОР - что считает СЧЁТ -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 16 - Результат СЧЁТ</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Что считает функция =СЧЁТ(А1:А2)?</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html">
+        <text><![CDATA[<p>Верно.</p>]]></text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text><![CDATA[<p>Частично верно.</p>]]></text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text><![CDATA[<p>Неверно.</p>]]></text>
+    </incorrectfeedback>
+    <shownumbercorrect>1</shownumbercorrect>
+    <answer fraction="0">
+        <text><![CDATA[<p>подсчитывает количество пустых ячеек в указанном диапазоне</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>подсчитывает количество заполненных ячеек, содержащих текст, в указанном диапазоне</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="100">
+        <text><![CDATA[<p>подсчитывает количество заполненных ячеек, содержащих числа, в указанном диапазоне</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>это ошибочная функция</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+
+<!-- Вопрос 17: МНОЖЕСТВЕННЫЙ ВЫБОР - синтаксис СЧЁТ -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 17 - Синтаксис СЧЁТ</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Выберите верный синтаксис функции СЧЁТ:</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html">
+        <text><![CDATA[<p>Верно.</p>]]></text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text><![CDATA[<p>Частично верно.</p>]]></text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text><![CDATA[<p>Неверно.</p>]]></text>
+    </incorrectfeedback>
+    <shownumbercorrect>1</shownumbercorrect>
+    <answer fraction="100">
+        <text><![CDATA[<p>=СЧЁТ(D1:D4)</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>=СЧЁТ*(D1:D4)</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>=СЧЁТ(D1;D3;D4)</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>=СЧЁТ(D1...D4)</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+
+<!-- Вопрос 18: ЗАПОЛНИТЬ ПРОБЕЛ - СЧЁТЗ -->
+<question type="shortanswer">
+    <name>
+        <text>Вопрос 18 - Функция СЧЁТЗ</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Какая функция подсчитывает количество заполненных ячеек, содержащих все типы данных?</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <usecase>0</usecase>
+    <answer fraction="100">
+        <text>СЧЁТЗ</text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="100">
+        <text>счётз</text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="100">
+        <text>=счётз</text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="100">
+        <text>=СЧЁТЗ</text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+
+<!-- Вопрос 19: МНОЖЕСТВЕННЫЙ ВЫБОР - синтаксис СЧЁТЗ -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 19 - Синтаксис СЧЁТЗ</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Выберите верный синтаксис функции СЧЁТЗ:</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html">
+        <text><![CDATA[<p>Верно.</p>]]></text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text><![CDATA[<p>Частично верно.</p>]]></text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text><![CDATA[<p>Неверно.</p>]]></text>
+    </incorrectfeedback>
+    <shownumbercorrect>1</shownumbercorrect>
+    <answer fraction="100">
+        <text><![CDATA[<p>=СЧЁТЗ(D1:D4)</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>=СЧЁТЗ*(D1:D4)</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>=СЧЁТЗ(D1;D3;D4)</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>=СЧЁТЗ(D1...D4)</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+
+<!-- Вопрос 20: МНОЖЕСТВЕННЫЙ ВЫБОР - что считает СЧЁТЗ -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 20 - Результат СЧЁТЗ</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Что считает функция =СЧЁТЗ(А1:А2)?</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html">
+        <text><![CDATA[<p>Верно.</p>]]></text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text><![CDATA[<p>Частично верно.</p>]]></text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text><![CDATA[<p>Неверно.</p>]]></text>
+    </incorrectfeedback>
+    <shownumbercorrect>1</shownumbercorrect>
+    <answer fraction="0">
+        <text><![CDATA[<p>подсчитывает количество пустых ячеек в указанном диапазоне</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="100">
+        <text><![CDATA[<p>подсчитывает количество заполненных ячеек, содержащих любые типы данных, в указанном диапазоне</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>подсчитывает количество заполненных ячеек, содержащих числа, в указанном диапазоне</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>это ошибочная функция</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+
+<!-- Вопрос 21: ЗАПОЛНИТЬ ПРОБЕЛ - СЧЁТЕСЛИ -->
+<question type="shortanswer">
+    <name>
+        <text>Вопрос 21 - Функция СЧЁТЕСЛИ</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Какая функция подсчитывает количество ячеек, которые удовлетворяют одному заданному критерию?</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <usecase>0</usecase>
+    <answer fraction="100">
+        <text>СЧЁТЕСЛИ</text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="100">
+        <text>счётесли</text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="100">
+        <text>=счётесли</text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="100">
+        <text>=СЧЁТЕСЛИ</text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+
+<!-- Вопрос 22: МНОЖЕСТВЕННЫЙ ВЫБОР - синтаксис СЧЁТЕСЛИ -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 22 - Синтаксис СЧЁТЕСЛИ</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Выберите верный синтаксис функции СЧЁТЕСЛИ:</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html">
+        <text><![CDATA[<p>Верно.</p>]]></text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text><![CDATA[<p>Частично верно.</p>]]></text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text><![CDATA[<p>Неверно.</p>]]></text>
+    </incorrectfeedback>
+    <shownumbercorrect>1</shownumbercorrect>
+    <answer fraction="100">
+        <text><![CDATA[<p>=СЧЁТЕСЛИ(D1:D4;"Собака")</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>=СЧЁТЕСЛИ(D1:D4;Собака)</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>=СЧЁТЕСЛИ(D1;D3;D4;Собака)</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>=СЧЁТЕСЛИ(D1...D4;"Собака")</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+
+<!-- Вопрос 23: МНОЖЕСТВЕННЫЙ ВЫБОР - что считает СЧЁТЕСЛИ -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 23 - Результат СЧЁТЕСЛИ</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Что считает функция =СЧЁТЕСЛИ(А1:А2;"Собака")?</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html">
+        <text><![CDATA[<p>Верно.</p>]]></text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text><![CDATA[<p>Частично верно.</p>]]></text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text><![CDATA[<p>Неверно.</p>]]></text>
+    </incorrectfeedback>
+    <shownumbercorrect>1</shownumbercorrect>
+    <answer fraction="0">
+        <text><![CDATA[<p>в указанном диапазоне ищет слово "Собака"</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="100">
+        <text><![CDATA[<p>количество ячеек в указанном диапазоне, где содержится слово «Собака»</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>сумму всех значений в указанном диапазоне, где содержится слово «Собака»</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>это ошибочная функция</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+
+<!-- Вопрос 24: МНОЖЕСТВЕННЫЙ ВЫБОР - функция ЕСЛИ -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 24 - Функция ЕСЛИ</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Что считает функция =ЕСЛИ(А1=1;"Да";"Нет")?</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html">
+        <text><![CDATA[<p>Верно.</p>]]></text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text><![CDATA[<p>Частично верно.</p>]]></text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text><![CDATA[<p>Неверно.</p>]]></text>
+    </incorrectfeedback>
+    <shownumbercorrect>1</shownumbercorrect>
+    <answer fraction="100">
+        <text><![CDATA[<p>если в ячейке А1 стоит цифра 1, то в ячейке, где написана формула, будет отображено слово «ДА», в противном случае будет отображено слово «НЕТ»</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>если в ячейке А1 стоит цифра 1, то в ячейке, где написана формула, будет отображено слово «НЕТ», в противном случае будет отображено слово «ДА»</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>это ошибочная функция</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+
+<!-- Вопрос 25: МНОЖЕСТВЕННЫЙ ВЫБОР - синтаксис ЕСЛИ -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 25 - Синтаксис ЕСЛИ</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Выберите верный синтаксис функции ЕСЛИ:</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html">
+        <text><![CDATA[<p>Верно.</p>]]></text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text><![CDATA[<p>Частично верно.</p>]]></text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text><![CDATA[<p>Неверно.</p>]]></text>
+    </incorrectfeedback>
+    <shownumbercorrect>1</shownumbercorrect>
+    <answer fraction="100">
+        <text><![CDATA[<p>=ЕСЛИ(А1=1;"ДА";"НЕТ")</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>=ЕСЛИ(А1=1;ДА;НЕТ)</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>=ЕСЛИ(А1...А5=1;"ДА";"НЕТ")</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>=ЕСЛИ(А1=1"ДА""НЕТ")</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+
+<!-- Вопрос 26: ЗАПОЛНИТЬ ПРОБЕЛ - ЕСЛИ -->
+<question type="shortanswer">
+    <name>
+        <text>Вопрос 26 - Функция ЕСЛИ</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>У какой функции возможны два результата? Первый результат возвращается в случае, если сравнение истинно, второй – если сравнение ложно?</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <usecase>0</usecase>
+    <answer fraction="100">
+        <text>ЕСЛИ</text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="100">
+        <text>если</text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="100">
+        <text>=если</text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="100">
+        <text>=ЕСЛИ</text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+
+<!-- Вопрос 27: МНОЖЕСТВЕННЫЙ ВЫБОР - что считает МИН -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 27 - Результат МИН</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Что считает функция =МИН(А1:А2)?</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html">
+        <text><![CDATA[<p>Верно.</p>]]></text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text><![CDATA[<p>Частично верно.</p>]]></text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text><![CDATA[<p>Неверно.</p>]]></text>
+    </incorrectfeedback>
+    <shownumbercorrect>1</shownumbercorrect>
+    <answer fraction="0">
+        <text><![CDATA[<p>минимальное количество строк в указанном диапазоне</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>минимальное количество ячеек в указанном диапазоне</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="100">
+        <text><![CDATA[<p>минимальное значение чисел в указанном диапазоне</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0">
+        <text><![CDATA[<p>это ошибочная функция</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+
+</quiz>
