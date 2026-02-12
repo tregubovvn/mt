@@ -69,7 +69,7 @@
         <text>Успех компании-покупателя</text>
     </name>
     <questiontext format="html">
-        <text><![CDATA[<p>От чего, по мнению автора, "во многом" зависит собственный успех компании-покупателя в обеспечении потребителей качественной продукцией?</p>]]></text>
+        <text><![CDATA[<p>От чего зависит собственный успех компании-покупателя в обеспечении потребителей качественной продукцией?</p>]]></text>
     </questiontext>
     <generalfeedback format="html">
         <text><![CDATA[<p>Из текста: "...зависит во многом от того, насколько четко поставщики выполняют свои функции".</p>]]></text>
@@ -231,13 +231,14 @@
     </generalfeedback>
     <defaultgrade>1.0</defaultgrade>
     <single>true</single>
-    <answer fraction="100">
-        <text>Имидж поставщика</text>
-        <feedback><text>Верно.</text></feedback>
-    </answer>
+
     <answer fraction="0">
         <text>Цена за единицу продукции</text>
         <feedback><text>Неверно, это количественный критерий.</text></feedback>
+    </answer>
+        <answer fraction="100">
+        <text>Имидж поставщика</text>
+        <feedback><text>Верно.</text></feedback>
     </answer>
     <answer fraction="0">
         <text>Минимальный объем партии</text>
@@ -262,10 +263,7 @@
     </generalfeedback>
     <defaultgrade>1.0</defaultgrade>
     <single>true</single>
-    <answer fraction="100">
-        <text>Вычеркнуть поставщика из списка возможных партнеров</text>
-        <feedback><text>Верно.</text></feedback>
-    </answer>
+    
     <answer fraction="0">
         <text>Уменьшить стоимость следующей поставки</text>
         <feedback><text>Неверно.</text></feedback>
@@ -274,6 +272,7 @@
         <text>Увеличить срок гарантии</text>
         <feedback><text>Неверно.</text></feedback>
     </answer>
+    
     <answer fraction="0">
         <text>Автоматически снизить рейтинг на 1 балл</text>
         <feedback><text>Неверно.</text></feedback>
@@ -293,10 +292,7 @@
     </generalfeedback>
     <defaultgrade>1.0</defaultgrade>
     <single>true</single>
-    <answer fraction="100">
-        <text>Лучшие условия внедрения технологии «точно в срок»</text>
-        <feedback><text>Верно.</text></feedback>
-    </answer>
+
     <answer fraction="0">
         <text>Самый высокий уровень качества материалов</text>
         <feedback><text>Неверно. В тексте сказано, что удаленные могут дать более высокое качество.</text></feedback>
@@ -304,6 +300,10 @@
     <answer fraction="0">
         <text>Обязательное наличие у них сертификата ISO 9000</text>
         <feedback><text>Неверно.</text></feedback>
+    </answer>
+        <answer fraction="100">
+        <text>Лучшие условия внедрения технологии «точно в срок»</text>
+        <feedback><text>Верно.</text></feedback>
     </answer>
     <answer fraction="0">
         <text>Нулевая стоимость доставки</text>
@@ -324,10 +324,7 @@
     </generalfeedback>
     <defaultgrade>1.0</defaultgrade>
     <single>true</single>
-    <answer fraction="100">
-        <text>Более высокое качество и более низкие цены</text>
-        <feedback><text>Верно.</text></feedback>
-    </answer>
+
     <answer fraction="0">
         <text>Более короткий производственный цикл</text>
         <feedback><text>Неверно, это преимущество близких.</text></feedback>
@@ -335,6 +332,10 @@
     <answer fraction="0">
         <text>Большую надежность поставок</text>
         <feedback><text>Неверно, это преимущество близких.</text></feedback>
+    </answer>
+    <answer fraction="100">
+        <text>Более высокое качество и более низкие цены</text>
+        <feedback><text>Верно.</text></feedback>
     </answer>
     <answer fraction="0">
         <text>Возможность поставок с промежуточных баз</text>
@@ -355,10 +356,7 @@
     </generalfeedback>
     <defaultgrade>1.0</defaultgrade>
     <single>true</single>
-    <answer fraction="100">
-        <text>Цена, качество, сервис (надежность) поставок</text>
-        <feedback><text>Верно.</text></feedback>
-    </answer>
+
     <answer fraction="0">
         <text>Упаковка, транспортировка, складирование</text>
         <feedback><text>Неверно.</text></feedback>
@@ -366,6 +364,10 @@
     <answer fraction="0">
         <text>Имидж, местоположение, деловая инициативность</text>
         <feedback><text>Неверно.</text></feedback>
+    </answer>
+        <answer fraction="100">
+        <text>Цена, качество, сервис (надежность) поставок</text>
+        <feedback><text>Верно.</text></feedback>
     </answer>
     <answer fraction="0">
         <text>Финансы, персонал, оборудование</text>
@@ -417,10 +419,7 @@
     </generalfeedback>
     <defaultgrade>1.0</defaultgrade>
     <single>true</single>
-    <answer fraction="100">
-        <text>Рейтинговая оценка соответствия критериям</text>
-        <feedback><text>Верно.</text></feedback>
-    </answer>
+
     <answer fraction="0">
         <text>Метод Дельфи</text>
         <feedback><text>Неверно.</text></feedback>
@@ -429,73 +428,16 @@
         <text>Проведение обязательного тендера не менее чем с 5 участниками</text>
         <feedback><text>Неверно.</text></feedback>
     </answer>
+        <answer fraction="100">
+        <text>Рейтинговая оценка соответствия критериям</text>
+        <feedback><text>Верно.</text></feedback>
+    </answer>
     <answer fraction="0">
         <text>Случайный выбор</text>
         <feedback><text>Неверно.</text></feedback>
     </answer>
 </question>
 
-<!-- Вопрос 15: Критерий из списка (Контроль процессов) -->
-<question type="multichoice">
-    <name>
-        <text>Факторы выбора поставщика</text>
-    </name>
-    <questiontext format="html">
-        <text><![CDATA[<p>Какой из перечисленных критериев присутствует в приведенном списке факторов выбора поставщика?</p>]]></text>
-    </questiontext>
-    <generalfeedback format="html">
-        <text><![CDATA[<p>В списке под номером 14 значится "Контроль процессов".</p>]]></text>
-    </generalfeedback>
-    <defaultgrade>1.0</defaultgrade>
-    <single>true</single>
-    <answer fraction="100">
-        <text>Контроль процессов</text>
-        <feedback><text>Верно.</text></feedback>
-    </answer>
-    <answer fraction="0">
-        <text>Наличие мобильного приложения для заказов</text>
-        <feedback><text>Неверно.</text></feedback>
-    </answer>
-    <answer fraction="0">
-        <text>Корпоративная культура</text>
-        <feedback><text>Неверно.</text></feedback>
-    </answer>
-    <answer fraction="0">
-        <text>Экологичность производства</text>
-        <feedback><text>Неверно.</text></feedback>
-    </answer>
-</question>
-
-<!-- Вопрос 16: Взаимность выгод -->
-<question type="multichoice">
-    <name>
-        <text>Взаимность интересов</text>
-    </name>
-    <questiontext format="html">
-        <text><![CDATA[<p>Под каким номером в списке факторов (критериев) указана "Взаимность выгод и интересов"?</p>]]></text>
-    </questiontext>
-    <generalfeedback format="html">
-        <text><![CDATA[<p>Список завершается пунктом: "21. Взаимность выгод и интересов".</p>]]></text>
-    </generalfeedback>
-    <defaultgrade>1.0</defaultgrade>
-    <single>true</single>
-    <answer fraction="100">
-        <text>21</text>
-        <feedback><text>Верно.</text></feedback>
-    </answer>
-    <answer fraction="0">
-        <text>7</text>
-        <feedback><text>Неверно (7 - Финансовое положение).</text></feedback>
-    </answer>
-    <answer fraction="0">
-        <text>15</text>
-        <feedback><text>Неверно (15 - Отношение к покупателю).</text></feedback>
-    </answer>
-    <answer fraction="0">
-        <text>19</text>
-        <feedback><text>Неверно (19 - Деловой опыт и история).</text></feedback>
-    </answer>
-</question>
 
 <!-- Вопрос 17: Сложные технические компоненты -->
 <question type="multichoice">
@@ -510,10 +452,7 @@
     </generalfeedback>
     <defaultgrade>1.0</defaultgrade>
     <single>true</single>
-    <answer fraction="100">
-        <text>Обеспечение запасными частями</text>
-        <feedback><text>Верно.</text></feedback>
-    </answer>
+
     <answer fraction="0">
         <text>Обучение топ-менеджмента покупателя</text>
         <feedback><text>Неверно.</text></feedback>
@@ -522,42 +461,17 @@
         <text>Разработка фирменного стиля упаковки</text>
         <feedback><text>Неверно.</text></feedback>
     </answer>
+    <answer fraction="100">
+        <text>Обеспечение запасными частями</text>
+        <feedback><text>Верно.</text></feedback>
+    </answer>
+    
     <answer fraction="0">
         <text>Страхование груза за счет перевозчика</text>
         <feedback><text>Неверно.</text></feedback>
     </answer>
 </question>
 
-<!-- Вопрос 18: Совместная разработка -->
-<question type="multichoice">
-    <name>
-        <text>Совместная разработка</text>
-    </name>
-    <questiontext format="html">
-        <text><![CDATA[<p>В каких случаях, согласно тексту, к сопутствующему сервису относится совместная разработка новых видов или модификация применяемых МР?</p>]]></text>
-    </questiontext>
-    <generalfeedback format="html">
-        <text><![CDATA[<p>Текст: "В некоторых случаях сюда же относится совместная разработка новых видов или модификация применяемых МР".</p>]]></text>
-    </generalfeedback>
-    <defaultgrade>1.0</defaultgrade>
-    <single>true</single>
-    <answer fraction="100">
-        <text>В некоторых случаях</text>
-        <feedback><text>Верно.</text></feedback>
-    </answer>
-    <answer fraction="0">
-        <text>Всегда, если поставщик является монополистом</text>
-        <feedback><text>Неверно.</text></feedback>
-    </answer>
-    <answer fraction="0">
-        <text>Только при госзакупках</text>
-        <feedback><text>Неверно.</text></feedback>
-    </answer>
-    <answer fraction="0">
-        <text>Никогда, это не относится к сервису</text>
-        <feedback><text>Неверно.</text></feedback>
-    </answer>
-</question>
 
 <!-- Вопрос 19: Проверка потенциального поставщика -->
 <question type="multichoice">
@@ -572,10 +486,7 @@
     </generalfeedback>
     <defaultgrade>1.0</defaultgrade>
     <single>true</single>
-    <answer fraction="100">
-        <text>Это требует больших затрат времени и ресурсов</text>
-        <feedback><text>Верно.</text></feedback>
-    </answer>
+    
     <answer fraction="0">
         <text>Это запрещено антимонопольным законодательством</text>
         <feedback><text>Неверно.</text></feedback>
@@ -584,6 +495,12 @@
         <text>Это снижает рейтинг самого покупателя</text>
         <feedback><text>Неверно.</text></feedback>
     </answer>
+    
+    <answer fraction="100">
+        <text>Это требует больших затрат времени и ресурсов</text>
+        <feedback><text>Верно.</text></feedback>
+    </answer>
+    
     <answer fraction="0">
         <text>Это увеличивает налоговую нагрузку</text>
         <feedback><text>Неверно.</text></feedback>
@@ -603,10 +520,7 @@
     </generalfeedback>
     <defaultgrade>1.0</defaultgrade>
     <single>true</single>
-    <answer fraction="100">
-        <text>Влияние непосредственных контактов с представителями поставщиков</text>
-        <feedback><text>Верно.</text></feedback>
-    </answer>
+    
     <answer fraction="0">
         <text>На стоимость их акций на бирже</text>
         <feedback><text>Неверно.</text></feedback>
@@ -615,6 +529,12 @@
         <text>На алфавитный порядок названий компаний</text>
         <feedback><text>Неверно.</text></feedback>
     </answer>
+
+    <answer fraction="100">
+        <text>Влияние непосредственных контактов с представителями поставщиков</text>
+        <feedback><text>Верно.</text></feedback>
+    </answer>
+    
     <answer fraction="0">
         <text>На отзывы в социальных сетях от анонимных пользователей</text>
         <feedback><text>Неверно.</text></feedback>
