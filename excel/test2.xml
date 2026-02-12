@@ -7,7 +7,7 @@
         <text>Вопрос 1 - Функция СУММ</text>
     </name>
     <questiontext format="html">
-        <text><![CDATA[<p>Что считает функция =СУММ(А1:А2)?</p>]]></text>
+        <text><![CDATA[Что считает функция =СУММ(А1:А2)?]]></text>
     </questiontext>
     <generalfeedback format="html">
         <text></text>
@@ -19,35 +19,35 @@
     <single>true</single>
     <shuffleanswers>true</shuffleanswers>
     <correctfeedback format="html">
-        <text><![CDATA[<p>Верно.</p>]]></text>
+        <text><![CDATA[Верно.]]></text>
     </correctfeedback>
     <partiallycorrectfeedback format="html">
-        <text><![CDATA[<p>Частично верно.</p>]]></text>
+        <text><![CDATA[Частично верно.]]></text>
     </partiallycorrectfeedback>
     <incorrectfeedback format="html">
-        <text><![CDATA[<p>Неверно.</p>]]></text>
+        <text><![CDATA[Неверно.]]></text>
     </incorrectfeedback>
     <shownumbercorrect>1</shownumbercorrect>
     <answer fraction="0">
-        <text><![CDATA[<p>количество строк в указанном диапазоне</p>]]></text>
+        <text><![CDATA[количество строк в указанном диапазоне]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="0">
-        <text><![CDATA[<p>количество ячеек в указанном диапазоне</p>]]></text>
+        <text><![CDATA[количество ячеек в указанном диапазоне]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="100">
-        <text><![CDATA[<p>сумму всех значений в указанном диапазоне</p>]]></text>
+        <text><![CDATA[сумму всех значений в указанном диапазоне]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="0">
-        <text><![CDATA[<p>это ошибочная функция</p>]]></text>
+        <text><![CDATA[это ошибочная функция]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
@@ -60,7 +60,7 @@
         <text>Вопрос 2 - Функция суммирования</text>
     </name>
     <questiontext format="html">
-        <text><![CDATA[<p>Какая функция суммирует числовые данные?</p>]]></text>
+        <text><![CDATA[Какая функция суммирует числовые данные?]]></text>
     </questiontext>
     <generalfeedback format="html">
         <text></text>
@@ -102,7 +102,7 @@
         <text>Вопрос 3 - Синтаксис СУММ</text>
     </name>
     <questiontext format="html">
-        <text><![CDATA[<p>Выберите верный синтаксис функции СУММ:</p>]]></text>
+        <text><![CDATA[Выберите верный синтаксис функции СУММ:]]></text>
     </questiontext>
     <generalfeedback format="html">
         <text></text>
@@ -114,35 +114,35 @@
     <single>true</single>
     <shuffleanswers>true</shuffleanswers>
     <correctfeedback format="html">
-        <text><![CDATA[<p>Верно.</p>]]></text>
+        <text><![CDATA[Верно.]]></text>
     </correctfeedback>
     <partiallycorrectfeedback format="html">
-        <text><![CDATA[<p>Частично верно.</p>]]></text>
+        <text><![CDATA[Частично верно.]]></text>
     </partiallycorrectfeedback>
     <incorrectfeedback format="html">
-        <text><![CDATA[<p>Неверно.</p>]]></text>
+        <text><![CDATA[Неверно.]]></text>
     </incorrectfeedback>
     <shownumbercorrect>1</shownumbercorrect>
     <answer fraction="100">
-        <text><![CDATA[<p>=СУММ(D1:D4)</p>]]></text>
+        <text><![CDATA[=СУММ(D1:D4)]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="0">
-        <text><![CDATA[<p>=СУММ*(D1:D4)</p>]]></text>
+        <text><![CDATA[=СУММ*(D1:D4)]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="0">
-        <text><![CDATA[<p>=СУММ(D1;D3;D4)</p>]]></text>
+        <text><![CDATA[=СУММ(D1;D3;D4)]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="0">
-        <text><![CDATA[<p>=СУММ(D1...D4)</p>]]></text>
+        <text><![CDATA[=СУММ(D1...D4)]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
@@ -155,7 +155,7 @@
         <text>Вопрос 4 - Функция СУММЕСЛИ</text>
     </name>
     <questiontext format="html">
-        <text><![CDATA[<p>Какая функция суммирует значения, соответствующие указанному критерию?</p>]]></text>
+        <text><![CDATA[Какая функция суммирует значения, соответствующие указанному критерию?]]></text>
     </questiontext>
     <generalfeedback format="html">
         <text></text>
@@ -197,7 +197,7 @@
         <text>Вопрос 5 - Синтаксис СУММЕСЛИ</text>
     </name>
     <questiontext format="html">
-        <text><![CDATA[<p>Выберите верный синтаксис функции СУММЕСЛИ:</p>]]></text>
+        <text><![CDATA[Выберите верный синтаксис функции СУММЕСЛИ:]]></text>
     </questiontext>
     <generalfeedback format="html">
         <text></text>
@@ -209,35 +209,35 @@
     <single>true</single>
     <shuffleanswers>true</shuffleanswers>
     <correctfeedback format="html">
-        <text><![CDATA[<p>Верно.</p>]]></text>
+        <text><![CDATA[Верно.]]></text>
     </correctfeedback>
     <partiallycorrectfeedback format="html">
-        <text><![CDATA[<p>Частично верно.</p>]]></text>
+        <text><![CDATA[Частично верно.]]></text>
     </partiallycorrectfeedback>
     <incorrectfeedback format="html">
-        <text><![CDATA[<p>Неверно.</p>]]></text>
+        <text><![CDATA[Неверно.]]></text>
     </incorrectfeedback>
     <shownumbercorrect>1</shownumbercorrect>
     <answer fraction="100">
-        <text><![CDATA[<p>=СУММЕСЛИ(А1:А10;"Фрукты";C2:C7)</p>]]></text>
+        <text><![CDATA[=СУММЕСЛИ(А1:А10;"Фрукты";C2:C7)]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="0">
-        <text><![CDATA[<p>=СУММЕСЛИ(А1:А10;Фрукты;C2:C7)</p>]]></text>
+        <text><![CDATA[=СУММЕСЛИ(А1:А10;Фрукты;C2:C7)]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="0">
-        <text><![CDATA[<p>=СУММЕСЛИ(А1;А10;Фрукты;C2;C7)</p>]]></text>
+        <text><![CDATA[=СУММЕСЛИ(А1;А10;Фрукты;C2;C7)]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="0">
-        <text><![CDATA[<p>=СУММЕСЛИ(А1...А10;"Фрукты";C2...C7)</p>]]></text>
+        <text><![CDATA[=СУММЕСЛИ(А1...А10;"Фрукты";C2...C7)]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
@@ -250,7 +250,7 @@
         <text>Вопрос 6 - Результат СУММЕСЛИ</text>
     </name>
     <questiontext format="html">
-        <text><![CDATA[<p>Что считает функция =СУММЕСЛИ(А1:А10;"Фрукты";C2:C7)?</p>]]></text>
+        <text><![CDATA[Что считает функция =СУММЕСЛИ(А1:А10;"Фрукты";C2:C7)?]]></text>
     </questiontext>
     <generalfeedback format="html">
         <text></text>
@@ -262,35 +262,35 @@
     <single>true</single>
     <shuffleanswers>true</shuffleanswers>
     <correctfeedback format="html">
-        <text><![CDATA[<p>Верно.</p>]]></text>
+        <text><![CDATA[Верно.]]></text>
     </correctfeedback>
     <partiallycorrectfeedback format="html">
-        <text><![CDATA[<p>Частично верно.</p>]]></text>
+        <text><![CDATA[Частично верно.]]></text>
     </partiallycorrectfeedback>
     <incorrectfeedback format="html">
-        <text><![CDATA[<p>Неверно.</p>]]></text>
+        <text><![CDATA[Неверно.]]></text>
     </incorrectfeedback>
     <shownumbercorrect>1</shownumbercorrect>
     <answer fraction="0">
-        <text><![CDATA[<p>подсчет объема продаж всех продуктов категории «Фрукты»</p>]]></text>
+        <text><![CDATA[подсчет объема продаж всех продуктов категории «Фрукты»]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="0">
-        <text><![CDATA[<p>количество ячеек в указанном диапазоне, где содержится слово «Фрукты»</p>]]></text>
+        <text><![CDATA[количество ячеек в указанном диапазоне, где содержится слово «Фрукты»]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="100">
-        <text><![CDATA[<p>сумму всех значений в указанном диапазоне, где содержится слово «Фрукты»</p>]]></text>
+        <text><![CDATA[сумму всех значений в указанном диапазоне, где содержится слово «Фрукты»]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="0">
-        <text><![CDATA[<p>это ошибочная функция</p>]]></text>
+        <text><![CDATA[это ошибочная функция]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
@@ -303,7 +303,7 @@
         <text>Вопрос 7 - Синтаксис МИН</text>
     </name>
     <questiontext format="html">
-        <text><![CDATA[<p>Выберите верный синтаксис функции МИН:</p>]]></text>
+        <text><![CDATA[Выберите верный синтаксис функции МИН:]]></text>
     </questiontext>
     <generalfeedback format="html">
         <text></text>
@@ -315,35 +315,35 @@
     <single>true</single>
     <shuffleanswers>true</shuffleanswers>
     <correctfeedback format="html">
-        <text><![CDATA[<p>Верно.</p>]]></text>
+        <text><![CDATA[Верно.]]></text>
     </correctfeedback>
     <partiallycorrectfeedback format="html">
-        <text><![CDATA[<p>Частично верно.</p>]]></text>
+        <text><![CDATA[Частично верно.]]></text>
     </partiallycorrectfeedback>
     <incorrectfeedback format="html">
-        <text><![CDATA[<p>Неверно.</p>]]></text>
+        <text><![CDATA[Неверно.]]></text>
     </incorrectfeedback>
     <shownumbercorrect>1</shownumbercorrect>
     <answer fraction="100">
-        <text><![CDATA[<p>=МИН(D1:D4)</p>]]></text>
+        <text><![CDATA[=МИН(D1:D4)]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="0">
-        <text><![CDATA[<p>=МИН*(D1:D4)</p>]]></text>
+        <text><![CDATA[=МИН*(D1:D4)]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="0">
-        <text><![CDATA[<p>=МИН(D1;D3;D4)</p>]]></text>
+        <text><![CDATA[=МИН(D1;D3;D4)]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="0">
-        <text><![CDATA[<p>=МИН(D1...D4)</p>]]></text>
+        <text><![CDATA[=МИН(D1...D4)]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
@@ -356,7 +356,7 @@
         <text>Вопрос 8 - Функция МИН</text>
     </name>
     <questiontext format="html">
-        <text><![CDATA[<p>Какая функция выбирает минимальное значение чисел?</p>]]></text>
+        <text><![CDATA[Какая функция выбирает минимальное значение чисел?]]></text>
     </questiontext>
     <generalfeedback format="html">
         <text></text>
@@ -398,7 +398,7 @@
         <text>Вопрос 9 - Функция МАКС</text>
     </name>
     <questiontext format="html">
-        <text><![CDATA[<p>Какая функция выбирает максимальное значение чисел?</p>]]></text>
+        <text><![CDATA[Какая функция выбирает максимальное значение чисел?]]></text>
     </questiontext>
     <generalfeedback format="html">
         <text></text>
@@ -440,7 +440,7 @@
         <text>Вопрос 10 - Синтаксис МАКС</text>
     </name>
     <questiontext format="html">
-        <text><![CDATA[<p>Выберите верный синтаксис функции МАКС:</p>]]></text>
+        <text><![CDATA[Выберите верный синтаксис функции МАКС:]]></text>
     </questiontext>
     <generalfeedback format="html">
         <text></text>
@@ -452,35 +452,35 @@
     <single>true</single>
     <shuffleanswers>true</shuffleanswers>
     <correctfeedback format="html">
-        <text><![CDATA[<p>Верно.</p>]]></text>
+        <text><![CDATA[Верно.]]></text>
     </correctfeedback>
     <partiallycorrectfeedback format="html">
-        <text><![CDATA[<p>Частично верно.</p>]]></text>
+        <text><![CDATA[Частично верно.]]></text>
     </partiallycorrectfeedback>
     <incorrectfeedback format="html">
-        <text><![CDATA[<p>Неверно.</p>]]></text>
+        <text><![CDATA[Неверно.]]></text>
     </incorrectfeedback>
     <shownumbercorrect>1</shownumbercorrect>
     <answer fraction="100">
-        <text><![CDATA[<p>=МАКС(D1:D4)</p>]]></text>
+        <text><![CDATA[=МАКС(D1:D4)]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="0">
-        <text><![CDATA[<p>=МАКС*(D1:D4)</p>]]></text>
+        <text><![CDATA[=МАКС*(D1:D4)]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="0">
-        <text><![CDATA[<p>=МАКС(D1;D3;D4)</p>]]></text>
+        <text><![CDATA[=МАКС(D1;D3;D4)]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="0">
-        <text><![CDATA[<p>=МАКС(D1...D4)</p>]]></text>
+        <text><![CDATA[=МАКС(D1...D4)]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
@@ -493,7 +493,7 @@
         <text>Вопрос 11 - Результат МАКС</text>
     </name>
     <questiontext format="html">
-        <text><![CDATA[<p>Что считает функция =МАКС(А1:А2)?</p>]]></text>
+        <text><![CDATA[Что считает функция =МАКС(А1:А2)?]]></text>
     </questiontext>
     <generalfeedback format="html">
         <text></text>
@@ -505,35 +505,35 @@
     <single>true</single>
     <shuffleanswers>true</shuffleanswers>
     <correctfeedback format="html">
-        <text><![CDATA[<p>Верно.</p>]]></text>
+        <text><![CDATA[Верно.]]></text>
     </correctfeedback>
     <partiallycorrectfeedback format="html">
-        <text><![CDATA[<p>Частично верно.</p>]]></text>
+        <text><![CDATA[Частично верно.]]></text>
     </partiallycorrectfeedback>
     <incorrectfeedback format="html">
-        <text><![CDATA[<p>Неверно.</p>]]></text>
+        <text><![CDATA[Неверно.]]></text>
     </incorrectfeedback>
     <shownumbercorrect>1</shownumbercorrect>
     <answer fraction="0">
-        <text><![CDATA[<p>максимальное количество строк в указанном диапазоне</p>]]></text>
+        <text><![CDATA[максимальное количество строк в указанном диапазоне]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="0">
-        <text><![CDATA[<p>максимальное количество ячеек в указанном диапазоне</p>]]></text>
+        <text><![CDATA[максимальное количество ячеек в указанном диапазоне]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="100">
-        <text><![CDATA[<p>максимальное значение чисел в указанном диапазоне</p>]]></text>
+        <text><![CDATA[максимальное значение чисел в указанном диапазоне]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="0">
-        <text><![CDATA[<p>это ошибочная функция</p>]]></text>
+        <text><![CDATA[это ошибочная функция]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
@@ -546,7 +546,7 @@
         <text>Вопрос 12 - Функция СРЗНАЧ</text>
     </name>
     <questiontext format="html">
-        <text><![CDATA[<p>Какая функция выбирает среднее значение чисел?</p>]]></text>
+        <text><![CDATA[Какая функция выбирает среднее значение чисел?]]></text>
     </questiontext>
     <generalfeedback format="html">
         <text></text>
@@ -588,7 +588,7 @@
         <text>Вопрос 13 - Синтаксис СРЗНАЧ</text>
     </name>
     <questiontext format="html">
-        <text><![CDATA[<p>Выберите верный синтаксис функции СРЗНАЧ:</p>]]></text>
+        <text><![CDATA[Выберите верный синтаксис функции СРЗНАЧ:]]></text>
     </questiontext>
     <generalfeedback format="html">
         <text></text>
@@ -600,35 +600,35 @@
     <single>true</single>
     <shuffleanswers>true</shuffleanswers>
     <correctfeedback format="html">
-        <text><![CDATA[<p>Верно.</p>]]></text>
+        <text><![CDATA[Верно.]]></text>
     </correctfeedback>
     <partiallycorrectfeedback format="html">
-        <text><![CDATA[<p>Частично верно.</p>]]></text>
+        <text><![CDATA[Частично верно.]]></text>
     </partiallycorrectfeedback>
     <incorrectfeedback format="html">
-        <text><![CDATA[<p>Неверно.</p>]]></text>
+        <text><![CDATA[Неверно.]]></text>
     </incorrectfeedback>
     <shownumbercorrect>1</shownumbercorrect>
     <answer fraction="100">
-        <text><![CDATA[<p>=СРЗНАЧ(D1:D4)</p>]]></text>
+        <text><![CDATA[=СРЗНАЧ(D1:D4)]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="0">
-        <text><![CDATA[<p>=СРЗНАЧ*(D1:D4)</p>]]></text>
+        <text><![CDATA[=СРЗНАЧ*(D1:D4)]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="0">
-        <text><![CDATA[<p>=СРЗНАЧ(D1;D3;D4)</p>]]></text>
+        <text><![CDATA[=СРЗНАЧ(D1;D3;D4)]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="0">
-        <text><![CDATA[<p>=СРЗНАЧ(D1...D4)</p>]]></text>
+        <text><![CDATA[=СРЗНАЧ(D1...D4)]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
@@ -641,7 +641,7 @@
         <text>Вопрос 14 - Результат СРЗНАЧ</text>
     </name>
     <questiontext format="html">
-        <text><![CDATA[<p>Что считает функция =СРЗНАЧ(А1:А2)?</p>]]></text>
+        <text><![CDATA[Что считает функция =СРЗНАЧ(А1:А2)?]]></text>
     </questiontext>
     <generalfeedback format="html">
         <text></text>
@@ -653,35 +653,35 @@
     <single>true</single>
     <shuffleanswers>true</shuffleanswers>
     <correctfeedback format="html">
-        <text><![CDATA[<p>Верно.</p>]]></text>
+        <text><![CDATA[Верно.]]></text>
     </correctfeedback>
     <partiallycorrectfeedback format="html">
-        <text><![CDATA[<p>Частично верно.</p>]]></text>
+        <text><![CDATA[Частично верно.]]></text>
     </partiallycorrectfeedback>
     <incorrectfeedback format="html">
-        <text><![CDATA[<p>Неверно.</p>]]></text>
+        <text><![CDATA[Неверно.]]></text>
     </incorrectfeedback>
     <shownumbercorrect>1</shownumbercorrect>
     <answer fraction="0">
-        <text><![CDATA[<p>среднее количество строк в указанном диапазоне</p>]]></text>
+        <text><![CDATA[среднее количество строк в указанном диапазоне]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="0">
-        <text><![CDATA[<p>среднее количество ячеек в указанном диапазоне</p>]]></text>
+        <text><![CDATA[среднее количество ячеек в указанном диапазоне]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="100">
-        <text><![CDATA[<p>среднее значение чисел в указанном диапазоне</p>]]></text>
+        <text><![CDATA[среднее значение чисел в указанном диапазоне]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="0">
-        <text><![CDATA[<p>это ошибочная функция</p>]]></text>
+        <text><![CDATA[это ошибочная функция]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
@@ -694,7 +694,7 @@
         <text>Вопрос 15 - Функция СЧЁТ</text>
     </name>
     <questiontext format="html">
-        <text><![CDATA[<p>Какая функция подсчитывает количество заполненных ячеек, содержащих числа?</p>]]></text>
+        <text><![CDATA[Какая функция подсчитывает количество заполненных ячеек, содержащих числа?]]></text>
     </questiontext>
     <generalfeedback format="html">
         <text></text>
@@ -736,7 +736,7 @@
         <text>Вопрос 16 - Результат СЧЁТ</text>
     </name>
     <questiontext format="html">
-        <text><![CDATA[<p>Что считает функция =СЧЁТ(А1:А2)?</p>]]></text>
+        <text><![CDATA[Что считает функция =СЧЁТ(А1:А2)?]]></text>
     </questiontext>
     <generalfeedback format="html">
         <text></text>
@@ -748,35 +748,35 @@
     <single>true</single>
     <shuffleanswers>true</shuffleanswers>
     <correctfeedback format="html">
-        <text><![CDATA[<p>Верно.</p>]]></text>
+        <text><![CDATA[Верно.]]></text>
     </correctfeedback>
     <partiallycorrectfeedback format="html">
-        <text><![CDATA[<p>Частично верно.</p>]]></text>
+        <text><![CDATA[Частично верно.]]></text>
     </partiallycorrectfeedback>
     <incorrectfeedback format="html">
-        <text><![CDATA[<p>Неверно.</p>]]></text>
+        <text><![CDATA[Неверно.]]></text>
     </incorrectfeedback>
     <shownumbercorrect>1</shownumbercorrect>
     <answer fraction="0">
-        <text><![CDATA[<p>подсчитывает количество пустых ячеек в указанном диапазоне</p>]]></text>
+        <text><![CDATA[подсчитывает количество пустых ячеек в указанном диапазоне]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="0">
-        <text><![CDATA[<p>подсчитывает количество заполненных ячеек, содержащих текст, в указанном диапазоне</p>]]></text>
+        <text><![CDATA[подсчитывает количество заполненных ячеек, содержащих текст, в указанном диапазоне]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="100">
-        <text><![CDATA[<p>подсчитывает количество заполненных ячеек, содержащих числа, в указанном диапазоне</p>]]></text>
+        <text><![CDATA[подсчитывает количество заполненных ячеек, содержащих числа, в указанном диапазоне]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="0">
-        <text><![CDATA[<p>это ошибочная функция</p>]]></text>
+        <text><![CDATA[это ошибочная функция]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
@@ -789,7 +789,7 @@
         <text>Вопрос 17 - Синтаксис СЧЁТ</text>
     </name>
     <questiontext format="html">
-        <text><![CDATA[<p>Выберите верный синтаксис функции СЧЁТ:</p>]]></text>
+        <text><![CDATA[Выберите верный синтаксис функции СЧЁТ:]]></text>
     </questiontext>
     <generalfeedback format="html">
         <text></text>
@@ -801,35 +801,35 @@
     <single>true</single>
     <shuffleanswers>true</shuffleanswers>
     <correctfeedback format="html">
-        <text><![CDATA[<p>Верно.</p>]]></text>
+        <text><![CDATA[Верно.]]></text>
     </correctfeedback>
     <partiallycorrectfeedback format="html">
-        <text><![CDATA[<p>Частично верно.</p>]]></text>
+        <text><![CDATA[Частично верно.]]></text>
     </partiallycorrectfeedback>
     <incorrectfeedback format="html">
-        <text><![CDATA[<p>Неверно.</p>]]></text>
+        <text><![CDATA[Неверно.]]></text>
     </incorrectfeedback>
     <shownumbercorrect>1</shownumbercorrect>
     <answer fraction="100">
-        <text><![CDATA[<p>=СЧЁТ(D1:D4)</p>]]></text>
+        <text><![CDATA[=СЧЁТ(D1:D4)]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="0">
-        <text><![CDATA[<p>=СЧЁТ*(D1:D4)</p>]]></text>
+        <text><![CDATA[=СЧЁТ*(D1:D4)]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="0">
-        <text><![CDATA[<p>=СЧЁТ(D1;D3;D4)</p>]]></text>
+        <text><![CDATA[=СЧЁТ(D1;D3;D4)]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="0">
-        <text><![CDATA[<p>=СЧЁТ(D1...D4)</p>]]></text>
+        <text><![CDATA[=СЧЁТ(D1...D4)]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
@@ -842,7 +842,7 @@
         <text>Вопрос 18 - Функция СЧЁТЗ</text>
     </name>
     <questiontext format="html">
-        <text><![CDATA[<p>Какая функция подсчитывает количество заполненных ячеек, содержащих все типы данных?</p>]]></text>
+        <text><![CDATA[Какая функция подсчитывает количество заполненных ячеек, содержащих все типы данных?]]></text>
     </questiontext>
     <generalfeedback format="html">
         <text></text>
@@ -884,7 +884,7 @@
         <text>Вопрос 19 - Синтаксис СЧЁТЗ</text>
     </name>
     <questiontext format="html">
-        <text><![CDATA[<p>Выберите верный синтаксис функции СЧЁТЗ:</p>]]></text>
+        <text><![CDATA[Выберите верный синтаксис функции СЧЁТЗ:]]></text>
     </questiontext>
     <generalfeedback format="html">
         <text></text>
@@ -896,35 +896,35 @@
     <single>true</single>
     <shuffleanswers>true</shuffleanswers>
     <correctfeedback format="html">
-        <text><![CDATA[<p>Верно.</p>]]></text>
+        <text><![CDATA[Верно.]]></text>
     </correctfeedback>
     <partiallycorrectfeedback format="html">
-        <text><![CDATA[<p>Частично верно.</p>]]></text>
+        <text><![CDATA[Частично верно.]]></text>
     </partiallycorrectfeedback>
     <incorrectfeedback format="html">
-        <text><![CDATA[<p>Неверно.</p>]]></text>
+        <text><![CDATA[Неверно.]]></text>
     </incorrectfeedback>
     <shownumbercorrect>1</shownumbercorrect>
     <answer fraction="100">
-        <text><![CDATA[<p>=СЧЁТЗ(D1:D4)</p>]]></text>
+        <text><![CDATA[=СЧЁТЗ(D1:D4)]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="0">
-        <text><![CDATA[<p>=СЧЁТЗ*(D1:D4)</p>]]></text>
+        <text><![CDATA[=СЧЁТЗ*(D1:D4)]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="0">
-        <text><![CDATA[<p>=СЧЁТЗ(D1;D3;D4)</p>]]></text>
+        <text><![CDATA[=СЧЁТЗ(D1;D3;D4)]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="0">
-        <text><![CDATA[<p>=СЧЁТЗ(D1...D4)</p>]]></text>
+        <text><![CDATA[=СЧЁТЗ(D1...D4)]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
@@ -937,7 +937,7 @@
         <text>Вопрос 20 - Результат СЧЁТЗ</text>
     </name>
     <questiontext format="html">
-        <text><![CDATA[<p>Что считает функция =СЧЁТЗ(А1:А2)?</p>]]></text>
+        <text><![CDATA[Что считает функция =СЧЁТЗ(А1:А2)?]]></text>
     </questiontext>
     <generalfeedback format="html">
         <text></text>
@@ -949,35 +949,35 @@
     <single>true</single>
     <shuffleanswers>true</shuffleanswers>
     <correctfeedback format="html">
-        <text><![CDATA[<p>Верно.</p>]]></text>
+        <text><![CDATA[Верно.]]></text>
     </correctfeedback>
     <partiallycorrectfeedback format="html">
-        <text><![CDATA[<p>Частично верно.</p>]]></text>
+        <text><![CDATA[Частично верно.]]></text>
     </partiallycorrectfeedback>
     <incorrectfeedback format="html">
-        <text><![CDATA[<p>Неверно.</p>]]></text>
+        <text><![CDATA[Неверно.]]></text>
     </incorrectfeedback>
     <shownumbercorrect>1</shownumbercorrect>
     <answer fraction="0">
-        <text><![CDATA[<p>подсчитывает количество пустых ячеек в указанном диапазоне</p>]]></text>
+        <text><![CDATA[подсчитывает количество пустых ячеек в указанном диапазоне]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="100">
-        <text><![CDATA[<p>подсчитывает количество заполненных ячеек, содержащих любые типы данных, в указанном диапазоне</p>]]></text>
+        <text><![CDATA[подсчитывает количество заполненных ячеек, содержащих любые типы данных, в указанном диапазоне]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="0">
-        <text><![CDATA[<p>подсчитывает количество заполненных ячеек, содержащих числа, в указанном диапазоне</p>]]></text>
+        <text><![CDATA[подсчитывает количество заполненных ячеек, содержащих числа, в указанном диапазоне]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="0">
-        <text><![CDATA[<p>это ошибочная функция</p>]]></text>
+        <text><![CDATA[это ошибочная функция]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
@@ -990,7 +990,7 @@
         <text>Вопрос 21 - Функция СЧЁТЕСЛИ</text>
     </name>
     <questiontext format="html">
-        <text><![CDATA[<p>Какая функция подсчитывает количество ячеек, которые удовлетворяют одному заданному критерию?</p>]]></text>
+        <text><![CDATA[Какая функция подсчитывает количество ячеек, которые удовлетворяют одному заданному критерию?]]></text>
     </questiontext>
     <generalfeedback format="html">
         <text></text>
@@ -1032,7 +1032,7 @@
         <text>Вопрос 22 - Синтаксис СЧЁТЕСЛИ</text>
     </name>
     <questiontext format="html">
-        <text><![CDATA[<p>Выберите верный синтаксис функции СЧЁТЕСЛИ:</p>]]></text>
+        <text><![CDATA[Выберите верный синтаксис функции СЧЁТЕСЛИ:]]></text>
     </questiontext>
     <generalfeedback format="html">
         <text></text>
@@ -1044,35 +1044,35 @@
     <single>true</single>
     <shuffleanswers>true</shuffleanswers>
     <correctfeedback format="html">
-        <text><![CDATA[<p>Верно.</p>]]></text>
+        <text><![CDATA[Верно.]]></text>
     </correctfeedback>
     <partiallycorrectfeedback format="html">
-        <text><![CDATA[<p>Частично верно.</p>]]></text>
+        <text><![CDATA[Частично верно.]]></text>
     </partiallycorrectfeedback>
     <incorrectfeedback format="html">
-        <text><![CDATA[<p>Неверно.</p>]]></text>
+        <text><![CDATA[Неверно.]]></text>
     </incorrectfeedback>
     <shownumbercorrect>1</shownumbercorrect>
     <answer fraction="100">
-        <text><![CDATA[<p>=СЧЁТЕСЛИ(D1:D4;"Собака")</p>]]></text>
+        <text><![CDATA[=СЧЁТЕСЛИ(D1:D4;"Собака")]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="0">
-        <text><![CDATA[<p>=СЧЁТЕСЛИ(D1:D4;Собака)</p>]]></text>
+        <text><![CDATA[=СЧЁТЕСЛИ(D1:D4;Собака)]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="0">
-        <text><![CDATA[<p>=СЧЁТЕСЛИ(D1;D3;D4;Собака)</p>]]></text>
+        <text><![CDATA[=СЧЁТЕСЛИ(D1;D3;D4;Собака)]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="0">
-        <text><![CDATA[<p>=СЧЁТЕСЛИ(D1...D4;"Собака")</p>]]></text>
+        <text><![CDATA[=СЧЁТЕСЛИ(D1...D4;"Собака")]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
@@ -1085,7 +1085,7 @@
         <text>Вопрос 23 - Результат СЧЁТЕСЛИ</text>
     </name>
     <questiontext format="html">
-        <text><![CDATA[<p>Что считает функция =СЧЁТЕСЛИ(А1:А2;"Собака")?</p>]]></text>
+        <text><![CDATA[Что считает функция =СЧЁТЕСЛИ(А1:А2;"Собака")?]]></text>
     </questiontext>
     <generalfeedback format="html">
         <text></text>
@@ -1097,35 +1097,35 @@
     <single>true</single>
     <shuffleanswers>true</shuffleanswers>
     <correctfeedback format="html">
-        <text><![CDATA[<p>Верно.</p>]]></text>
+        <text><![CDATA[Верно.]]></text>
     </correctfeedback>
     <partiallycorrectfeedback format="html">
-        <text><![CDATA[<p>Частично верно.</p>]]></text>
+        <text><![CDATA[Частично верно.]]></text>
     </partiallycorrectfeedback>
     <incorrectfeedback format="html">
-        <text><![CDATA[<p>Неверно.</p>]]></text>
+        <text><![CDATA[Неверно.]]></text>
     </incorrectfeedback>
     <shownumbercorrect>1</shownumbercorrect>
     <answer fraction="0">
-        <text><![CDATA[<p>в указанном диапазоне ищет слово "Собака"</p>]]></text>
+        <text><![CDATA[в указанном диапазоне ищет слово "Собака"]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="100">
-        <text><![CDATA[<p>количество ячеек в указанном диапазоне, где содержится слово «Собака»</p>]]></text>
+        <text><![CDATA[количество ячеек в указанном диапазоне, где содержится слово «Собака»]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="0">
-        <text><![CDATA[<p>сумму всех значений в указанном диапазоне, где содержится слово «Собака»</p>]]></text>
+        <text><![CDATA[сумму всех значений в указанном диапазоне, где содержится слово «Собака»]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="0">
-        <text><![CDATA[<p>это ошибочная функция</p>]]></text>
+        <text><![CDATA[это ошибочная функция]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
@@ -1138,7 +1138,7 @@
         <text>Вопрос 24 - Функция ЕСЛИ</text>
     </name>
     <questiontext format="html">
-        <text><![CDATA[<p>Что считает функция =ЕСЛИ(А1=1;"Да";"Нет")?</p>]]></text>
+        <text><![CDATA[Что считает функция =ЕСЛИ(А1=1;"Да";"Нет")?]]></text>
     </questiontext>
     <generalfeedback format="html">
         <text></text>
@@ -1150,29 +1150,29 @@
     <single>true</single>
     <shuffleanswers>true</shuffleanswers>
     <correctfeedback format="html">
-        <text><![CDATA[<p>Верно.</p>]]></text>
+        <text><![CDATA[Верно.]]></text>
     </correctfeedback>
     <partiallycorrectfeedback format="html">
-        <text><![CDATA[<p>Частично верно.</p>]]></text>
+        <text><![CDATA[Частично верно.]]></text>
     </partiallycorrectfeedback>
     <incorrectfeedback format="html">
-        <text><![CDATA[<p>Неверно.</p>]]></text>
+        <text><![CDATA[Неверно.]]></text>
     </incorrectfeedback>
     <shownumbercorrect>1</shownumbercorrect>
     <answer fraction="100">
-        <text><![CDATA[<p>если в ячейке А1 стоит цифра 1, то в ячейке, где написана формула, будет отображено слово «ДА», в противном случае будет отображено слово «НЕТ»</p>]]></text>
+        <text><![CDATA[если в ячейке А1 стоит цифра 1, то в ячейке, где написана формула, будет отображено слово «ДА», в противном случае будет отображено слово «НЕТ»]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="0">
-        <text><![CDATA[<p>если в ячейке А1 стоит цифра 1, то в ячейке, где написана формула, будет отображено слово «НЕТ», в противном случае будет отображено слово «ДА»</p>]]></text>
+        <text><![CDATA[если в ячейке А1 стоит цифра 1, то в ячейке, где написана формула, будет отображено слово «НЕТ», в противном случае будет отображено слово «ДА»]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="0">
-        <text><![CDATA[<p>это ошибочная функция</p>]]></text>
+        <text><![CDATA[это ошибочная функция]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
@@ -1185,7 +1185,7 @@
         <text>Вопрос 25 - Синтаксис ЕСЛИ</text>
     </name>
     <questiontext format="html">
-        <text><![CDATA[<p>Выберите верный синтаксис функции ЕСЛИ:</p>]]></text>
+        <text><![CDATA[Выберите верный синтаксис функции ЕСЛИ:]]></text>
     </questiontext>
     <generalfeedback format="html">
         <text></text>
@@ -1197,35 +1197,35 @@
     <single>true</single>
     <shuffleanswers>true</shuffleanswers>
     <correctfeedback format="html">
-        <text><![CDATA[<p>Верно.</p>]]></text>
+        <text><![CDATA[Верно.]]></text>
     </correctfeedback>
     <partiallycorrectfeedback format="html">
-        <text><![CDATA[<p>Частично верно.</p>]]></text>
+        <text><![CDATA[Частично верно.]]></text>
     </partiallycorrectfeedback>
     <incorrectfeedback format="html">
-        <text><![CDATA[<p>Неверно.</p>]]></text>
+        <text><![CDATA[Неверно.]]></text>
     </incorrectfeedback>
     <shownumbercorrect>1</shownumbercorrect>
     <answer fraction="100">
-        <text><![CDATA[<p>=ЕСЛИ(А1=1;"ДА";"НЕТ")</p>]]></text>
+        <text><![CDATA[=ЕСЛИ(А1=1;"ДА";"НЕТ")]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="0">
-        <text><![CDATA[<p>=ЕСЛИ(А1=1;ДА;НЕТ)</p>]]></text>
+        <text><![CDATA[=ЕСЛИ(А1=1;ДА;НЕТ)]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="0">
-        <text><![CDATA[<p>=ЕСЛИ(А1...А5=1;"ДА";"НЕТ")</p>]]></text>
+        <text><![CDATA[=ЕСЛИ(А1...А5=1;"ДА";"НЕТ")]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="0">
-        <text><![CDATA[<p>=ЕСЛИ(А1=1"ДА""НЕТ")</p>]]></text>
+        <text><![CDATA[=ЕСЛИ(А1=1"ДА""НЕТ")]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
@@ -1238,7 +1238,7 @@
         <text>Вопрос 26 - Функция ЕСЛИ</text>
     </name>
     <questiontext format="html">
-        <text><![CDATA[<p>У какой функции возможны два результата? Первый результат возвращается в случае, если сравнение истинно, второй – если сравнение ложно?</p>]]></text>
+        <text><![CDATA[У какой функции возможны два результата? Первый результат возвращается в случае, если сравнение истинно, второй – если сравнение ложно?]]></text>
     </questiontext>
     <generalfeedback format="html">
         <text></text>
@@ -1280,7 +1280,7 @@
         <text>Вопрос 27 - Результат МИН</text>
     </name>
     <questiontext format="html">
-        <text><![CDATA[<p>Что считает функция =МИН(А1:А2)?</p>]]></text>
+        <text><![CDATA[Что считает функция =МИН(А1:А2)?]]></text>
     </questiontext>
     <generalfeedback format="html">
         <text></text>
@@ -1292,35 +1292,35 @@
     <single>true</single>
     <shuffleanswers>true</shuffleanswers>
     <correctfeedback format="html">
-        <text><![CDATA[<p>Верно.</p>]]></text>
+        <text><![CDATA[Верно.]]></text>
     </correctfeedback>
     <partiallycorrectfeedback format="html">
-        <text><![CDATA[<p>Частично верно.</p>]]></text>
+        <text><![CDATA[Частично верно.]]></text>
     </partiallycorrectfeedback>
     <incorrectfeedback format="html">
-        <text><![CDATA[<p>Неверно.</p>]]></text>
+        <text><![CDATA[Неверно.]]></text>
     </incorrectfeedback>
     <shownumbercorrect>1</shownumbercorrect>
     <answer fraction="0">
-        <text><![CDATA[<p>минимальное количество строк в указанном диапазоне</p>]]></text>
+        <text><![CDATA[минимальное количество строк в указанном диапазоне]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="0">
-        <text><![CDATA[<p>минимальное количество ячеек в указанном диапазоне</p>]]></text>
+        <text><![CDATA[минимальное количество ячеек в указанном диапазоне]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="100">
-        <text><![CDATA[<p>минимальное значение чисел в указанном диапазоне</p>]]></text>
+        <text><![CDATA[минимальное значение чисел в указанном диапазоне]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
     </answer>
     <answer fraction="0">
-        <text><![CDATA[<p>это ошибочная функция</p>]]></text>
+        <text><![CDATA[это ошибочная функция]]></text>
         <feedback format="html">
             <text></text>
         </feedback>
