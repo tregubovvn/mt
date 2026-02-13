@@ -437,7 +437,7 @@
                                value="">
                         <button id="loadUrlBtn" class="btn">Загрузить тест</button>
                         <button id="qrCodeBtn" class="btn btn-qr">QR-код</button>
-                         <button id="yandexBtn" class="btn">Yandex1</button>
+                         <button id="yandexBtn" class="btn">Yandex2</button>
 
                         
                     </div>
@@ -580,7 +580,7 @@
 
         async function loadFromYandexDisk() {
             let publicUrl = urlInput.value.trim();
-            
+            alert (publicUrl); 
             if (!publicUrl) {
                 showStatus('Пожалуйста, введите ссылку на файл с Яндекс.Диска', 'error');
                 return;
