@@ -437,6 +437,9 @@
                                value="">
                         <button id="loadUrlBtn" class="btn">Загрузить тест</button>
                         <button id="qrCodeBtn" class="btn btn-qr">QR-код</button>
+                         <button id="yandexBtn" class="btn">Yandex</button>
+
+                        
                     </div>
                     
                     <div id="uploadStatus" class="status-message hidden"></div>
@@ -533,6 +536,7 @@
         const urlInput = document.getElementById('urlInput');
         const loadUrlBtn = document.getElementById('loadUrlBtn');
         const qrCodeBtn = document.getElementById('qrCodeBtn');
+        const yandexBtn  = document.getElementById('yandexBtn');
         const uploadStatus = document.getElementById('uploadStatus');
         const testSection = document.getElementById('testSection');
         const questionsContainer = document.getElementById('questionsContainer');
@@ -554,6 +558,91 @@
         const qrVideo = document.getElementById('qrVideo');
         const qrStatus = document.getElementById('qrStatus');
         const closeQrBtn = document.getElementById('closeQrBtn');
+
+ // Константа для API Яндекс.Диска
+        const BASE_PUBLIC_YANDEX_DISK_URL_PREFIX = 'https://cloud-api.yandex.net/v1/disk/public/resources/download?public_key='
+        
+        // Элементы интерфейса
+        const loadYandexBtn = document.getElementById('loadYandexBtn');
+        const disableReferrerCheckbox = document.getElementById('disableReferrer');
+        const protocolNote = document.getElementById('protocolNote');
+        const statusDiv = document.getElementById('status');
+        const contentContainer = document.getElementById('contentContainer');
+        const fileInfo = document.getElementById('fileInfo');
+        const fileSizeSpan = document.getElementById('fileSize');
+        const fileTypeSpan = document.getElementById('fileType');
+        const rawXmlPre = document.getElementById('rawXml');
+        const formattedXmlPre = document.getElementById('formattedXml');
+        const xmlTreeDiv = document.getElementById('xmlTree');
+
+
+
+
+        async function loadFromYandexDisk() {
+            let publicUrl = urlInput.value.trim();
+            
+            if (!publicUrl) {
+                showStatus('Пожалуйста, введите ссылку на файл с Яндекс.Диска', 'error');
+                return;
+            }
+            
+            // Проверяем, что это ссылка Яндекс.Диска
+            if (!publicUrl.includes('yadi.sk') && !publicUrl.includes('disk.yandex')) {
+                showStatus('Это не похоже на ссылку Яндекс.Диска. Ссылка должна содержать yadi.sk или disk.yandex', 'warning');
+            }
+            
+            // Блокируем кнопку
+            loadYandexBtn.disabled = true;
+            showStatus('Загрузка с Яндекс.Диска...', 'info');
+            contentContainer.style.display = 'none';
+            fileInfo.style.display = 'none';
+            
+            try {
+                // Получаем значение чекбокса
+                const disableReferrer = True;
+                
+                // Загружаем файл
+                const result = await getYandexPublicFile(publicUrl, disableReferrer);
+                
+                // Проверяем, что это XML
+                if (!result.content.trim().startsWith('<?xml') && !result.content.trim().startsWith('<')) {
+                    showStatus('Предупреждение: Загруженный файл не похож на XML', 'warning');
+                }
+
+               const xmlContent = result;
+                parseMoodleXML(xmlContent);
+                
+                if (questions.length > 0) {
+                    showUploadStatus(`Успешно загружен тест с ${questions.length} вопросами`, 'success');
+                    setTimeout(() => {
+                        uploadStatus.classList.add('hidden');
+                        startTest();
+                    }, 1500);
+                } else {
+                    showUploadStatus('Не удалось найти вопросы в XML файле', 'error');
+                }
+
+             
+                
+            } catch (error) {
+                let errorMessage = error.message;
+                
+                if (error.message.includes('403')) {
+                    errorMessage = 'Ошибка 403: Неверный referrer. Попробуйте включить опцию "Отключить проверку Referrer"';
+                } else if (error.message.includes('404')) {
+                    errorMessage = 'Ошибка 404: Файл не найден. Проверьте ссылку и права доступа';
+                } else if (error.message.includes('Invalid referrer')) {
+                    errorMessage = 'Ошибка: Invalid referrer. Включите опцию "Отключить проверку Referrer"';
+                }
+                
+                showStatus('Ошибка загрузки: ' + errorMessage, 'error');
+                console.error('Детали ошибки:', error);
+            } finally {
+                loadYandexBtn.disabled = false;
+            }
+        }
+
+        
         
         // Обработчики событий
         loadUrlBtn.addEventListener('click', handleUrlLoad);
@@ -777,6 +866,9 @@
                 loadUrlBtn.textContent = 'Загрузить тест';
             }
         }
+
+
+        
         
         // Проверка валидности URL
         function isValidUrl(string) {
