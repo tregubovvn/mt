@@ -437,7 +437,7 @@
                                value="">
                         <button id="loadUrlBtn" class="btn">Загрузить тест</button>
                         <button id="qrCodeBtn" class="btn btn-qr">QR-код</button>
-                         <button id="yandexBtn" class="btn">Yandex</button>
+                         <button id="yandexBtn" class="btn">Yandex1</button>
 
                         
                     </div>
@@ -646,6 +646,9 @@
         
         // Обработчики событий
         loadUrlBtn.addEventListener('click', handleUrlLoad);
+        loadYandexBtn.addEventListener('click', loadFromYandexDisk);
+
+        
         
         urlInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
