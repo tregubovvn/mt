@@ -1,3 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+<!-- Вопрос 1: Какой пробег считается производительным? -->
 <question type="multichoice">
     <name>
         <text>Вопрос 1</text>
