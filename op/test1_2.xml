@@ -1,0 +1,735 @@
+<!-- Вопрос 11: Что НЕ является причиной невыполнения плана перевозок согласно тексту? -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 11</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Что НЕ является причиной невыполнения плана перевозок согласно тексту?</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <showstandardinstruction>0</showstandardinstruction>
+    <correctfeedback format="html">
+        <text>Верно.</text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text>Частично верно.</text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text>Неверно.</text>
+    </incorrectfeedback>
+    <answer fraction="0" format="html">
+        <text><![CDATA[<p>Снижение технической скорости из-за бездорожья</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+        <text><![CDATA[<p>Простой под погрузкой сверх нормы</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="100" format="html">
+        <text><![CDATA[<p>Изменение тарифной политики</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+        <text><![CDATA[<p>Технические неисправности</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+<!-- Вопрос 12: Интервал движения автомобилей должен соответствовать: -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 12</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Интервал движения автомобилей должен соответствовать:</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <showstandardinstruction>0</showstandardinstruction>
+    <correctfeedback format="html">
+        <text>Верно.</text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text>Частично верно.</text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text>Неверно.</text>
+    </incorrectfeedback>
+    <answer fraction="0" format="html">
+        <text><![CDATA[<p>Графику технического обслуживания</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+        <text><![CDATA[<p>Пробкам на дорогах</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+        <text><![CDATA[<p>Расписанию водителей</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="100" format="html">
+        <text><![CDATA[<p>Ритму работы погрузо-разгрузочного пункта</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+<!-- Вопрос 13: Оперативный учёт позволяет: -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 13</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Оперативный учёт позволяет:</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <showstandardinstruction>0</showstandardinstruction>
+    <correctfeedback format="html">
+        <text>Верно.</text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text>Частично верно.</text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text>Неверно.</text>
+    </incorrectfeedback>
+    <answer fraction="0" format="html">
+        <text><![CDATA[<p>Определить марку следующего закупаемого автомобиля</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+        <text><![CDATA[<p>Составить маршрутную карту города</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="100" format="html">
+        <text><![CDATA[<p>Получить количественный результат выполнения/невыполнения плана</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+        <text><![CDATA[<p>Рассчитать заработную плату водителей</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+<!-- Вопрос 14: При групповой работе водителей: -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 14</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>При групповой работе водителей:</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <showstandardinstruction>0</showstandardinstruction>
+    <correctfeedback format="html">
+        <text>Верно.</text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text>Частично верно.</text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text>Неверно.</text>
+    </incorrectfeedback>
+    <answer fraction="0" format="html">
+        <text><![CDATA[<p>Каждый водитель работает полностью самостоятельно</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+        <text><![CDATA[<p>Все автомобили имеют одинаковый маршрут и график</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="100" format="html">
+        <text><![CDATA[<p>Задание водителя связано с работой других автомобилей</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+        <text><![CDATA[<p>Автомобили передвигаются только колонной</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+<!-- Вопрос 15: Увеличение коэффициента использования пробега приводит к: -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 15</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Увеличение коэффициента использования пробега приводит к:</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <showstandardinstruction>0</showstandardinstruction>
+    <correctfeedback format="html">
+        <text>Верно.</text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text>Частично верно.</text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text>Неверно.</text>
+    </incorrectfeedback>
+    <answer fraction="0" format="html">
+        <text><![CDATA[<p>Увеличению количества технических осмотров</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+        <text><![CDATA[<p>Снижению грузоподъёмности</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="100" format="html">
+        <text><![CDATA[<p>Росту производительности и снижению себестоимости перевозок</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+        <text><![CDATA[<p>Увеличению нулевого пробега</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+<!-- Вопрос 16: Какой из перечисленных методов НЕ относится к способам увеличения использования грузоподъёмности? -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 16</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Какой из перечисленных методов НЕ относится к способам увеличения использования грузоподъёмности?</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <showstandardinstruction>0</showstandardinstruction>
+    <correctfeedback format="html">
+        <text>Верно.</text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text>Частично верно.</text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text>Неверно.</text>
+    </incorrectfeedback>
+    <answer fraction="0" format="html">
+        <text><![CDATA[<p>Наращивание бортов кузова</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+        <text><![CDATA[<p>Предварительная сортировка мелких партий</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="100" format="html">
+        <text><![CDATA[<p>Увеличение интервала движения автомобилей</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+        <text><![CDATA[<p>Тщательная укладка груза в кузове</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+<!-- Вопрос 17: Ездка в транспортном процессе — это: -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 17</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Ездка в транспортном процессе — это:</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <showstandardinstruction>0</showstandardinstruction>
+    <correctfeedback format="html">
+        <text>Верно.</text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text>Частично верно.</text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text>Неверно.</text>
+    </incorrectfeedback>
+    <answer fraction="0" format="html">
+        <text><![CDATA[<p>Только погрузочно-разгрузочная операция</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+        <text><![CDATA[<p>Перемещение автомобиля из гаража на линию</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+        <text><![CDATA[<p>Движение автомобиля в течение одной смены</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="100" format="html">
+        <text><![CDATA[<p>Цикл транспортного процесса, включающий пробег с грузом и без груза</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+<!-- Вопрос 18: Средняя величина пробега с грузом за ездку НЕ учитывает: -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 18</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Средняя величина пробега с грузом за ездку НЕ учитывает:</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <showstandardinstruction>0</showstandardinstruction>
+    <correctfeedback format="html">
+        <text>Верно.</text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text>Частично верно.</text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text>Неверно.</text>
+    </incorrectfeedback>
+    <answer fraction="0" format="html">
+        <text><![CDATA[<p>Расстояние перевозки</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+        <text><![CDATA[<p>Количество выполненных ездок</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="100" format="html">
+        <text><![CDATA[<p>Грузоподъёмность подвижного состава и степень её использования</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+        <text><![CDATA[<p>Общий пробег с грузом за период</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+<!-- Вопрос 19: К нулевому пробегу относится заезд автомобиля: -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 19</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>К нулевому пробегу относится заезд автомобиля:</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <showstandardinstruction>0</showstandardinstruction>
+    <correctfeedback format="html">
+        <text>Верно.</text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text>Частично верно.</text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text>Неверно.</text>
+    </incorrectfeedback>
+    <answer fraction="0" format="html">
+        <text><![CDATA[<p>С грузом к потребителю</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="100" format="html">
+        <text><![CDATA[<p>На заправку горюче-смазочных материалов</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+        <text><![CDATA[<p>От пункта разгрузки к пункту погрузки</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+        <text><![CDATA[<p>Порожняком между двумя пунктами погрузки</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+<!-- Вопрос 20: Анализ выполнения плана перевозок проводится на основе: -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 20</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Анализ выполнения плана перевозок проводится на основе:</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <showstandardinstruction>0</showstandardinstruction>
+    <correctfeedback format="html">
+        <text>Верно.</text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text>Частично верно.</text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text>Неверно.</text>
+    </incorrectfeedback>
+    <answer fraction="0" format="html">
+        <text><![CDATA[<p>Графика ремонтов</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="100" format="html">
+        <text><![CDATA[<p>Путевых листов</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+        <text><![CDATA[<p>Данных бухгалтерского учёта</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+        <text><![CDATA[<p>Жалоб клиентов</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+<!-- Вопрос 21: При коллективной работе движение каждого автомобиля является самостоятельным. (Верно/Неверно) -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 21</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>При коллективной работе движение каждого автомобиля является самостоятельным.</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <showstandardinstruction>0</showstandardinstruction>
+    <correctfeedback format="html">
+        <text>Верно.</text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text>Частично верно.</text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text>Неверно.</text>
+    </incorrectfeedback>
+    <answer fraction="0" format="html">
+        <text><![CDATA[<p>Верно</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="100" format="html">
+        <text><![CDATA[<p>Неверно</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+<!-- Вопрос 22: Холостой пробег считается производительным, так как он необходим для продолжения перевозок. (Верно/Неверно) -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 22</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Холостой пробег считается производительным, так как он необходим для продолжения перевозок.</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <showstandardinstruction>0</showstandardinstruction>
+    <correctfeedback format="html">
+        <text>Верно.</text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text>Частично верно.</text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text>Неверно.</text>
+    </incorrectfeedback>
+    <answer fraction="100" format="html">
+        <text><![CDATA[<p>Неверно</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+        <text><![CDATA[<p>Верно</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+<!-- Вопрос 23: Для установления причин невыполнения плана достаточно оперативного учёта без анализа путевых листов. (Верно/Неверно) -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 23</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Для установления причин невыполнения плана достаточно оперативного учёта без анализа путевых листов.</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <showstandardinstruction>0</showstandardinstruction>
+    <correctfeedback format="html">
+        <text>Верно.</text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text>Частично верно.</text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text>Неверно.</text>
+    </incorrectfeedback>
+    <answer fraction="100" format="html">
+        <text><![CDATA[<p>Неверно</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+        <text><![CDATA[<p>Верно</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+<!-- Вопрос 24: Средняя величина пробега с грузом за ездку всегда равна среднему расстоянию перевозки одной тонны груза. (Верно/Неверно) -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 24</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Средняя величина пробега с грузом за ездку всегда равна среднему расстоянию перевозки одной тонны груза.</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <showstandardinstruction>0</showstandardinstruction>
+    <correctfeedback format="html">
+        <text>Верно.</text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text>Частично верно.</text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text>Неверно.</text>
+    </incorrectfeedback>
+    <answer fraction="0" format="html">
+        <text><![CDATA[<p>Верно</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="100" format="html">
+        <text><![CDATA[<p>Неверно</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
+<!-- Вопрос 25: Применение автомобилей с увеличенным объёмом кузова способствует повышению использования грузоподъёмности. (Верно/Неверно) -->
+<question type="multichoice">
+    <name>
+        <text>Вопрос 25</text>
+    </name>
+    <questiontext format="html">
+        <text><![CDATA[<p>Применение автомобилей с увеличенным объёмом кузова способствует повышению использования грузоподъёмности.</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+        <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <showstandardinstruction>0</showstandardinstruction>
+    <correctfeedback format="html">
+        <text>Верно.</text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+        <text>Частично верно.</text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+        <text>Неверно.</text>
+    </incorrectfeedback>
+    <answer fraction="100" format="html">
+        <text><![CDATA[<p>Верно</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+        <text><![CDATA[<p>Неверно</p>]]></text>
+        <feedback format="html">
+            <text></text>
+        </feedback>
+    </answer>
+</question>
