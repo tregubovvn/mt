@@ -1,433 +1,419 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <quiz>
-  <!-- Вопрос 1: Сопоставление 2 (Формула -> Название) -->
+  <!-- Категория: Коэффициенты пробега и грузоподъемности -->
+  <question type="category">
+    <category>
+      <text>$module$/Топ/Коэффициенты пробега и грузоподъемности</text>
+    </category>
+  </question>
+
+  <!-- Вопрос 1: Сопоставление 1 (Название показателя -> формула) -->
   <question type="multichoice">
     <name>
-      <text>Вопрос 1: Определение показателя по формуле (бета)</text>
+      <text>Формула коэффициента использования пробега</text>
     </name>
     <questiontext format="html">
-      <text><![CDATA[<p>Какой показатель работы подвижного состава рассчитывается по этой формуле?</p>
-      <p>$$\beta = \frac{L_{\text{г}}}{L_{\text{г}} + L_{\text{х}} + L_{0}}$$</p>]]></text>
+      <text><![CDATA[<p>Выберите правильную формулу для расчета коэффициента использования пробега (\(\beta\)) за рабочий день:</p>]]></text>
     </questiontext>
     <generalfeedback format="html">
-      <text><![CDATA[<p>Это формула коэффициента использования пробега за смену.</p>]]></text>
+      <text><![CDATA[<p>Коэффициент использования пробега за день рассчитывается как отношение пробега с грузом к общему пробегу: \(\beta = \frac{L_{г}}{L_{сс}}\).</p>]]></text>
     </generalfeedback>
     <defaultgrade>1.0</defaultgrade>
     <single>true</single>
-    <shuffleanswers>true</shuffleanswers>
     <answer fraction="100">
-      <text>Коэффициент использования пробега</text>
+      <text><![CDATA[<p>\(\beta = \frac{L_{\text{г}}}{L_{\text{сс}}}\)</p>]]></text>
     </answer>
     <answer fraction="0">
-      <text>Коэффициент нулевых пробегов</text>
+      <text><![CDATA[<p>\(\beta = \frac{L_{\text{г}}}{L_{0}}\)</p>]]></text>
     </answer>
     <answer fraction="0">
-      <text>Статический коэффициент использования грузоподъемности</text>
+      <text><![CDATA[<p>\(\beta = \frac{L_{\text{х}}}{L_{\text{сс}}}\)</p>]]></text>
     </answer>
     <answer fraction="0">
-      <text>Динамический коэффициент использования грузоподъемности</text>
+      <text><![CDATA[<p>\(\beta = \frac{Z_{e} \cdot L_{eг}}{L_{0}}\)</p>]]></text>
     </answer>
   </question>
 
-  <!-- Вопрос 2: Вставь пропущенное (Пропуск в формуле L_сс) -->
+  <!-- Вопрос 2: Сопоставление 2 (Формула -> название показателя) -->
   <question type="multichoice">
     <name>
-      <text>Вопрос 2: Заполни формулу общего пробега</text>
+      <text>Название показателя w</text>
     </name>
     <questiontext format="html">
-      <text><![CDATA[<p>Общий пробег автомобиля за день работы (\(L_{\text{сс}}\)) можно рассчитать по формуле:</p>
-      <p>$$L_{\text{сс}} = Z_{e} \cdot L_{eг} \cdot \beta_{e} \cdot (1 + ?)$$</p>
-      <p>Что должно быть на месте знака вопроса?</p>]]></text>
+      <text><![CDATA[<p>Какой показатель рассчитывается по формуле \(w = \frac{L_{0}}{L_{\text{сс}}}\)?</p>]]></text>
     </questiontext>
     <generalfeedback format="html">
-      <text><![CDATA[<p>Правильный ответ: \(w\) — коэффициент нулевых пробегов. Формула выводится как \(L_{\text{сс}} = L_{\text{г}} + L_0 = Z_{e} \cdot L_{eг} \cdot \beta_{e} + L_0\), а с учетом \(w = L_0/L_{\text{сс}}\) получается указанный вид.</p>]]></text>
+      <text><![CDATA[<p>Это коэффициент нулевых пробегов, где \(L_{0}\) — нулевой пробег, а \(L_{\text{сс}}\) — общий среднесуточный пробег.</p>]]></text>
     </generalfeedback>
     <defaultgrade>1.0</defaultgrade>
     <single>true</single>
-    <shuffleanswers>true</shuffleanswers>
     <answer fraction="100">
-      <text>\(w\)</text>
+      <text><![CDATA[<p>Коэффициент нулевых пробегов</p>]]></text>
     </answer>
     <answer fraction="0">
-      <text>\(\beta\)</text>
+      <text><![CDATA[<p>Коэффициент использования пробега</p>]]></text>
     </answer>
     <answer fraction="0">
-      <text>\(\gamma_{\text{с}}\)</text>
+      <text><![CDATA[<p>Средняя длина ездки с грузом</p>]]></text>
     </answer>
     <answer fraction="0">
-      <text>\(L_{eг}\)</text>
+      <text><![CDATA[<p>Коэффициент динамического использования грузоподъемности</p>]]></text>
     </answer>
   </question>
 
-  <!-- Вопрос 3: Сопоставление 1 (Название -> Формула) -->
+  <!-- Вопрос 3: Сопоставление 3 (Показатель -> его название) -->
   <question type="multichoice">
     <name>
-      <text>Вопрос 3: Выбор формулы для статического коэффициента</text>
+      <text>Понятие L_ег</text>
     </name>
     <questiontext format="html">
-      <text><![CDATA[<p>Какая формула правильно рассчитывает <strong>статический коэффициент использования грузоподъемности за одну ездку</strong>?</p>]]></text>
+      <text><![CDATA[<p>Как расшифровывается показатель \(L_{eг}\) в формулах ниже?</p>]]></text>
     </questiontext>
     <generalfeedback format="html">
-      <text><![CDATA[<p>Статический коэффициент за ездку — это отношение фактического груза (\(q_{\text{ф}}\)) к номинальной грузоподъемности (\(q\)): \(\gamma_{\text{с}} = \frac{q_{\text{ф}}}{q}\).</p>]]></text>
+      <text><![CDATA[<p>\(L_{eг}\) — это средняя длина одной ездки с грузом (в км).</p>]]></text>
     </generalfeedback>
     <defaultgrade>1.0</defaultgrade>
     <single>true</single>
-    <shuffleanswers>true</shuffleanswers>
     <answer fraction="100">
-      <text>\(\gamma_{\text{с}} = \frac{q_{\text{ф}}}{q}\)</text>
+      <text><![CDATA[<p>Средняя длина ездки с грузом</p>]]></text>
     </answer>
     <answer fraction="0">
-      <text>\(\gamma_{\text{д}} = \frac{q_{\text{ф}} \cdot L_{er}}{q \cdot L_{er}}\)</text>
+      <text><![CDATA[<p>Нулевой пробег</p>]]></text>
     </answer>
     <answer fraction="0">
-      <text>\(\gamma_{\text{с}} = \frac{W_{Q}}{q \cdot Z_{e}}\)</text>
+      <text><![CDATA[<p>Общий пробег с грузом за день</p>]]></text>
     </answer>
     <answer fraction="0">
-      <text>\(\beta = \frac{\beta_{e}}{1 + w}\)</text>
+      <text><![CDATA[<p>Среднее расстояние перевозки одной тонны груза</p>]]></text>
     </answer>
   </question>
 
-  <!-- Вопрос 4: Сопоставление 3 (Показатель -> Его название) -->
+  <!-- Вопрос 4: Вставь пропущенное (Коэффициент использования пробега за день) -->
   <question type="multichoice">
     <name>
-      <text>Вопрос 4: Расшифровка показателя L_0</text>
+      <text>Пропуск: Бета через Бета_е</text>
     </name>
     <questiontext format="html">
-      <text><![CDATA[<p>Как на транспорте принято называть пробег, обозначаемый как \(L_{0}\)?</p>]]></text>
+      <text><![CDATA[<p>Вставьте пропущенный элемент в формулу коэффициента использования пробега за рабочий день:</p>
+      <p>\(\beta = \frac{?}{1 + w}\)</p>]]></text>
     </questiontext>
     <generalfeedback format="html">
-      <text><![CDATA[<p>\(L_{0}\) — это нулевой пробег (пробег от гаража до первого пункта погрузки и от последнего места разгрузки до гаража).</p>]]></text>
+      <text><![CDATA[<p>Правильный ответ: \(\beta_{e}\). Формула выглядит так: \(\beta = \frac{\beta_{e}}{1 + w}\).</p>]]></text>
     </generalfeedback>
     <defaultgrade>1.0</defaultgrade>
     <single>true</single>
-    <shuffleanswers>true</shuffleanswers>
     <answer fraction="100">
-      <text>Нулевой пробег</text>
+      <text><![CDATA[<p>\(\beta_{e}\)</p>]]></text>
     </answer>
     <answer fraction="0">
-      <text>Пробег с грузом</text>
+      <text><![CDATA[<p>\(L_{г}\)</p>]]></text>
     </answer>
     <answer fraction="0">
-      <text>Пробег без груза</text>
+      <text><![CDATA[<p>\(L_{ег}\)</p>]]></text>
     </answer>
     <answer fraction="0">
-      <text>Общий пробег</text>
+      <text><![CDATA[<p>\(Z_{e}\)</p>]]></text>
     </answer>
   </question>
 
-  <!-- Вопрос 5: Вставь пропущенное (Коэффициент нулевых пробегов) -->
+  <!-- Вопрос 5: Сопоставление 1 (Формула статического коэффициента) -->
   <question type="multichoice">
     <name>
-      <text>Вопрос 5: Формула коэффициента нулевых пробегов</text>
+      <text>Статический коэффициент за ездку</text>
     </name>
     <questiontext format="html">
-      <text><![CDATA[<p>Коэффициент нулевых пробегов (\(w\)) определяется отношением:</p>
-      <p>$$w = \frac{?}{L_{\text{сс}}}$$</p>
-      <p>Что должно быть в числителе?</p>]]></text>
+      <text><![CDATA[<p>Какая формула соответствует статическому коэффициенту использования грузоподъемности за одну ездку (\(\gamma_{\text{с}}\))?</p>]]></text>
     </questiontext>
     <generalfeedback format="html">
-      <text><![CDATA[<p>В числителе — нулевой пробег \(L_{0}\).</p>]]></text>
+      <text><![CDATA[<p>Статический коэффициент за ездку: \(\gamma_{\text{с}} = \frac{q_{\text{ф}}}{q}\).</p>]]></text>
     </generalfeedback>
     <defaultgrade>1.0</defaultgrade>
     <single>true</single>
-    <shuffleanswers>true</shuffleanswers>
     <answer fraction="100">
-      <text>\(L_{0}\)</text>
+      <text><![CDATA[<p>\(\gamma_{\text{с}} = \frac{q_{\text{ф}}}{q}\)</p>]]></text>
     </answer>
     <answer fraction="0">
-      <text>\(L_{\text{г}}\)</text>
+      <text><![CDATA[<p>\(\gamma_{\text{с}} = \frac{P}{q \cdot L_{\text{г}}}\)</p>]]></text>
     </answer>
     <answer fraction="0">
-      <text>\(L_{\text{х}}\)</text>
+      <text><![CDATA[<p>\(\gamma_{\text{с}} = \frac{q_{\text{ф}} \cdot L_{er}}{q \cdot L_{er}}\)</p>]]></text>
     </answer>
     <answer fraction="0">
-      <text>\(L_{eг}\)</text>
+      <text><![CDATA[<p>\(\gamma_{\text{с}} = \frac{W_{Q}}{q \cdot Z_{e}}\)</p>]]></text>
     </answer>
   </question>
 
-  <!-- Вопрос 6: Сопоставление 2 (Формула -> Название) -->
+  <!-- Вопрос 6: Сопоставление 2 (Формула -> Динамический коэффициент) -->
   <question type="multichoice">
     <name>
-      <text>Вопрос 6: Определение показателя по формуле (гамма_д)</text>
+      <text>Динамический коэффициент за день</text>
     </name>
     <questiontext format="html">
-      <text><![CDATA[<p>Какой показатель описывается формулой \(\gamma_{\text{д}} = \frac{P}{q \cdot L_{\text{г}}}\)?</p>]]></text>
+      <text><![CDATA[<p>Для какого показателя предназначена формула \(\gamma_{\text{д}} = \frac{P}{q \cdot L_{\text{г}}}\)?</p>]]></text>
     </questiontext>
     <generalfeedback format="html">
-      <text><![CDATA[<p>Это коэффициент динамического использования грузоподъемности за день работы.</p>]]></text>
+      <text><![CDATA[<p>Это формула для коэффициента динамического использования грузоподъемности за день работы.</p>]]></text>
     </generalfeedback>
     <defaultgrade>1.0</defaultgrade>
     <single>true</single>
-    <shuffleanswers>true</shuffleanswers>
     <answer fraction="100">
-      <text>Коэффициент динамического использования грузоподъемности за день работы</text>
+      <text><![CDATA[<p>Коэффициент динамического использования грузоподъемности за день работы</p>]]></text>
     </answer>
     <answer fraction="0">
-      <text>Коэффициент динамического использования грузоподъемности за ездку</text>
+      <text><![CDATA[<p>Статический коэффициент использования грузоподъемности за день</p>]]></text>
     </answer>
     <answer fraction="0">
-      <text>Статический коэффициент использования грузоподъемности за день работы</text>
+      <text><![CDATA[<p>Средняя длина ездки с грузом</p>]]></text>
     </answer>
     <answer fraction="0">
-      <text>Средняя длина ездки с грузом</text>
+      <text><![CDATA[<p>Коэффициент нулевых пробегов</p>]]></text>
     </answer>
   </question>
 
-  <!-- Вопрос 7: Сопоставление 1 (Название -> Формула) -->
+  <!-- Вопрос 7: Вставь пропущенное (Общий пробег) -->
   <question type="multichoice">
     <name>
-      <text>Вопрос 7: Формула средней длины ездки</text>
+      <text>Пропуск: L_cc</text>
     </name>
     <questiontext format="html">
-      <text><![CDATA[<p>Выберите корректную формулу для расчета <strong>средней длины ездки с грузом</strong> (\(L_{eг}\)).</p>]]></text>
+      <text><![CDATA[<p>Закончите формулу общего (среднесуточного) пробега автомобиля:</p>
+      <p>\(L_{\text{сс}} = Z_{e} \cdot L_{eг} \cdot \beta_{e} \cdot (1 + ?)\)</p>]]></text>
     </questiontext>
     <generalfeedback format="html">
-      <text><![CDATA[<p>Средняя длина ездки с грузом находится делением общего пробега с грузом на количество ездок: \(L_{eг} = \frac{L_{\text{г}}}{Z_{e}}\).</p>]]></text>
+      <text><![CDATA[<p>Правильный ответ: \(w\) (коэффициент нулевых пробегов). Полная формула: \(L_{\text{сс}} = Z_{e} \cdot L_{eг} \cdot \beta_{e} \cdot (1 + w)\).</p>]]></text>
     </generalfeedback>
     <defaultgrade>1.0</defaultgrade>
     <single>true</single>
-    <shuffleanswers>true</shuffleanswers>
     <answer fraction="100">
-      <text>\(L_{eг} = \frac{L_{\text{г}}}{Z_{e}}\)</text>
+      <text><![CDATA[<p>\(w\)</p>]]></text>
     </answer>
     <answer fraction="0">
-      <text>\(L_{eг} = \frac{L_{\text{сс}}}{Z_{e}}\)</text>
+      <text><![CDATA[<p>\(\beta_{e}\)</p>]]></text>
     </answer>
     <answer fraction="0">
-      <text>\(L_{eг} = \frac{P}{W_{Q}}\)</text>
+      <text><![CDATA[<p>\(L_{0}\)</p>]]></text>
     </answer>
     <answer fraction="0">
-      <text>\(L_{eг} = L_{Q} \cdot \frac{\gamma_{\text{д}}}{\gamma_{\text{с}}}\)</text>
+      <text><![CDATA[<p>\(Z_{e}\)</p>]]></text>
     </answer>
   </question>
 
-  <!-- Вопрос 8: Сопоставление 3 (Показатель -> Его название) -->
+  <!-- Вопрос 8: Сопоставление 1 (Формула среднего расстояния перевозки) -->
   <question type="multichoice">
     <name>
-      <text>Вопрос 8: Что такое P?</text>
+      <text>Среднее расстояние перевозки</text>
     </name>
     <questiontext format="html">
-      <text><![CDATA[<p>Какой показатель в формулах обозначается буквой \(P\)?</p>]]></text>
+      <text><![CDATA[<p>Выберите верную формулу для расчета среднего расстояния перевозки одной тонны груза (\(L_{Q}\)):</p>]]></text>
     </questiontext>
     <generalfeedback format="html">
-      <text><![CDATA[<p>\(P\) — это грузооборот, измеряемый в тонно-километрах (т·км).</p>]]></text>
+      <text><![CDATA[<p>\(L_{Q} = \frac{P}{W_{Q}}\), где \(P\) — грузооборот (т·км), \(W_{Q}\) — объем перевозок (т).</p>]]></text>
     </generalfeedback>
     <defaultgrade>1.0</defaultgrade>
     <single>true</single>
-    <shuffleanswers>true</shuffleanswers>
     <answer fraction="100">
-      <text>Грузооборот</text>
+      <text><![CDATA[<p>\(L_{Q} = \frac{P}{W_{Q}}\)</p>]]></text>
     </answer>
     <answer fraction="0">
-      <text>Объем перевозок</text>
+      <text><![CDATA[<p>\(L_{Q} = \frac{L_{\text{г}}}{Z_{e}}\)</p>]]></text>
     </answer>
     <answer fraction="0">
-      <text>Пробег с грузом</text>
+      <text><![CDATA[<p>\(L_{Q} = L_{eг} \cdot \frac{\gamma_{\text{с}}}{\gamma_{\text{д}}}\)</p>]]></text>
     </answer>
     <answer fraction="0">
-      <text>Номинальная грузоподъемность</text>
+      <text><![CDATA[<p>\(L_{Q} = \frac{q_{\text{ф}}}{q}\)</p>]]></text>
     </answer>
   </question>
 
-  <!-- Вопрос 9: Вставь пропущенное (Связь L_ег и L_Q) -->
+  <!-- Вопрос 9: Сопоставление 3 (Что такое Ze) -->
   <question type="multichoice">
     <name>
-      <text>Вопрос 9: Связь длины ездки и расстояния перевозки</text>
+      <text>Понятие Ze</text>
     </name>
     <questiontext format="html">
-      <text><![CDATA[<p>Существует зависимость между средней длиной ездки с грузом (\(L_{eг}\)) и средним расстоянием перевозки одной тонны груза (\(L_{Q}\)):</p>
-      <p>$$L_{eг} = L_{Q} \cdot \frac{?}{\gamma_{\text{с}}}$$</p>
-      <p>Что пропущено?</p>]]></text>
+      <text><![CDATA[<p>Что обозначает переменная \(Z_{e}\) в формулах эксплуатационных расчетов?</p>]]></text>
     </questiontext>
     <generalfeedback format="html">
-      <text><![CDATA[<p>Пропущен коэффициент динамического использования грузоподъемности: \(L_{eг} = L_{Q} \cdot \frac{\gamma_{\text{д}}}{\gamma_{\text{с}}}\).</p>]]></text>
+      <text><![CDATA[<p>\(Z_{e}\) — это число ездок автомобиля за рабочий день (смену).</p>]]></text>
     </generalfeedback>
     <defaultgrade>1.0</defaultgrade>
     <single>true</single>
-    <shuffleanswers>true</shuffleanswers>
     <answer fraction="100">
-      <text>\(\gamma_{\text{д}}\)</text>
+      <text><![CDATA[<p>Число ездок за рабочий день</p>]]></text>
     </answer>
     <answer fraction="0">
-      <text>\(\beta_{e}\)</text>
+      <text><![CDATA[<p>Нулевой пробег</p>]]></text>
     </answer>
     <answer fraction="0">
-      <text>\(w\)</text>
+      <text><![CDATA[<p>Коэффициент использования пробега за ездку</p>]]></text>
     </answer>
     <answer fraction="0">
-      <text>\(Z_{e}\)</text>
+      <text><![CDATA[<p>Объем перевозок</p>]]></text>
     </answer>
   </question>
 
-  <!-- Вопрос 10: Сопоставление 2 (Формула -> Название) -->
+  <!-- Вопрос 10: Вставь пропущенное (Связь L_ег и L_Q) -->
   <question type="multichoice">
     <name>
-      <text>Вопрос 10: Формула связи бета и бета_е</text>
+      <text>Пропуск: Связь гамма</text>
     </name>
     <questiontext format="html">
-      <text><![CDATA[<p>Что рассчитывается по формуле \(\beta = \frac{\beta_{e}}{1 + w}\)?</p>]]></text>
+      <text><![CDATA[<p>Вставьте пропущенный элемент в формулу, связывающую среднюю длину ездки с грузом и среднее расстояние перевозки:</p>
+      <p>\(L_{eг} = L_{Q} \cdot \frac{?}{\gamma_{\text{с}}}\)</p>]]></text>
     </questiontext>
     <generalfeedback format="html">
-      <text><![CDATA[<p>Это формула коэффициента использования пробега за рабочий день, выраженная через коэффициент использования пробега за ездку (\(\beta_e\)) и коэффициент нулевых пробегов (\(w\)).</p>]]></text>
+      <text><![CDATA[<p>Правильный ответ: \(\gamma_{\text{д}}\). Формула: \(L_{eг} = L_{Q} \cdot \frac{\gamma_{\text{д}}}{\gamma_{\text{с}}}\).</p>]]></text>
     </generalfeedback>
     <defaultgrade>1.0</defaultgrade>
     <single>true</single>
-    <shuffleanswers>true</shuffleanswers>
     <answer fraction="100">
-      <text>Коэффициент использования пробега за рабочий день</text>
+      <text><![CDATA[<p>\(\gamma_{\text{д}}\)</p>]]></text>
     </answer>
     <answer fraction="0">
-      <text>Коэффициент использования пробега за ездку</text>
+      <text><![CDATA[<p>\(\gamma_{\text{с}}\)</p>]]></text>
     </answer>
     <answer fraction="0">
-      <text>Коэффициент нулевых пробегов</text>
+      <text><![CDATA[<p>\(q_{\text{ф}}\)</p>]]></text>
     </answer>
     <answer fraction="0">
-      <text>Среднее расстояние перевозки одной тонны груза</text>
+      <text><![CDATA[<p>\(W_{Q}\)</p>]]></text>
     </answer>
   </question>
 
-  <!-- Вопрос 11: Вставь пропущенное (Пробег с грузом) -->
+  <!-- Вопрос 11: Сопоставление 2 (Формула статического за день) -->
   <question type="multichoice">
     <name>
-      <text>Вопрос 11: Формула пробега с грузом</text>
+      <text>Формула гамма_с за день</text>
     </name>
     <questiontext format="html">
-      <text><![CDATA[<p>Пробег автомобиля с грузом (\(L_{\text{г}}\)) зависит от числа ездок (\(Z_e\)), средней длины ездки (\(L_{eг}\)) и коэффициента использования пробега за ездку:</p>
-      <p>$$L_{\text{г}} = Z_{e} \cdot L_{eг} \cdot ?$$</p>
-      <p>Какой коэффициент пропущен?</p>]]></text>
+      <text><![CDATA[<p>Какой показатель рассчитывается по формуле \(\gamma_{\text{с}} = \frac{W_{Q}}{q \cdot Z_{e}}\)?</p>]]></text>
     </questiontext>
     <generalfeedback format="html">
-      <text><![CDATA[<p>Пропущен коэффициент использования пробега за ездку (\(\beta_e\)): \(L_{\text{г}} = Z_{e} \cdot L_{eг} \cdot \beta_{e}\).</p>]]></text>
+      <text><![CDATA[<p>Это статический коэффициент использования грузоподъемности за рабочий день.</p>]]></text>
     </generalfeedback>
     <defaultgrade>1.0</defaultgrade>
     <single>true</single>
-    <shuffleanswers>true</shuffleanswers>
     <answer fraction="100">
-      <text>\(\beta_{e}\)</text>
+      <text><![CDATA[<p>Статический коэффициент использования грузоподъемности за день</p>]]></text>
     </answer>
     <answer fraction="0">
-      <text>\(\beta\)</text>
+      <text><![CDATA[<p>Коэффициент динамического использования грузоподъемности за день</p>]]></text>
     </answer>
     <answer fraction="0">
-      <text>\(\gamma_{\text{с}}\)</text>
+      <text><![CDATA[<p>Объем перевозок</p>]]></text>
     </answer>
     <answer fraction="0">
-      <text>\(\gamma_{\text{д}}\)</text>
+      <text><![CDATA[<p>Средняя длина ездки</p>]]></text>
     </answer>
   </question>
 
-  <!-- Вопрос 12: Сопоставление 1 (Название -> Формула) -->
+  <!-- Вопрос 12: Вставь пропущенное (Пробег с грузом) -->
   <question type="multichoice">
     <name>
-      <text>Вопрос 12: Формула грузооборота?</text>
+      <text>Пропуск: L_г</text>
     </name>
     <questiontext format="html">
-      <text><![CDATA[<p>Какая формула используется для расчета <strong>среднего расстояния перевозки одной тонны груза</strong> (\(L_Q\))?</p>]]></text>
+      <text><![CDATA[<p>Вставьте пропущенный сомножитель:</p>
+      <p>\(L_{\text{г}} = Z_{e} \cdot L_{eг} \cdot ?\)</p>]]></text>
     </questiontext>
     <generalfeedback format="html">
-      <text><![CDATA[<p>Среднее расстояние перевозки одной тонны груза находится делением грузооборота (\(P\)) на объем перевозок (\(W_Q\)): \(L_{Q} = \frac{P}{W_{Q}}\).</p>]]></text>
+      <text><![CDATA[<p>Правильный ответ: \(\beta_{e}\) (коэффициент использования пробега за ездку).</p>]]></text>
     </generalfeedback>
     <defaultgrade>1.0</defaultgrade>
     <single>true</single>
-    <shuffleanswers>true</shuffleanswers>
     <answer fraction="100">
-      <text>\(L_{Q} = \frac{P}{W_{Q}}\)</text>
+      <text><![CDATA[<p>\(\beta_{e}\)</p>]]></text>
     </answer>
     <answer fraction="0">
-      <text>\(L_{Q} = \frac{L_{\text{г}}}{Z_{e}}\)</text>
+      <text><![CDATA[<p>\(L_{0}\)</p>]]></text>
     </answer>
     <answer fraction="0">
-      <text>\(L_{Q} = L_{eг} \cdot \frac{\gamma_{\text{с}}}{\gamma_{\text{д}}}\)</text>
+      <text><![CDATA[<p>\(\gamma_{\text{с}}\)</p>]]></text>
     </answer>
     <answer fraction="0">
-      <text>\(L_{Q} = \frac{q_{\text{ф}}}{q}\)</text>
+      <text><![CDATA[<p>\(w\)</p>]]></text>
     </answer>
   </question>
 
-  <!-- Вопрос 13: Сопоставление 3 (Показатель -> Его название) -->
+  <!-- Вопрос 13: Сопоставление 1 (Формула средней длины ездки) -->
   <question type="multichoice">
     <name>
-      <text>Вопрос 13: Что такое W_Q?</text>
+      <text>Формула L_ег</text>
     </name>
     <questiontext format="html">
-      <text><![CDATA[<p>Как расшифровывается показатель \(W_Q\) в формулах?</p>]]></text>
+      <text><![CDATA[<p>Какая формула правильно рассчитывает среднюю длину ездки с грузом (\(L_{eг}\))?</p>]]></text>
     </questiontext>
     <generalfeedback format="html">
-      <text><![CDATA[<p>\(W_Q\) — это объем перевозок, измеряемый в тоннах (т).</p>]]></text>
+      <text><![CDATA[<p>Средняя длина ездки с грузом: \(L_{eг} = \frac{L_{\text{г}}}{Z_{e}}\).</p>]]></text>
     </generalfeedback>
     <defaultgrade>1.0</defaultgrade>
     <single>true</single>
-    <shuffleanswers>true</shuffleanswers>
     <answer fraction="100">
-      <text>Объем перевозок</text>
+      <text><![CDATA[<p>\(L_{eг} = \frac{L_{\text{г}}}{Z_{e}}\)</p>]]></text>
     </answer>
     <answer fraction="0">
-      <text>Грузооборот</text>
+      <text><![CDATA[<p>\(L_{eг} = \frac{P}{W_{Q}}\)</p>]]></text>
     </answer>
     <answer fraction="0">
-      <text>Производительность</text>
+      <text><![CDATA[<p>\(L_{eг} = Z_{e} \cdot L_{eг} \cdot \beta_{e}\)</p>]]></text>
     </answer>
     <answer fraction="0">
-      <text>Количество ездок</text>
+      <text><![CDATA[<p>\(L_{eг} = \frac{L_{0}}{L_{\text{сс}}}\)</p>]]></text>
     </answer>
   </question>
 
-  <!-- Вопрос 14: Вставь пропущенное (Статический коэффициент за день) -->
+  <!-- Вопрос 14: Сопоставление 3 (Понятие q_ф) -->
   <question type="multichoice">
     <name>
-      <text>Вопрос 14: Статический коэффициент за день</text>
+      <text>Понятие q_ф</text>
     </name>
     <questiontext format="html">
-      <text><![CDATA[<p>Статический коэффициент использования грузоподъемности за день (\(\gamma_{\text{с}}\)) можно рассчитать как:</p>
-      <p>$$\gamma_{\text{с}} = \frac{W_{Q}}{q \cdot ?}$$</p>
-      <p>Чего не хватает в знаменателе?</p>]]></text>
+      <text><![CDATA[<p>Что означает символ \(q_{\text{ф}}\) в формулах статического и динамического коэффициента?</p>]]></text>
     </questiontext>
     <generalfeedback format="html">
-      <text><![CDATA[<p>В знаменателе должно быть число ездок \(Z_e\): \(\gamma_{\text{с}} = \frac{W_{Q}}{q \cdot Z_{e}}\).</p>]]></text>
+      <text><![CDATA[<p>\(q_{\text{ф}}\) — это фактическое количество груза, перевезенного за одну ездку (в тоннах).</p>]]></text>
     </generalfeedback>
     <defaultgrade>1.0</defaultgrade>
     <single>true</single>
-    <shuffleanswers>true</shuffleanswers>
     <answer fraction="100">
-      <text>\(Z_{e}\)</text>
+      <text><![CDATA[<p>Количество фактически перевезенного груза за ездку</p>]]></text>
     </answer>
     <answer fraction="0">
-      <text>\(L_{\text{г}}\)</text>
+      <text><![CDATA[<p>Номинальная грузоподъемность</p>]]></text>
     </answer>
     <answer fraction="0">
-      <text>\(L_{eг}\)</text>
+      <text><![CDATA[<p>Грузооборот</p>]]></text>
     </answer>
     <answer fraction="0">
-      <text>\(\beta_{e}\)</text>
+      <text><![CDATA[<p>Объем перевозок</p>]]></text>
     </answer>
   </question>
 
-  <!-- Вопрос 15: Сопоставление 2 (Формула -> Название) -->
+  <!-- Вопрос 15: Вставь пропущенное (Упрощение динамического коэффициента) -->
   <question type="multichoice">
     <name>
-      <text>Вопрос 15: Формула гамма_д за ездку</text>
+      <text>Пропуск: Сокращение L_er</text>
     </name>
     <questiontext format="html">
-      <text><![CDATA[<p>Какой показатель характеризуется формулой \(\gamma_{\text{д}} = \frac{q_{\text{ф}} \cdot L_{er}}{q \cdot L_{er}}\)?</p>]]></text>
+      <text><![CDATA[<p>Вставьте пропущенное слово/символ, чтобы равенство стало верным:</p>
+      <p>\(\gamma_{\text{д}} = \frac{q_{\text{ф}} \cdot L_{er}}{q \cdot L_{er}} = \frac{?}{q}\)</p>]]></text>
     </questiontext>
     <generalfeedback format="html">
-      <text><![CDATA[<p>Это формула коэффициента динамического использования грузоподъемности за одну ездку, которая после сокращения \(L_{er}\) превращается в \(q_{\text{ф}}/q\).</p>]]></text>
+      <text><![CDATA[<p>При сокращении \(L_{er}\) в числителе и знаменателе остается \(\gamma_{\text{д}} = \frac{q_{\text{ф}}}{q}\).</p>]]></text>
     </generalfeedback>
     <defaultgrade>1.0</defaultgrade>
     <single>true</single>
-    <shuffleanswers>true</shuffleanswers>
     <answer fraction="100">
-      <text>Коэффициент динамического использования грузоподъемности за одну ездку с грузом</text>
+      <text><![CDATA[<p>\(q_{\text{ф}}\)</p>]]></text>
     </answer>
     <answer fraction="0">
-      <text>Коэффициент статического использования грузоподъемности за одну ездку</text>
+      <text><![CDATA[<p>\(L_{er}\)</p>]]></text>
     </answer>
     <answer fraction="0">
-      <text>Средняя длина ездки с грузом</text>
+      <text><![CDATA[<p>\(W_{Q}\)</p>]]></text>
     </answer>
     <answer fraction="0">
-      <text>Коэффициент использования пробега за ездку</text>
+      <text><![CDATA[<p>\(P\)</p>]]></text>
     </answer>
   </question>
 
