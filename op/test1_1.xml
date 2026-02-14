@@ -1,26 +1,3 @@
-Skip to content
-tregubovvn
-mt
-Repository navigation
-Code
-Issues
-Pull requests
-Actions
-Projects
-Wiki
-Security
-Insights
-Settings
-mt
-/Op/
-Deleting directory mt/Op. Commit changes to save.
-533
-Op/test1_1.xml
-Original file line number	Diff line number	Diff line change
-@@ -1,533 +0,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<quiz>
-<!-- Вопрос 1: Какой пробег считается производительным? -->
 <question type="multichoice">
     <name>
         <text>Вопрос 1</text>
