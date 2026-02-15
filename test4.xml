@@ -1,0 +1,4 @@
+<formulas>
+    <formula name="Квадратное уравнение">x = \frac{-b \pm \sqrt{b^2-4ac}}{2a}</formula>
+    <formula name="Теорема Пифагора">a^2 + b^2 = c^2</formula>
+</formulas>
