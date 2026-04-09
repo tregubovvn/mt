@@ -1,6 +1,6 @@
 <formulas>
     <formula name="Плотность груза">
-        <latex> \rho_{\text{г}}  =  m  /  V </latex>
+        <latex> '\rho_{\text{г}}'  =  m  /  V </latex>
         <symbols>
             <symbol char="m" name="Масса однородного груза, кг" />
             <symbol char="V" name="Объем груза, м^{3}" />
