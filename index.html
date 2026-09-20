@@ -3,439 +3,343 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Moodle XML Тестирование с формулами</title>
+    <title>Moodle XML Тестирование</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        * {
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        :root {
+            --bg: #eef1f6;
+            --surface: #ffffff;
+            --text: #0f172a;
+            --muted: #64748b;
+            --border: #e8ecf3;
+            --primary: #4f46e5;
+            --primary-2: #9333ea;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
         }
-        
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         body {
-            margin: 0;
-            padding: 20px;
-            background-color: #f5f7fa;
-            color: #333;
+            margin: 0; padding: 24px 16px;
+            font-family: 'Inter', system-ui, 'Segoe UI', sans-serif;
+            background: var(--bg);
+            background-image:
+                radial-gradient(1100px 500px at 8% -8%, rgba(99,102,241,.14), transparent 60%),
+                radial-gradient(900px 480px at 105% 8%, rgba(168,85,247,.12), transparent 60%);
+            color: var(--text);
             line-height: 1.6;
         }
-        
+        ::selection { background: #c7d2fe; }
         .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            max-width: 920px; margin: 0 auto;
+            background: var(--surface);
+            border-radius: 24px;
+            box-shadow: 0 1px 2px rgba(15,23,42,.05), 0 24px 60px rgba(15,23,42,.10);
             overflow: hidden;
         }
-        
-        header {
-            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-            color: white;
-            padding: 25px 30px;
-            text-align: center;
+
+        /* ===== Header ===== */
+        .app-header {
+            background: linear-gradient(120deg, #4338ca, #6d28d9 55%, #9333ea);
+            color: #fff; padding: 30px 30px 78px;
         }
-        
-        h1 {
-            margin: 0;
-            font-size: 28px;
+        .header-content { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+        .logo-mark {
+            width: 50px; height: 50px; border-radius: 15px; flex-shrink: 0;
+            background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.25);
+            display: flex; align-items: center; justify-content: center; font-size: 25px;
         }
-        
-        .subtitle {
-            margin-top: 5px;
-            opacity: 0.9;
+        .app-header h1 { margin: 0; font-size: 24px; font-weight: 800; letter-spacing: -.02em; }
+        .subtitle { margin: 4px 0 0; color: rgba(255,255,255,.78); font-size: 13.5px; }
+        .student-chip {
+            margin-left: auto; display: flex; align-items: center; gap: 9px;
+            background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.3);
+            border-radius: 999px; padding: 6px 15px 6px 7px;
+            font-size: 13px; font-weight: 600; backdrop-filter: blur(4px);
         }
-        
-        .main-content {
-            display: flex;
-            flex-direction: column;
-            padding: 25px;
+        .chip-avatar {
+            width: 27px; height: 27px; border-radius: 50%; background: #fff; color: #4338ca;
+            display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800;
         }
-        
-        .upload-section, .test-section, .results-section {
-            margin-bottom: 30px;
-            padding: 20px;
-            border-radius: 8px;
-            background-color: #f9fafc;
-            border: 1px solid #eaeef2;
+
+        /* ===== Layout ===== */
+        .main-content { padding: 0 26px 26px; margin-top: -48px; position: relative; }
+        .section {
+            background: #fff; border: 1px solid var(--border);
+            border-radius: 18px; padding: 24px; margin-bottom: 20px;
+            box-shadow: 0 1px 2px rgba(15,23,42,.04);
         }
-        
         .section-title {
-            margin-top: 0;
-            color: #2c3e50;
-            border-bottom: 2px solid #eaeef2;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
+            display: flex; align-items: center; gap: 10px;
+            margin: 0 0 18px; font-size: 17px; font-weight: 700;
         }
-        
-        .url-input-area {
-            border: 2px solid #eaeef2;
-            border-radius: 8px;
-            padding: 25px;
-            background-color: white;
+        .section-title .num {
+            width: 27px; height: 27px; border-radius: 9px; flex-shrink: 0;
+            background: #eef2ff; color: #4f46e5;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 13px; font-weight: 800;
         }
-        
-        .url-input-group {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
+        .hidden { display: none; }
+
+        /* ===== Inputs & buttons ===== */
+        .input-row { display: flex; gap: 10px; flex-wrap: wrap; }
+        .text-input {
+            flex: 1; min-width: 220px; padding: 13px 16px;
+            border: 1.5px solid #e2e8f0; border-radius: 12px;
+            font-size: 15px; font-family: inherit; background: #f8fafc;
+            transition: border-color .2s, box-shadow .2s, background .2s;
         }
-        
-        .url-input {
-            flex: 1;
-            padding: 12px 15px;
-            border: 2px solid #eaeef2;
-            border-radius: 6px;
-            font-size: 16px;
-            transition: border-color 0.3s;
+        .text-input:focus {
+            outline: none; border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(99,102,241,.15); background: #fff;
         }
-        
-        .url-input:focus {
-            outline: none;
-            border-color: #6a11cb;
-        }
-        
-        .url-input::placeholder {
-            color: #999;
-        }
-        
+        .text-input::placeholder { color: #94a3b8; }
         .btn {
-            background: linear-gradient(to right, #6a11cb, #2575fc);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 600;
-            transition: all 0.3s;
-            white-space: nowrap;
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            border: none; padding: 12px 20px; border-radius: 12px;
+            font-size: 14px; font-weight: 600; font-family: inherit;
+            cursor: pointer; white-space: nowrap;
+            transition: transform .15s, box-shadow .2s, background .2s, border-color .2s;
         }
-        
-        .btn:hover {
-            opacity: 0.9;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        .btn:active { transform: scale(.97); }
+        .btn-primary {
+            background: linear-gradient(120deg, #4f46e5, #7c3aed); color: #fff;
+            box-shadow: 0 6px 16px rgba(79,70,229,.30);
         }
-        
-        .btn:disabled {
-            background: #cccccc;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
+        .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 10px 22px rgba(79,70,229,.38); }
+        .btn-dark { background: #0f172a; color: #fff; }
+        .btn-dark:hover { background: #1e293b; transform: translateY(-1px); }
+        .btn-success {
+            background: linear-gradient(120deg, #059669, #10b981); color: #fff;
+            box-shadow: 0 6px 16px rgba(16,185,129,.30);
         }
-        
-        .btn-qr {
-            background: linear-gradient(to right, #11998e, #38ef7d);
+        .btn-success:hover { transform: translateY(-1px); }
+        .btn-ghost { background: #fff; border: 1.5px solid #e2e8f0; color: #334155; }
+        .btn-ghost:hover { border-color: #c7d2fe; background: #f8faff; }
+        .btn:disabled { opacity: .5; cursor: not-allowed; transform: none !important; box-shadow: none; }
+        .link-btn {
+            background: none; border: none; color: #6366f1; cursor: pointer;
+            font-family: inherit; font-weight: 600; font-size: 14px; padding: 8px;
         }
-        
-        .btn-yandex {
-            background: linear-gradient(to right, #FF0000, #FF8C00);
-        }
-        
-        .qr-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s, visibility 0.3s;
-        }
-        
-        .qr-modal.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .qr-modal-content {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            max-width: 500px;
-            width: 90%;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            transform: translateY(-20px);
-            transition: transform 0.3s;
-        }
-        
-        .qr-modal.active .qr-modal-content {
-            transform: translateY(0);
-        }
-        
-        .qr-modal h3 {
-            margin-top: 0;
-            color: #2c3e50;
-            margin-bottom: 20px;
-        }
-        
-        #qrScannerContainer {
-            margin: 20px 0;
-            padding: 20px;
-            background-color: #f8f9fa;
-            border: 1px solid #eaeef2;
-            border-radius: 8px;
-            min-height: 300px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        #qrVideo {
-            width: 100%;
-            max-width: 300px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-        }
-        
-        .qr-instruction {
-            margin-top: 15px;
-            padding: 15px;
-            background-color: #f8f9fa;
-            border-radius: 6px;
-            font-size: 14px;
-            color: #666;
-            text-align: left;
-        }
-        
-        .qr-instruction ol {
-            margin: 10px 0 0 0;
-            padding-left: 20px;
-        }
-        
-        .qr-instruction li {
-            margin-bottom: 8px;
-        }
-        
-        .close-qr-btn {
-            background: #6c757d;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-            margin-top: 15px;
-            transition: background-color 0.3s;
-        }
-        
-        .close-qr-btn:hover {
-            background: #5a6268;
-        }
-        
-        .example-links {
-            margin-top: 15px;
-            padding: 15px;
-            background-color: #f8f9fa;
-            border-radius: 6px;
-            border-left: 4px solid #6a11cb;
-        }
-        
-        .example-links h4 {
-            margin-top: 0;
-            color: #2c3e50;
-        }
-        
-        .example-links ul {
-            margin: 10px 0 0 0;
-            padding-left: 20px;
-        }
-        
-        .example-links li {
-            margin-bottom: 8px;
-        }
-        
-        .example-link {
-            color: #2575fc;
-            text-decoration: none;
-            cursor: pointer;
-            border-bottom: 1px dotted #2575fc;
-        }
-        
-        .example-link:hover {
-            color: #6a11cb;
-            border-bottom-style: solid;
-        }
-        
-        .timer-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px;
-            background-color: #2c3e50;
-            color: white;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-        
-        .timer {
-            font-size: 28px;
-            font-weight: bold;
-            font-family: monospace;
-        }
-        
-        .question {
-            margin-bottom: 25px;
-            padding: 20px;
-            background-color: white;
-            border-radius: 8px;
-            border-left: 5px solid #6a11cb;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
-        }
-        
-        .question-text {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 15px;
-            color: #2c3e50;
-        }
-        
-        /* Стили для формул */
-        .formula-container {
-            overflow-x: auto;
-            padding: 10px 0;
-        }
-        
-        .math-inline, .math-display {
-            font-size: 1.1em;
-        }
-        
-        .answer-option {
-            margin-bottom: 10px;
-            padding: 12px 15px;
-            background-color: #f8f9fa;
-            border-radius: 6px;
-            border: 1px solid #eaeef2;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .answer-option:hover {
-            background-color: #edf2ff;
-            border-color: #6a11cb;
-        }
-        
-        .answer-option.selected {
-            background-color: #e1e8ff;
-            border-color: #2575fc;
-        }
-        
-        .answer-option.correct {
-            background-color: #d4edda;
-            border-color: #28a745;
-        }
-        
-        .answer-option.incorrect {
-            background-color: #f8d7da;
-            border-color: #dc3545;
-        }
-        
-        .answer-option .math-inline {
-            display: inline-block;
-        }
-        
-        .results-summary {
-            text-align: center;
-            padding: 20px;
-            background-color: white;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
-        }
-        
-        .score {
-            font-size: 48px;
-            font-weight: bold;
-            color: #2575fc;
-            margin: 10px 0;
-        }
-        
-        .hidden {
-            display: none;
-        }
-        
+        .link-btn:hover { text-decoration: underline; }
+
+        /* ===== Status ===== */
         .status-message {
-            padding: 15px;
-            border-radius: 6px;
-            margin-bottom: 20px;
-            text-align: center;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            padding: 12px 16px; border-radius: 12px; margin-top: 14px;
+            font-size: 14px; font-weight: 500; animation: fadeIn .25s;
         }
-        
-        .success {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
+        .success { background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; }
+        .error   { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+        .loading { background: #eef2ff; color: #3730a3; border: 1px solid #c7d2fe; }
+        .loading::before {
+            content: ''; width: 14px; height: 14px; flex-shrink: 0;
+            border: 2px solid #6366f1; border-top-color: transparent;
+            border-radius: 50%; animation: spin .7s linear infinite;
         }
-        
-        .error {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; } }
+
+        /* ===== Quiz ===== */
+        .quiz-topbar {
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 12px; flex-wrap: wrap; margin-bottom: 14px;
         }
-        
-        .loading {
-            background-color: #d1ecf1;
-            color: #0c5460;
-            border: 1px solid #bee5eb;
+        .timer-pill {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: #0f172a; color: #fff; padding: 9px 17px;
+            border-radius: 999px; font-weight: 700; font-size: 15px;
+            font-variant-numeric: tabular-nums;
         }
-        
-        .question-counter {
-            font-size: 16px;
-            color: #7f8c8d;
+        .counter-pill {
+            background: #f1f5f9; border: 1px solid #e2e8f0; border-radius: 999px;
+            padding: 9px 16px; font-size: 13.5px; font-weight: 600; color: #475569;
         }
-        
-        .test-controls {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
+        .progress-track {
+            height: 8px; background: #eef1f6; border-radius: 999px;
+            overflow: hidden; margin-bottom: 22px;
         }
-        
-        footer {
-            text-align: center;
-            padding: 20px;
-            color: #7f8c8d;
-            font-size: 14px;
-            border-top: 1px solid #eaeef2;
+        .progress-fill {
+            height: 100%; width: 0; border-radius: 999px;
+            background: linear-gradient(90deg, #4f46e5, #a855f7);
+            transition: width .35s ease;
         }
-        
-        @media (max-width: 768px) {
-            .main-content {
-                padding: 15px;
-            }
-            
-            .upload-section, .test-section, .results-section {
-                padding: 15px;
-            }
-            
-            .url-input-group {
-                flex-direction: column;
-            }
-            
-            .timer-container {
-                flex-direction: column;
-                gap: 15px;
-                text-align: center;
-            }
-            
-            .test-controls {
-                flex-direction: column;
-                gap: 10px;
-            }
-            
-            .btn {
-                width: 100%;
-            }
+
+        .question {
+            background: #fff; border: 1.5px solid var(--border);
+            border-radius: 16px; padding: 22px; margin-bottom: 18px; animation: fadeIn .3s;
+        }
+        .question-text { font-size: 16.5px; font-weight: 600; margin-bottom: 16px; }
+        .formula-container { overflow-x: auto; padding: 4px 0; }
+        .math-inline, .math-display { font-size: 1.08em; }
+
+        .answer-option {
+            display: flex; align-items: center; gap: 13px;
+            padding: 13px 15px; margin-bottom: 10px;
+            background: #fff; border: 1.5px solid var(--border);
+            border-radius: 13px; cursor: pointer; transition: all .18s;
+        }
+        .answer-option:hover {
+            border-color: #a5b4fc; transform: translateY(-1px);
+            box-shadow: 0 4px 14px rgba(79,70,229,.10);
+        }
+        .answer-option.selected { border-color: var(--primary); background: #eef2ff; }
+        .answer-option.correct   { border-color: var(--success); background: #ecfdf5; }
+        .answer-option.incorrect { border-color: var(--danger);  background: #fef2f2; }
+        .answer-option .formula-container { flex: 1; min-width: 0; }
+        .answer-letter {
+            width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
+            background: #f1f5f9; color: var(--muted);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 13px; font-weight: 800; transition: .18s;
+        }
+        .answer-option.selected .answer-letter { background: var(--primary); color: #fff; }
+
+        .test-controls { display: flex; gap: 10px; justify-content: space-between; flex-wrap: wrap; margin-top: 8px; }
+
+        /* ===== Results ===== */
+        .results-hero {
+            border: 1px solid var(--border); border-radius: 20px;
+            padding: 28px 22px; text-align: center; margin-bottom: 20px;
+            background: linear-gradient(180deg, #fafbff, #fff);
+        }
+        .student-badge {
+            display: inline-flex; align-items: center; gap: 13px;
+            background: #f8fafc; border: 1px solid var(--border);
+            border-radius: 999px; padding: 8px 20px 8px 9px; margin-bottom: 22px;
+        }
+        .avatar {
+            width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0;
+            background: linear-gradient(135deg, #4f46e5, #9333ea); color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 800; font-size: 15px;
+        }
+        .student-label {
+            font-size: 10.5px; text-transform: uppercase; letter-spacing: .09em;
+            color: #94a3b8; font-weight: 700; text-align: left;
+        }
+        .student-name { font-weight: 700; font-size: 15px; text-align: left; }
+        .score-wrap { position: relative; width: 180px; height: 180px; margin: 0 auto 6px; }
+        .score-ring { transform: rotate(-90deg); }
+        .ring-bg { fill: none; stroke: #eef1f6; stroke-width: 14; }
+        .ring-fill {
+            fill: none; stroke: url(#ringGrad); stroke-width: 14; stroke-linecap: round;
+            stroke-dasharray: 440; stroke-dashoffset: 440;
+            transition: stroke-dashoffset 1.2s cubic-bezier(.4, 0, .2, 1);
+        }
+        .ring-center {
+            position: absolute; inset: 0;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+        .score {
+            font-size: 40px; font-weight: 800; letter-spacing: -.03em; line-height: 1.1;
+            background: linear-gradient(120deg, #4f46e5, #9333ea);
+            -webkit-background-clip: text; background-clip: text; color: transparent;
+        }
+        .grade-pill {
+            display: inline-block; margin-top: 14px; padding: 7px 18px;
+            border-radius: 999px; font-weight: 700; font-size: 14px;
+        }
+        .grade-5 { background: #ecfdf5; color: #059669; }
+        .grade-4 { background: #eff6ff; color: #2563eb; }
+        .grade-3 { background: #fffbeb; color: #b45309; }
+        .grade-0, .grade-1, .grade-2 { background: #fef2f2; color: #dc2626; }
+        .stats-row {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 12px; margin-top: 20px;
+        }
+        .stat { background: #f8fafc; border: 1px solid #eef1f6; border-radius: 14px; padding: 14px; }
+        .stat-value { font-size: 21px; font-weight: 800; }
+        .stat-label { font-size: 12px; color: var(--muted); font-weight: 600; margin-top: 2px; }
+        .results-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 20px; }
+
+        .status-badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 6px 13px; border-radius: 999px;
+            font-size: 12.5px; font-weight: 700; margin-bottom: 12px;
+        }
+        .status-badge.correct   { background: #ecfdf5; color: #059669; }
+        .status-badge.incorrect { background: #fef2f2; color: #dc2626; }
+        .status-badge.skipped   { background: #fffbeb; color: #b45309; }
+        .answer-line {
+            display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap;
+            padding: 10px 14px; border-radius: 10px;
+            background: #f8fafc; margin-top: 8px; font-size: 14.5px;
+        }
+
+        /* ===== Overlays ===== */
+        .overlay {
+            position: fixed; inset: 0; z-index: 2000; padding: 20px;
+            display: flex; align-items: center; justify-content: center;
+            background: rgba(15, 23, 42, .62); backdrop-filter: blur(8px);
+            transition: opacity .3s, visibility .3s;
+        }
+        .overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+        .overlay-card {
+            background: #fff; border-radius: 24px; padding: 34px;
+            max-width: 480px; width: 100%;
+            box-shadow: 0 30px 80px rgba(15,23,42,.35);
+            animation: pop .35s cubic-bezier(.34, 1.4, .64, 1);
+            max-height: 92vh; overflow-y: auto;
+        }
+        @keyframes pop { from { opacity: 0; transform: translateY(18px) scale(.96); } to { opacity: 1; } }
+        .welcome-logo {
+            width: 64px; height: 64px; margin: 0 auto 18px; border-radius: 19px;
+            background: linear-gradient(135deg, #4f46e5, #9333ea);
+            display: flex; align-items: center; justify-content: center; font-size: 30px;
+            box-shadow: 0 10px 24px rgba(79,70,229,.35);
+        }
+        .overlay-card h2 { margin: 0 0 6px; text-align: center; font-size: 21px; font-weight: 800; }
+        .overlay-card > p { margin: 0 0 4px; text-align: center; color: var(--muted); font-size: 14px; }
+        .name-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 22px 0 4px; }
+        .field { display: flex; flex-direction: column; gap: 6px; text-align: left; }
+        .field-full { grid-column: 1 / -1; }
+        .field label { font-size: 12.5px; font-weight: 700; color: #475569; }
+        .field input {
+            padding: 12px 14px; border: 1.5px solid #e2e8f0; border-radius: 12px;
+            font-size: 15px; font-family: inherit; background: #f8fafc; transition: .2s;
+        }
+        .field input:focus {
+            outline: none; border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(99,102,241,.14); background: #fff;
+        }
+        .name-error {
+            margin-top: 14px; background: #fef2f2; color: #b91c1c;
+            border: 1px solid #fecaca; border-radius: 10px;
+            padding: 10px 14px; font-size: 13.5px; font-weight: 500;
+        }
+        .overlay-actions { margin-top: 20px; }
+        .overlay-actions .btn { width: 100%; padding: 14px; font-size: 15px; }
+
+        #qrVideo { width: 100%; max-width: 300px; border-radius: 12px; }
+        .qr-instruction {
+            margin-top: 16px; padding: 15px; text-align: left;
+            background: #f8fafc; border-radius: 12px; font-size: 13.5px; color: var(--muted);
+        }
+        .qr-instruction ol { margin: 10px 0 0 0; padding-left: 20px; }
+        .qr-instruction li { margin-bottom: 7px; }
+        #qrStatus { margin: 14px 0 4px; font-weight: 600; }
+
+        footer { text-align: center; padding: 22px; color: #94a3b8; font-size: 13px; border-top: 1px solid #eef1f6; }
+        footer p { margin: 4px 0; }
+
+        @media (max-width: 640px) {
+            body { padding: 12px 8px; }
+            .app-header { padding: 24px 20px 70px; }
+            .main-content { padding: 0 14px 14px; }
+            .section { padding: 18px 16px; }
+            .student-chip { margin-left: 0; }
+            .name-grid { grid-template-columns: 1fr; }
+            .input-row .btn, .test-controls .btn { width: 100%; }
+            .stats-row { grid-template-columns: 1fr; }
         }
     </style>
-    <!-- Подключаем библиотеку для сканирования QR-кодов -->
+    <!-- Библиотека сканирования QR-кодов -->
     <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
-    <!-- Подключаем MathJax для рендеринга формул -->
+    <!-- MathJax -->
     <script>
         window.MathJax = {
             tex: {
@@ -459,107 +363,162 @@
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>Moodle XML Тестирование с формулами</h1>
-            <p class="subtitle">Укажите ссылку на тест в формате Moodle XML и пройдите его с отслеживанием времени и результатов</p>
+        <header class="app-header">
+            <div class="header-content">
+                <div class="logo-mark">🎓</div>
+                <div>
+                    <h1>Moodle XML Тестирование</h1>
+                    <p class="subtitle">Формулы LaTeX · Таймер · Автоматическая проверка</p>
+                </div>
+                <div class="student-chip hidden" id="studentChip">
+                    <span class="chip-avatar" id="chipAvatar">—</span>
+                    <span id="chipName">—</span>
+                </div>
+            </div>
         </header>
-        
+
         <div class="main-content">
-            <!-- Секция загрузки файла по ссылке -->
-            <section class="upload-section">
-                <h2 class="section-title">Загрузка теста по ссылке</h2>
-                
-                <div class="url-input-area">
-                    <div class="url-input-group">
-                        <input type="url" id="urlInput" class="url-input" 
-                               placeholder="https://example.com/test.xml" 
-                               value="">
-                        <button id="loadUrlBtn" class="btn">Загрузить тест</button>
-                        <button id="qrCodeBtn" class="btn btn-qr">QR-код</button>
-                        <button id="yandexBtn" class="btn btn-yandex">Яндекс.Диск</button>
-                    </div>
-                    
-                    <div id="uploadStatus" class="status-message hidden"></div>
-                    
-                    
+            <!-- Секция загрузки теста (скрывается, если ссылка указана в URL) -->
+            <section id="uploadSection" class="section">
+                <h2 class="section-title"><span class="num">1</span> Загрузка теста</h2>
+
+                <div class="input-row">
+                    <input type="url" id="urlInput" class="text-input"
+                           placeholder="https://example.com/test.xml">
+                    <button id="loadUrlBtn" class="btn btn-primary">🔗 Загрузить</button>
+                    <button id="qrCodeBtn" class="btn btn-dark">📷 QR-код</button>
+                    <button id="yandexBtn" class="btn btn-ghost">☁️ Яндекс.Диск</button>
+                    <button id="demoBtn" class="btn btn-ghost">▶ Демо-тест</button>
                 </div>
+
+                <div id="uploadStatus" class="status-message hidden"></div>
             </section>
-            
+
             <!-- Секция тестирования -->
-            <section id="testSection" class="test-section hidden">
-                <h2 class="section-title">Тестирование</h2>
-                
-                <div class="timer-container">
-                    <div>
-                        <div>Время тестирования:</div>
-                        <div class="timer" id="timer">00:00:00</div>
+            <section id="testSection" class="section hidden">
+                <h2 class="section-title"><span class="num">2</span> Тестирование</h2>
+
+                <div class="quiz-topbar">
+                    <div class="timer-pill">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+                        <span id="timer">00:00:00</span>
                     </div>
-                    <div class="question-counter">
-                        Вопрос <span id="currentQuestion">1</span> из <span id="totalQuestions">0</span>
-                    </div>
+                    <div class="counter-pill">Вопрос <span id="currentQuestion">1</span> из <span id="totalQuestions">0</span></div>
                 </div>
-                
-                <div id="questionsContainer">
-                    <!-- Вопросы будут добавлены здесь динамически -->
-                </div>
-                
+                <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+                <div id="questionsContainer"></div>
+
                 <div class="test-controls">
-                    <button id="prevBtn" class="btn" disabled>Предыдущий вопрос</button>
-                    <button id="nextBtn" class="btn">Следующий вопрос</button>
-                    <button id="finishBtn" class="btn">Завершить тест</button>
+                    <button id="prevBtn" class="btn btn-ghost" disabled>← Назад</button>
+                    <button id="nextBtn" class="btn btn-primary">Вперёд →</button>
+                    <button id="finishBtn" class="btn btn-success">✓ Завершить тест</button>
                 </div>
             </section>
-            
+
             <!-- Секция результатов -->
-            <section id="resultsSection" class="results-section hidden">
-                <h2 class="section-title">Результаты тестирования</h2>
-                
-                <div class="results-summary">
-                    <h3>Тест завершен!</h3>
-                    <div class="score" id="score">0%</div>
-                    <p>Правильных ответов: <span id="correctAnswers">0</span> из <span id="totalAnswers">0</span></p>
-                    <p>Затраченное время: <span id="timeSpent">00:00:00</span></p>
-                    <button id="restartBtn" class="btn">Пройти тест снова</button>
+            <section id="resultsSection" class="section hidden">
+                <h2 class="section-title"><span class="num">3</span> Результаты</h2>
+
+                <div class="results-hero">
+                    <div class="student-badge">
+                        <div class="avatar" id="resultAvatar">—</div>
+                        <div>
+                            <div class="student-label">Студент</div>
+                            <div class="student-name" id="resultStudentName">—</div>
+                        </div>
+                    </div>
+
+                    <div class="score-wrap">
+                        <svg class="score-ring" width="180" height="180" viewBox="0 0 180 180">
+                            <defs>
+                                <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#4f46e5"/>
+                                    <stop offset="100%" stop-color="#a855f7"/>
+                                </linearGradient>
+                            </defs>
+                            <circle class="ring-bg" cx="90" cy="90" r="70"/>
+                            <circle id="scoreRing" class="ring-fill" cx="90" cy="90" r="70"/>
+                        </svg>
+                        <div class="ring-center">
+                            <div class="score" id="score">0%</div>
+                            <div class="grade-pill grade-0" id="gradePill">Оценка: —</div>
+                        </div>
+                    </div>
+
+                    <div class="stats-row">
+                        <div class="stat"><div class="stat-value" id="correctAnswers">0</div><div class="stat-label">Правильных</div></div>
+                        <div class="stat"><div class="stat-value" id="totalAnswers">0</div><div class="stat-label">Всего вопросов</div></div>
+                        <div class="stat"><div class="stat-value" id="timeSpent">00:00:00</div><div class="stat-label">Время</div></div>
+                    </div>
+
+                    <div class="results-actions">
+                        <button id="restartBtn" class="btn btn-primary">↻ Пройти тест снова</button>
+                        <button id="changeNameBtn" class="link-btn">Сменить ФИО</button>
+                    </div>
                 </div>
-                
-                <div id="detailedResults">
-                    <!-- Детальные результаты будут добавлены здесь -->
-                </div>
+
+                <div id="detailedResults"></div>
             </section>
         </div>
-        
+
         <footer>
             <p>Приложение для тестирования на основе формата Moodle XML с поддержкой формул LaTeX</p>
-            <p>Укажите ссылку на XML файл теста Moodle, чтобы начать тестирование</p>
         </footer>
     </div>
 
-    <!-- Модальное окно для сканирования QR-кода -->
-    <div id="qrModal" class="qr-modal">
-        <div class="qr-modal-content">
-            <h3>Сканирование QR-кода</h3>
-            
-            <div id="qrScannerContainer">
+    <!-- Приветственное окно: ввод ФИО -->
+    <div id="welcomeOverlay" class="overlay">
+        <div class="overlay-card">
+            <div class="welcome-logo">🎓</div>
+            <h2>Добро пожаловать!</h2>
+            <p>Прежде чем начать тестирование, представьтесь, пожалуйста</p>
+            <div class="name-grid">
+                <div class="field">
+                    <label for="lastNameInput">Фамилия *</label>
+                    <input type="text" id="lastNameInput" placeholder="Иванов" autocomplete="family-name">
+                </div>
+                <div class="field">
+                    <label for="firstNameInput">Имя *</label>
+                    <input type="text" id="firstNameInput" placeholder="Иван" autocomplete="given-name">
+                </div>
+                <div class="field field-full">
+                    <label for="middleNameInput">Отчество</label>
+                    <input type="text" id="middleNameInput" placeholder="Иванович (необязательно)" autocomplete="additional-name">
+                </div>
+            </div>
+            <div id="nameError" class="name-error hidden"></div>
+            <div class="overlay-actions">
+                <button id="confirmNameBtn" class="btn btn-primary">Продолжить →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно сканера QR-кода -->
+    <div id="qrModal" class="overlay hidden">
+        <div class="overlay-card" style="text-align:center;">
+            <h2>Сканирование QR-кода</h2>
+            <div style="margin:18px 0;">
                 <video id="qrVideo" playsinline></video>
                 <div id="qrStatus">Наведите камеру на QR-код</div>
             </div>
-            
             <div class="qr-instruction">
-                <p><strong>Инструкция:</strong></p>
+                <strong>Инструкция:</strong>
                 <ol>
-                    <li>Наведите камеру на QR-код с ссылкой на тест</li>
-                    <li>QR-код должен содержать ссылку на Moodle XML файл</li>
-                    <li>Ссылка автоматически вставится в поле для загрузки</li>
-                    <li>Модальное окно закроется после сканирования</li>
+                    <li>Наведите камеру на QR-код со ссылкой на тест</li>
+                    <li>Код должен содержать ссылку на Moodle XML файл</li>
+                    <li>Ссылка автоматически вставится в поле загрузки</li>
+                    <li>Окно закроется после сканирования</li>
                 </ol>
             </div>
-            
-            <button id="closeQrBtn" class="close-qr-btn">Закрыть сканер</button>
+            <div class="overlay-actions">
+                <button id="closeQrBtn" class="btn btn-ghost">Закрыть сканер</button>
+            </div>
         </div>
     </div>
 
     <script>
-        // Глобальные переменные
+        // ===== Глобальные переменные =====
         let questions = [];
         let currentQuestionIndex = 0;
         let userAnswers = [];
@@ -568,12 +527,17 @@
         let timeSpent = 0;
         let qrScannerActive = false;
         let videoStream = null;
-        
-        // Элементы DOM
+        let studentName = '';
+        let pendingStartAfterName = false; // тест загружен, ждём подтверждения ФИО
+        const LETTERS = ['А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ж', 'З', 'И', 'К'];
+
+        // ===== Элементы DOM =====
+        const uploadSection = document.getElementById('uploadSection');
         const urlInput = document.getElementById('urlInput');
         const loadUrlBtn = document.getElementById('loadUrlBtn');
         const qrCodeBtn = document.getElementById('qrCodeBtn');
         const yandexBtn = document.getElementById('yandexBtn');
+        const demoBtn = document.getElementById('demoBtn');
         const uploadStatus = document.getElementById('uploadStatus');
         const testSection = document.getElementById('testSection');
         const questionsContainer = document.getElementById('questionsContainer');
@@ -582,370 +546,229 @@
         const finishBtn = document.getElementById('finishBtn');
         const resultsSection = document.getElementById('resultsSection');
         const scoreElement = document.getElementById('score');
+        const scoreRing = document.getElementById('scoreRing');
+        const gradePill = document.getElementById('gradePill');
         const correctAnswersElement = document.getElementById('correctAnswers');
         const totalAnswersElement = document.getElementById('totalAnswers');
         const timeSpentElement = document.getElementById('timeSpent');
         const restartBtn = document.getElementById('restartBtn');
+        const changeNameBtn = document.getElementById('changeNameBtn');
         const timerElement = document.getElementById('timer');
         const currentQuestionElement = document.getElementById('currentQuestion');
         const totalQuestionsElement = document.getElementById('totalQuestions');
+        const progressFill = document.getElementById('progressFill');
         const detailedResults = document.getElementById('detailedResults');
         const qrModal = document.getElementById('qrModal');
         const qrVideo = document.getElementById('qrVideo');
         const qrStatus = document.getElementById('qrStatus');
         const closeQrBtn = document.getElementById('closeQrBtn');
+        const studentChip = document.getElementById('studentChip');
+        const chipAvatar = document.getElementById('chipAvatar');
+        const chipName = document.getElementById('chipName');
+        const resultAvatar = document.getElementById('resultAvatar');
+        const resultStudentName = document.getElementById('resultStudentName');
 
-        // Константа для API Яндекс.Диска
+        // Элементы приветственного окна
+        const welcomeOverlay = document.getElementById('welcomeOverlay');
+        const lastNameInput = document.getElementById('lastNameInput');
+        const firstNameInput = document.getElementById('firstNameInput');
+        const middleNameInput = document.getElementById('middleNameInput');
+        const nameError = document.getElementById('nameError');
+        const confirmNameBtn = document.getElementById('confirmNameBtn');
+
         const BASE_PUBLIC_YANDEX_DISK_URL_PREFIX = 'https://cloud-api.yandex.net/v1/disk/public/resources/download?public_key=';
 
-        // Функция для загрузки демо-теста с формулами
+        // ===== Вспомогательные функции =====
+        function isAnyOverlayOpen() {
+            return !welcomeOverlay.classList.contains('hidden') ||
+                   !qrModal.classList.contains('hidden');
+        }
+
+        function updateScrollLock() {
+            document.body.style.overflow = isAnyOverlayOpen() ? 'hidden' : 'auto';
+        }
+
+        // ===== Логика ФИО =====
+        function getFullName() {
+            return [lastNameInput.value.trim(), firstNameInput.value.trim(), middleNameInput.value.trim()]
+                .filter(Boolean).join(' ');
+        }
+
+        function updateStudentUI() {
+            const parts = studentName.split(' ').filter(Boolean);
+            const initials = ((parts[0] || '')[0] || '') + ((parts[1] || '')[0] || '');
+            chipAvatar.textContent = initials || '—';
+            chipName.textContent = parts.length > 1
+                ? `${parts[0]} ${parts[1][0]}.` : studentName;
+            studentChip.classList.remove('hidden');
+            resultStudentName.textContent = studentName;
+            resultAvatar.textContent = initials || '—';
+        }
+
+        function confirmName() {
+            const l = lastNameInput.value.trim();
+            const f = firstNameInput.value.trim();
+            nameError.classList.add('hidden');
+            if (l.length < 2 || f.length < 2) {
+                nameError.textContent = 'Пожалуйста, укажите фамилию и имя (минимум 2 символа)';
+                nameError.classList.remove('hidden');
+                return;
+            }
+            studentName = getFullName();
+            try {
+                localStorage.setItem('quizStudent', JSON.stringify({
+                    l, f, m: middleNameInput.value.trim()
+                }));
+            } catch (e) { console.warn('localStorage недоступен', e); }
+            updateStudentUI();
+            welcomeOverlay.classList.add('hidden');
+            updateScrollLock();
+
+            // Если тест уже был загружен автоматически из URL — запускаем его
+            if (pendingStartAfterName && questions.length > 0) {
+                pendingStartAfterName = false;
+                startTest();
+            } else if (!uploadSection.classList.contains('hidden')) {
+                urlInput.focus();
+            }
+        }
+
+        confirmNameBtn.addEventListener('click', confirmName);
+        [lastNameInput, firstNameInput, middleNameInput].forEach(inp => {
+            inp.addEventListener('keydown', e => { if (e.key === 'Enter') confirmName(); });
+        });
+
+        changeNameBtn.addEventListener('click', () => {
+            try {
+                const saved = JSON.parse(localStorage.getItem('quizStudent') || 'null');
+                if (saved) {
+                    lastNameInput.value = saved.l || '';
+                    firstNameInput.value = saved.f || '';
+                    middleNameInput.value = saved.m || '';
+                }
+            } catch (e) {}
+            welcomeOverlay.classList.remove('hidden');
+            updateScrollLock();
+        });
+
+        // ===== Чтение ссылки на тест из адресной строки =====
+        function getTestUrlFromLocation() {
+            try {
+                const params = new URLSearchParams(window.location.search);
+                // Поддерживаем несколько имён параметров: name (как раньше), test, url
+                return params.get('name') || params.get('test') || params.get('url') || '';
+            } catch (e) {
+                console.error('Ошибка парсинга URL параметров:', e);
+                return '';
+            }
+        }
+
+        // ===== Общая функция загрузки и парсинга теста =====
+        async function fetchAndParseTest(url) {
+            let target = url;
+
+            // Если это ссылка Яндекс.Диска — сначала получаем прямую ссылку
+            if (url.includes('yadi.sk') || url.includes('disk.yandex')) {
+                const resp = await fetch(BASE_PUBLIC_YANDEX_DISK_URL_PREFIX + encodeURIComponent(url));
+                if (!resp.ok) {
+                    if (resp.status === 403) throw new Error('403: Доступ запрещен. Проверьте права доступа к файлу');
+                    if (resp.status === 404) throw new Error('404: Файл не найден. Проверьте ссылку и права доступа');
+                    throw new Error(`Ошибка HTTP: ${resp.status}`);
+                }
+                const data = await resp.json();
+                if (!data.href) throw new Error('Не удалось получить ссылку для скачивания с Яндекс.Диска');
+                target = data.href;
+            }
+
+            const response = await fetch(target);
+            if (!response.ok) throw new Error(`Ошибка HTTP: ${response.status}`);
+            const xmlContent = await response.text();
+            parseMoodleXML(xmlContent);
+
+            if (questions.length === 0) {
+                throw new Error('Не удалось найти вопросы в XML файле');
+            }
+        }
+
+        // ===== Автоматическая загрузка теста из URL страницы =====
+        async function autoLoadTest(url) {
+            try {
+                await fetchAndParseTest(url);
+                console.log(`Автоматически загружен тест с ${questions.length} вопросами`);
+                // Если ФИО уже подтверждено — стартуем сразу, иначе ждём
+                if (studentName) {
+                    startTest();
+                } else {
+                    pendingStartAfterName = true;
+                }
+            } catch (error) {
+                console.error('Ошибка автозагрузки теста:', error);
+                // Показываем секцию загрузки снова, чтобы можно было ввести ссылку вручную
+                uploadSection.classList.remove('hidden');
+                urlInput.value = url;
+                showUploadStatus(`Ошибка загрузки: ${error.message}`, 'error');
+            }
+        }
+
+        // ===== Демо-тест =====
         window.loadExampleTest = function() {
             const exampleXML = `<?xml version="1.0" encoding="UTF-8"?>
 <quiz>
     <question type="multichoice">
-        <name>
-            <text>Пример с формулой 1</text>
-        </name>
+        <name><text>Пример с формулой 1</text></name>
         <questiontext format="html">
             <text><![CDATA[<p>Выберите правильную формулу для расчета коэффициента:</p><p>\\(\\alpha_{\\text{н}} = \\frac{\\text{АД}_{\\text{сэ}}}{\\text{АД}_{\\text{с}}}\\)</p>]]></text>
         </questiontext>
-        <answer fraction="100">
-            <text><![CDATA[\\(\\alpha_{\\text{н}} = \\frac{\\text{АД}_{\\text{сэ}}}{\\text{АД}_{\\text{с}}}\\)]]></text>
-        </answer>
-        <answer fraction="0">
-            <text><![CDATA[\\(\\alpha_{\\text{н}} = \\frac{\\text{АД}_{\\text{с}}}{\\text{АД}_{\\text{сэ}}}\\)]]></text>
-        </answer>
-        <answer fraction="0">
-            <text><![CDATA[\\(\\alpha_{\\text{н}} = \\text{АД}_{\\text{сэ}} + \\text{АД}_{\\text{с}}\\)]]></text>
-        </answer>
+        <answer fraction="100"><text><![CDATA[\\(\\alpha_{\\text{н}} = \\frac{\\text{АД}_{\\text{сэ}}}{\\text{АД}_{\\text{с}}}\\)]]></text></answer>
+        <answer fraction="0"><text><![CDATA[\\(\\alpha_{\\text{н}} = \\frac{\\text{АД}_{\\text{с}}}{\\text{АД}_{\\text{сэ}}}\\)]]></text></answer>
+        <answer fraction="0"><text><![CDATA[\\(\\alpha_{\\text{н}} = \\text{АД}_{\\text{сэ}} + \\text{АД}_{\\text{с}}\\)]]></text></answer>
     </question>
     <question type="multichoice">
-        <name>
-            <text>Пример с формулой 2</text>
-        </name>
+        <name><text>Пример с формулой 2</text></name>
         <questiontext format="html">
             <text><![CDATA[<p>Чему равно значение \\(E = mc^2\\) при m=2, c=3?</p>]]></text>
         </questiontext>
-        <answer fraction="0">
-            <text>6</text>
-        </answer>
-        <answer fraction="100">
-            <text>18</text>
-        </answer>
-        <answer fraction="0">
-            <text>12</text>
-        </answer>
+        <answer fraction="0"><text>6</text></answer>
+        <answer fraction="100"><text>18</text></answer>
+        <answer fraction="0"><text>12</text></answer>
     </question>
     <question type="multichoice">
-        <name>
-            <text>Пример с формулой 3</text>
-        </name>
+        <name><text>Пример с формулой 3</text></name>
         <questiontext format="html">
             <text><![CDATA[<p>Какая формула описывает теорему Пифагора?</p>]]></text>
         </questiontext>
-        <answer fraction="100">
-            <text><![CDATA[\\(a^2 + b^2 = c^2\\)]]></text>
-        </answer>
-        <answer fraction="0">
-            <text><![CDATA[\\(a + b = c\\)]]></text>
-        </answer>
-        <answer fraction="0">
-            <text><![CDATA[\\(a^2 = b^2 + c^2\\)]]></text>
-        </answer>
+        <answer fraction="100"><text><![CDATA[\\(a^2 + b^2 = c^2\\)]]></text></answer>
+        <answer fraction="0"><text><![CDATA[\\(a + b = c\\)]]></text></answer>
+        <answer fraction="0"><text><![CDATA[\\(a^2 = b^2 + c^2\\)]]></text></answer>
     </question>
 </quiz>`;
-            
             parseMoodleXML(exampleXML);
-            
             if (questions.length > 0) {
                 showUploadStatus(`Загружен демо-тест с ${questions.length} вопросами`, 'success');
-                setTimeout(() => {
-                    uploadStatus.classList.add('hidden');
-                    startTest();
-                }, 1500);
+                setTimeout(() => { uploadStatus.classList.add('hidden'); startTest(); }, 1200);
             }
         };
+        demoBtn.addEventListener('click', () => window.loadExampleTest());
 
-        // Функция для загрузки с Яндекс.Диска
-        async function loadFromYandexDisk() {
-            let publicUrl = urlInput.value.trim();
-            
-            if (!publicUrl) {
-                showUploadStatus('Пожалуйста, введите ссылку на файл с Яндекс.Диска', 'error');
-                return;
-            }
-            
-            // Проверяем, что это ссылка Яндекс.Диска
-            if (!publicUrl.includes('yadi.sk') && !publicUrl.includes('disk.yandex')) {
-                showUploadStatus('Это не похоже на ссылку Яндекс.Диска. Ссылка должна содержать yadi.sk или disk.yandex', 'error');
-                return;
-            }
-            
-            // Блокируем кнопку
-            yandexBtn.disabled = true;
-            showUploadStatus('Загрузка с Яндекс.Диска...', 'loading');
-            
-            try {
-                // Получаем ссылку для скачивания
-                const response = await fetch(BASE_PUBLIC_YANDEX_DISK_URL_PREFIX + encodeURIComponent(publicUrl));
-                
-                if (!response.ok) {
-                    throw new Error(`Ошибка HTTP: ${response.status}`);
-                }
-                
-                const data = await response.json();
-                
-                if (!data.href) {
-                    throw new Error('Не удалось получить ссылку для скачивания');
-                }
-                
-                // Загружаем файл
-                const fileResponse = await fetch(data.href);
-                
-                if (!fileResponse.ok) {
-                    throw new Error(`Ошибка загрузки файла: ${fileResponse.status}`);
-                }
-                
-                const xmlContent = await fileResponse.text();
-                
-                // Проверяем, что это XML
-                if (!xmlContent.trim().startsWith('<?xml') && !xmlContent.trim().startsWith('<')) {
-                    showUploadStatus('Предупреждение: Загруженный файл не похож на XML', 'warning');
-                }
-
-                parseMoodleXML(xmlContent);
-                
-                if (questions.length > 0) {
-                    showUploadStatus(`Успешно загружен тест с ${questions.length} вопросами`, 'success');
-                    setTimeout(() => {
-                        uploadStatus.classList.add('hidden');
-                        startTest();
-                    }, 1500);
-                } else {
-                    showUploadStatus('Не удалось найти вопросы в XML файле', 'error');
-                }
-                
-            } catch (error) {
-                let errorMessage = error.message;
-                
-                if (error.message.includes('403')) {
-                    errorMessage = 'Ошибка 403: Доступ запрещен. Проверьте права доступа к файлу';
-                } else if (error.message.includes('404')) {
-                    errorMessage = 'Ошибка 404: Файл не найден. Проверьте ссылку и права доступа';
-                }
-                
-                showUploadStatus('Ошибка загрузки: ' + errorMessage, 'error');
-                console.error('Детали ошибки:', error);
-            } finally {
-                yandexBtn.disabled = false;
-            }
-        }
-
-        // Обработчики событий
-        loadUrlBtn.addEventListener('click', handleUrlLoad);
-        yandexBtn.addEventListener('click', loadFromYandexDisk);
-        
-        urlInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                handleUrlLoad();
-            }
-        });
-        
-        qrCodeBtn.addEventListener('click', startQRScanner);
-        closeQrBtn.addEventListener('click', stopQRScanner);
-        
-        // Закрытие модального окна при клике вне его
-        qrModal.addEventListener('click', (e) => {
-            if (e.target === qrModal) {
-                stopQRScanner();
-            }
-        });
-        
-        // Закрытие модального окна при нажатии Escape
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && qrModal.classList.contains('active')) {
-                stopQRScanner();
-            }
-        });
-        
-        prevBtn.addEventListener('click', () => {
-            if (currentQuestionIndex > 0) {
-                currentQuestionIndex--;
-                showQuestion(currentQuestionIndex);
-                updateNavigationButtons();
-            }
-        });
-        
-        nextBtn.addEventListener('click', () => {
-            if (currentQuestionIndex < questions.length - 1) {
-                currentQuestionIndex++;
-                showQuestion(currentQuestionIndex);
-                updateNavigationButtons();
-            }
-        });
-        
-        finishBtn.addEventListener('click', finishTest);
-        
-        restartBtn.addEventListener('click', restartTest);
-        
-        // Функция запуска сканера QR-кода
-        async function startQRScanner() {
-            qrModal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-            qrScannerActive = true;
-            qrStatus.textContent = 'Запуск камеры...';
-            
-            try {
-                // Запрашиваем доступ к камере
-                videoStream = await navigator.mediaDevices.getUserMedia({
-                    video: {
-                        facingMode: "environment",
-                        width: { ideal: 640 },
-                        height: { ideal: 480 }
-                    },
-                    audio: false
-                });
-                
-                qrVideo.srcObject = videoStream;
-                qrVideo.setAttribute("playsinline", true); // Для мобильных устройств
-                
-                await qrVideo.play();
-                qrStatus.textContent = 'Наведите камеру на QR-код';
-                
-                // Запускаем обработчик кадров
-                requestAnimationFrame(scanQRCode);
-                
-            } catch (error) {
-                console.error('Ошибка доступа к камере:', error);
-                qrStatus.textContent = 'Ошибка доступа к камере. Разрешите доступ к камере в настройках браузера.';
-                qrStatus.style.color = 'red';
-                
-                // Предлагаем ввести ссылку вручную
-                setTimeout(() => {
-                    const manualUrl = prompt('Введите ссылку на тест вручную:');
-                    if (manualUrl && manualUrl.trim()) {
-                        urlInput.value = manualUrl.trim();
-                        stopQRScanner();
-                    }
-                }, 1000);
-            }
-        }
-        
-        // Функция сканирования QR-кода
-        function scanQRCode() {
-            if (!qrScannerActive) return;
-            
-            if (qrVideo.readyState === qrVideo.HAVE_ENOUGH_DATA) {
-                const canvas = document.createElement('canvas');
-                canvas.width = qrVideo.videoWidth;
-                canvas.height = qrVideo.videoHeight;
-                const context = canvas.getContext('2d');
-                
-                // Рисуем текущий кадр видео на canvas
-                context.drawImage(qrVideo, 0, 0, canvas.width, canvas.height);
-                
-                // Получаем данные изображения
-                const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-                
-                // Сканируем QR-код
-                const code = jsQR(imageData.data, imageData.width, imageData.height, {
-                    inversionAttempts: "dontInvert",
-                });
-                
-                if (code) {
-                    // QR-код найден
-                    qrStatus.textContent = 'QR-код распознан!';
-                    qrStatus.style.color = 'green';
-                    
-                    // Вставляем ссылку в поле ввода
-                    const scannedUrl = code.data;
-                    urlInput.value = scannedUrl;
-                    
-                    // Останавливаем сканер
-                    setTimeout(() => {
-                        stopQRScanner();
-                        showUploadStatus('Ссылка из QR-кода вставлена', 'success');
-                        setTimeout(() => {
-                            uploadStatus.classList.add('hidden');
-                        }, 2000);
-                    }, 1000);
-                    
-                    return; // Прекращаем сканирование
-                }
-            }
-            
-            // Продолжаем сканирование
-            if (qrScannerActive) {
-                requestAnimationFrame(scanQRCode);
-            }
-        }
-        
-        // Функция остановки сканера QR-кода
-        function stopQRScanner() {
-            qrScannerActive = false;
-            qrModal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-            qrStatus.textContent = 'Наведите камеру на QR-код';
-            qrStatus.style.color = '';
-            
-            // Останавливаем видео поток
-            if (videoStream) {
-                videoStream.getTracks().forEach(track => track.stop());
-                videoStream = null;
-            }
-            
-            if (qrVideo.srcObject) {
-                qrVideo.srcObject = null;
-            }
-        }
-        
-        // Функция обработки загрузки по URL
+        // ===== Ручная загрузка по URL =====
         async function handleUrlLoad() {
             const url = urlInput.value.trim();
-            
-            if (!url) {
-                showUploadStatus('Пожалуйста, введите URL XML файла', 'error');
-                return;
+            if (!url) { showUploadStatus('Пожалуйста, введите URL XML файла', 'error'); return; }
+            if (!isValidUrl(url)) { showUploadStatus('Пожалуйста, введите корректный URL', 'error'); return; }
+            if (!url.toLowerCase().includes('.xml')) {
+                if (!confirm('URL не заканчивается на .xml. Продолжить загрузку?')) return;
             }
-            
-            // Проверка формата URL
-            if (!isValidUrl(url)) {
-                showUploadStatus('Пожалуйста, введите корректный URL', 'error');
-                return;
-            }
-            
-            // Проверка расширения файла (необязательно, но желательно)
-            if (!url.toLowerCase().endsWith('.xml') && !url.toLowerCase().includes('.xml')) {
-                if (!confirm('URL не заканчивается на .xml. Продолжить загрузку?')) {
-                    return;
-                }
-            }
-            
             try {
                 showUploadStatus('Загрузка теста...', 'loading');
                 loadUrlBtn.disabled = true;
                 qrCodeBtn.disabled = true;
                 yandexBtn.disabled = true;
                 loadUrlBtn.textContent = 'Загрузка...';
-                
-                const response = await fetch(url);
-                
-                if (!response.ok) {
-                    throw new Error(`Ошибка HTTP: ${response.status}`);
-                }
-                
-                const xmlContent = await response.text();
-                parseMoodleXML(xmlContent);
-                
-                if (questions.length > 0) {
-                    showUploadStatus(`Успешно загружен тест с ${questions.length} вопросами`, 'success');
-                    setTimeout(() => {
-                        uploadStatus.classList.add('hidden');
-                        startTest();
-                    }, 1500);
-                } else {
-                    showUploadStatus('Не удалось найти вопросы в XML файле', 'error');
-                }
+
+                await fetchAndParseTest(url);
+
+                showUploadStatus(`Успешно загружен тест с ${questions.length} вопросами`, 'success');
+                setTimeout(() => { uploadStatus.classList.add('hidden'); startTest(); }, 1200);
             } catch (error) {
                 console.error('Ошибка загрузки теста:', error);
                 showUploadStatus(`Ошибка загрузки: ${error.message}`, 'error');
@@ -953,305 +776,335 @@
                 loadUrlBtn.disabled = false;
                 qrCodeBtn.disabled = false;
                 yandexBtn.disabled = false;
-                loadUrlBtn.textContent = 'Загрузить тест';
+                loadUrlBtn.innerHTML = '🔗 Загрузить';
             }
         }
-        
-        // Проверка валидности URL
+
         function isValidUrl(string) {
-            try {
-                new URL(string);
-                return true;
-            } catch (_) {
-                return false;
-            }
+            try { new URL(string); return true; } catch (_) { return false; }
         }
-        
-        // Показать статус загрузки
+
         function showUploadStatus(message, type) {
             uploadStatus.textContent = message;
             uploadStatus.className = 'status-message';
             uploadStatus.classList.add(type);
             uploadStatus.classList.remove('hidden');
         }
-        
-        // Парсинг XML Moodle
+
+        // ===== События =====
+        loadUrlBtn.addEventListener('click', handleUrlLoad);
+        urlInput.addEventListener('keypress', e => { if (e.key === 'Enter') handleUrlLoad(); });
+        qrCodeBtn.addEventListener('click', startQRScanner);
+        closeQrBtn.addEventListener('click', stopQRScanner);
+        qrModal.addEventListener('click', e => { if (e.target === qrModal) stopQRScanner(); });
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape' && !qrModal.classList.contains('hidden')) stopQRScanner();
+        });
+        prevBtn.addEventListener('click', () => {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion(currentQuestionIndex);
+                updateNavigationButtons();
+            }
+        });
+        nextBtn.addEventListener('click', () => {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                showQuestion(currentQuestionIndex);
+                updateNavigationButtons();
+            }
+        });
+        finishBtn.addEventListener('click', finishTest);
+        restartBtn.addEventListener('click', restartTest);
+
+        // ===== QR-сканер =====
+        async function startQRScanner() {
+            qrModal.classList.remove('hidden');
+            updateScrollLock();
+            qrScannerActive = true;
+            qrStatus.textContent = 'Запуск камеры...';
+            qrStatus.style.color = '';
+
+            try {
+                videoStream = await navigator.mediaDevices.getUserMedia({
+                    video: { facingMode: 'environment', width: { ideal: 640 }, height: { ideal: 480 } },
+                    audio: false
+                });
+                qrVideo.srcObject = videoStream;
+                qrVideo.setAttribute('playsinline', true);
+                await qrVideo.play();
+                qrStatus.textContent = 'Наведите камеру на QR-код';
+                requestAnimationFrame(scanQRCode);
+            } catch (error) {
+                console.error('Ошибка доступа к камере:', error);
+                // Без всплывающих окон — просто показываем сообщение
+                qrStatus.textContent = 'Ошибка доступа к камере. Разрешите доступ в настройках браузера или введите ссылку вручную в поле выше.';
+                qrStatus.style.color = 'red';
+            }
+        }
+
+        function scanQRCode() {
+            if (!qrScannerActive) return;
+            if (qrVideo.readyState === qrVideo.HAVE_ENOUGH_DATA) {
+                const canvas = document.createElement('canvas');
+                canvas.width = qrVideo.videoWidth;
+                canvas.height = qrVideo.videoHeight;
+                const context = canvas.getContext('2d');
+                context.drawImage(qrVideo, 0, 0, canvas.width, canvas.height);
+                const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+                const code = jsQR(imageData.data, imageData.width, imageData.height, {
+                    inversionAttempts: 'dontInvert'
+                });
+                if (code) {
+                    qrStatus.textContent = 'QR-код распознан!';
+                    qrStatus.style.color = 'green';
+                    urlInput.value = code.data;
+                    setTimeout(() => {
+                        stopQRScanner();
+                        showUploadStatus('Ссылка из QR-кода вставлена', 'success');
+                        setTimeout(() => uploadStatus.classList.add('hidden'), 2000);
+                    }, 800);
+                    return;
+                }
+            }
+            if (qrScannerActive) requestAnimationFrame(scanQRCode);
+        }
+
+        function stopQRScanner() {
+            qrScannerActive = false;
+            qrModal.classList.add('hidden');
+            updateScrollLock();
+            qrStatus.textContent = 'Наведите камеру на QR-код';
+            qrStatus.style.color = '';
+            if (videoStream) {
+                videoStream.getTracks().forEach(track => track.stop());
+                videoStream = null;
+            }
+            if (qrVideo.srcObject) qrVideo.srcObject = null;
+        }
+
+        // ===== Парсинг Moodle XML =====
         function parseMoodleXML(xmlContent) {
             questions = [];
-            
             const parser = new DOMParser();
             const xmlDoc = parser.parseFromString(xmlContent, 'text/xml');
-            
             const questionNodes = xmlDoc.getElementsByTagName('question');
-            
+
             for (let node of questionNodes) {
                 const type = node.getAttribute('type');
-                
                 if (type !== 'multichoice') continue;
-                
+
                 const questionTextNode = node.querySelector('questiontext text');
                 let questionText = questionTextNode ? questionTextNode.textContent.trim() : '';
-                
-                // Извлекаем текст из CDATA если есть
-                if (questionTextNode && questionTextNode.firstChild && questionTextNode.firstChild.nodeType === Node.CDATA_SECTION_NODE) {
+                if (questionTextNode && questionTextNode.firstChild &&
+                    questionTextNode.firstChild.nodeType === Node.CDATA_SECTION_NODE) {
                     questionText = questionTextNode.firstChild.nodeValue.trim();
                 }
-                
                 if (!questionText) continue;
-                
-                // Обрабатываем HTML теги в вопросе
                 questionText = processHtmlContent(questionText);
-                
+
                 const answers = [];
                 const answerNodes = node.querySelectorAll('answer');
-                
                 answerNodes.forEach(answerNode => {
                     const answerTextNode = answerNode.querySelector('text');
                     let answerText = answerTextNode ? answerTextNode.textContent.trim() : '';
-                    
-                    // Извлекаем текст из CDATA если есть
-                    if (answerTextNode && answerTextNode.firstChild && answerTextNode.firstChild.nodeType === Node.CDATA_SECTION_NODE) {
+                    if (answerTextNode && answerTextNode.firstChild &&
+                        answerTextNode.firstChild.nodeType === Node.CDATA_SECTION_NODE) {
                         answerText = answerTextNode.firstChild.nodeValue.trim();
                     }
-                    
-                    // Обрабатываем HTML теги в ответе
                     answerText = processHtmlContent(answerText);
-                    
                     const fraction = parseFloat(answerNode.getAttribute('fraction') || 0);
-                    const isCorrect = fraction > 0;
-                    
                     if (answerText) {
-                        answers.push({
-                            text: answerText,
-                            isCorrect: isCorrect
-                        });
+                        answers.push({ text: answerText, isCorrect: fraction > 0 });
                     }
                 });
-                
+
                 if (answers.length === 0) continue;
-                
-                questions.push({
-                    text: questionText,
-                    answers: answers,
-                    userAnswer: null,
-                    isCorrect: false
-                });
+                questions.push({ text: questionText, answers, userAnswer: null, isCorrect: false });
             }
-            
             console.log(`Найдено ${questions.length} вопросов`);
         }
-        
-        // Функция для обработки HTML содержимого
+
         function processHtmlContent(content) {
-            // Удаляем теги <p> и </p> но сохраняем содержимое
             content = content.replace(/<\/?p>/g, '');
-            
-            // Удаляем теги <![CDATA[ и ]]>
             content = content.replace(/<!\[CDATA\[|\]\]>/g, '');
-            
-            // Обрабатываем переносы строк
             content = content.replace(/<br\s*\/?>/g, '\n');
-            
             return content;
         }
-        
-        // Функция для рендеринга текста с формулами
+
         function renderTextWithMath(text) {
-            // Создаем временный div для обработки текста
             const tempDiv = document.createElement('div');
-            
-            // Заменяем двойные обратные слеши в формулах для корректного отображения
             text = text.replace(/\\\\\(/g, '\\(').replace(/\\\\\)/g, '\\)');
-            
             tempDiv.innerHTML = text;
-            
-            // Оборачиваем текст с формулами в специальный контейнер
             const mathContainer = document.createElement('div');
             mathContainer.className = 'formula-container';
-            
-            // Если текст содержит формулы, добавляем их как есть, MathJax обработает
             if (text.includes('\\(') || text.includes('\\[')) {
                 mathContainer.innerHTML = text;
             } else {
-                // Если нет формул, просто добавляем текст
                 mathContainer.textContent = text;
             }
-            
             return mathContainer;
         }
-        
-        // Функция для применения MathJax к новым элементам
+
         function applyMathJax() {
             if (window.MathJax) {
-                MathJax.typesetPromise().then(() => {
-                    console.log('MathJax обновил формулы');
-                }).catch((err) => console.log('Ошибка MathJax: ' + err.message));
+                MathJax.typesetPromise().catch(err => console.log('Ошибка MathJax: ' + err.message));
             }
         }
-        
-        // Начать тест
+
+        // ===== Тест =====
         function startTest() {
             userAnswers = new Array(questions.length).fill(null);
-            
+            currentQuestionIndex = 0;
+
             testSection.classList.remove('hidden');
+            resultsSection.classList.add('hidden');
             totalQuestionsElement.textContent = questions.length;
-            
+
             startTime = new Date();
             timeSpent = 0;
+            clearInterval(timerInterval);
             updateTimer();
             timerInterval = setInterval(updateTimer, 1000);
-            
+
             showQuestion(0);
             updateNavigationButtons();
+            testSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
-        
-        // Показать вопрос
+
         function showQuestion(index) {
             currentQuestionElement.textContent = index + 1;
+            progressFill.style.width = `${((index + 1) / questions.length) * 100}%`;
             questionsContainer.innerHTML = '';
-            
+
             const question = questions[index];
-            
             const questionElement = document.createElement('div');
             questionElement.className = 'question';
-            
-            // Добавляем текст вопроса с поддержкой формул
+
             const questionTextElement = document.createElement('div');
             questionTextElement.className = 'question-text';
-            
-            const renderedQuestion = renderTextWithMath(question.text);
-            questionTextElement.appendChild(renderedQuestion);
+            questionTextElement.appendChild(renderTextWithMath(question.text));
             questionElement.appendChild(questionTextElement);
-            
+
             question.answers.forEach((answer, answerIndex) => {
                 const answerElement = document.createElement('div');
                 answerElement.className = 'answer-option';
-                
-                if (userAnswers[index] === answerIndex) {
-                    answerElement.classList.add('selected');
-                }
-                
-                // Добавляем ответ с поддержкой формул
-                const renderedAnswer = renderTextWithMath(answer.text);
-                answerElement.appendChild(renderedAnswer);
-                
+                if (userAnswers[index] === answerIndex) answerElement.classList.add('selected');
+
+                const letter = document.createElement('span');
+                letter.className = 'answer-letter';
+                letter.textContent = LETTERS[answerIndex] || (answerIndex + 1);
+                answerElement.appendChild(letter);
+                answerElement.appendChild(renderTextWithMath(answer.text));
+
                 answerElement.addEventListener('click', () => {
-                    const allOptions = questionElement.querySelectorAll('.answer-option');
-                    allOptions.forEach(opt => opt.classList.remove('selected'));
-                    
+                    questionElement.querySelectorAll('.answer-option')
+                        .forEach(opt => opt.classList.remove('selected'));
                     answerElement.classList.add('selected');
                     userAnswers[index] = answerIndex;
-                    
-                    updateNavigationButtons();
                 });
-                
+
                 questionElement.appendChild(answerElement);
             });
-            
+
             questionsContainer.appendChild(questionElement);
-            
-            // Применяем MathJax к новому контенту
             applyMathJax();
         }
-        
-        // Обновить кнопки навигации
+
         function updateNavigationButtons() {
             prevBtn.disabled = currentQuestionIndex === 0;
             nextBtn.disabled = currentQuestionIndex === questions.length - 1;
-            
             if (currentQuestionIndex === questions.length - 1) {
-                finishBtn.style.display = 'inline-block';
+                finishBtn.style.display = 'inline-flex';
                 nextBtn.style.display = 'none';
             } else {
                 finishBtn.style.display = 'none';
-                nextBtn.style.display = 'inline-block';
+                nextBtn.style.display = 'inline-flex';
             }
         }
-        
-        // Обновить таймер
+
         function updateTimer() {
             const now = new Date();
             timeSpent = Math.floor((now - startTime) / 1000);
-            
-            const hours = Math.floor(timeSpent / 3600);
-            const minutes = Math.floor((timeSpent % 3600) / 60);
-            const seconds = timeSpent % 60;
-            
-            timerElement.textContent = 
-                `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            const h = Math.floor(timeSpent / 3600);
+            const m = Math.floor((timeSpent % 3600) / 60);
+            const s = timeSpent % 60;
+            timerElement.textContent =
+                `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
         }
-        
-        // Завершить тест
+
         function finishTest() {
             clearInterval(timerInterval);
-            
             let correctCount = 0;
-            
             questions.forEach((question, index) => {
                 const userAnswerIndex = userAnswers[index];
-                
                 if (userAnswerIndex !== null && userAnswerIndex !== undefined) {
                     const isCorrect = question.answers[userAnswerIndex].isCorrect;
                     question.isCorrect = isCorrect;
                     question.userAnswer = userAnswerIndex;
-                    
-                    if (isCorrect) {
-                        correctCount++;
-                    }
+                    if (isCorrect) correctCount++;
                 } else {
                     question.isCorrect = false;
                     question.userAnswer = null;
                 }
             });
-            
             showResults(correctCount);
         }
-        
-        // Показать результаты
+
         function showResults(correctCount) {
             testSection.classList.add('hidden');
             resultsSection.classList.remove('hidden');
-            
+
             const percentage = Math.round((correctCount / questions.length) * 100);
             const studentPoint = Math.ceil((correctCount / questions.length) * 5);
-            
-            scoreElement.textContent = `${percentage}%, оценка ${studentPoint}`;
+
+            scoreElement.textContent = `${percentage}%`;
+            gradePill.textContent = `Оценка: ${studentPoint}`;
+            gradePill.className = `grade-pill grade-${studentPoint}`;
+            scoreRing.style.strokeDashoffset = 440 * (1 - percentage / 100);
+
             correctAnswersElement.textContent = correctCount;
             totalAnswersElement.textContent = questions.length;
             timeSpentElement.textContent = timerElement.textContent;
-            
+
+            updateStudentUI();
             showDetailedResults();
+            resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
-        
-        // Показать детальные результаты
+
         function showDetailedResults() {
-            detailedResults.innerHTML = '<h3>Подробные результаты:</h3>';
-            
+            detailedResults.innerHTML = '<h3 style="margin:0 0 16px;">Подробные результаты:</h3>';
             questions.forEach((question, index) => {
                 const resultElement = document.createElement('div');
                 resultElement.className = 'question';
-                
-                const status = question.isCorrect ? '✓ Правильно' : '✗ Неправильно';
-                const statusClass = question.isCorrect ? 'correct' : 'incorrect';
-                
-                // Рендерим вопрос с формулами
+
+                const statusDiv = document.createElement('div');
+                if (question.isCorrect) {
+                    statusDiv.className = 'status-badge correct';
+                    statusDiv.textContent = '✓ Правильно';
+                } else if (question.userAnswer === null) {
+                    statusDiv.className = 'status-badge skipped';
+                    statusDiv.textContent = '— Без ответа';
+                } else {
+                    statusDiv.className = 'status-badge incorrect';
+                    statusDiv.textContent = '✗ Неправильно';
+                }
+
                 const questionDiv = document.createElement('div');
                 questionDiv.className = 'question-text';
-                questionDiv.appendChild(renderTextWithMath(`Вопрос ${index + 1}: ${question.text}`));
-                
-                const statusDiv = document.createElement('div');
-                statusDiv.className = `answer-option ${statusClass}`;
-                statusDiv.textContent = status;
-                
+                questionDiv.appendChild(renderTextWithMath(`Вопрос ${index + 1}. ${question.text}`));
+
                 const yourAnswerDiv = document.createElement('div');
+                yourAnswerDiv.className = 'answer-line';
                 yourAnswerDiv.innerHTML = '<strong>Ваш ответ:</strong> ';
                 if (question.userAnswer !== null) {
                     yourAnswerDiv.appendChild(renderTextWithMath(question.answers[question.userAnswer].text));
                 } else {
                     yourAnswerDiv.appendChild(document.createTextNode('Нет ответа'));
                 }
-                
+
                 const correctAnswerDiv = document.createElement('div');
+                correctAnswerDiv.className = 'answer-line';
                 correctAnswerDiv.innerHTML = '<strong>Правильный ответ:</strong> ';
                 const correctAnswer = question.answers.find(a => a.isCorrect);
                 if (correctAnswer) {
@@ -1259,46 +1112,43 @@
                 } else {
                     correctAnswerDiv.appendChild(document.createTextNode('Не определен'));
                 }
-                
-                resultElement.appendChild(questionDiv);
+
                 resultElement.appendChild(statusDiv);
+                resultElement.appendChild(questionDiv);
                 resultElement.appendChild(yourAnswerDiv);
                 resultElement.appendChild(correctAnswerDiv);
-                
                 detailedResults.appendChild(resultElement);
             });
-            
-            // Применяем MathJax к детальным результатам
             applyMathJax();
         }
-        
-        // Перезапустить тест
+
         function restartTest() {
             resultsSection.classList.add('hidden');
-            
-            userAnswers = new Array(questions.length).fill(null);
-            currentQuestionIndex = 0;
-            
             startTest();
         }
-        
-        // Автоматическая загрузка параметра из URL при загрузке страницы
+
+        // ===== Инициализация =====
         document.addEventListener('DOMContentLoaded', () => {
-            console.log('Приложение Moodle XML тестирования с формулами загружено');
-            
-            // Автоматическая загрузка примера при открытии
-            setTimeout(() => {
-                const url = window.location.href;
-                try {
-                    const params = new URLSearchParams(new URL(url).search);
-                    const nameValue = params.get('name');
-                    if (nameValue) {
-                        urlInput.value = nameValue;
-                    }
-                } catch (e) {
-                    console.error('Ошибка парсинга URL параметров:', e);
+            console.log('Приложение загружено');
+            document.body.style.overflow = 'hidden'; // открыто окно ввода ФИО
+
+            // Подставляем сохранённое ФИО
+            try {
+                const saved = JSON.parse(localStorage.getItem('quizStudent') || 'null');
+                if (saved) {
+                    lastNameInput.value = saved.l || '';
+                    firstNameInput.value = saved.f || '';
+                    middleNameInput.value = saved.m || '';
                 }
-            }, 1000);
+            } catch (e) { console.error('Ошибка чтения localStorage:', e); }
+
+            // Если ссылка на тест указана в URL страницы — скрываем секцию загрузки
+            // и загружаем тест автоматически, без каких-либо диалоговых окон
+            const testUrl = getTestUrlFromLocation();
+            if (testUrl && isValidUrl(testUrl)) {
+                uploadSection.classList.add('hidden');
+                autoLoadTest(testUrl);
+            }
         });
     </script>
 </body>
