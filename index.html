@@ -967,8 +967,26 @@
             return container;
         }
 
+
+
+// ===== Перемешивание вопросов (режим проверки CheckMode) =====
+function shuffleQuestions() {
+    for (let i = questions.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [questions[i], questions[j]] = [questions[j], questions[i]];
+    }
+}
+
+        
         // ===== Тест =====
         function startTest() {
+
+
+    // В режиме проверки вопросы перемешиваются при каждом запуске
+    if (checkMode) {
+        shuffleQuestions();
+    }
+          
             userAnswers = new Array(questions.length).fill(null);
             checkedQuestions = new Array(questions.length).fill(false);
             currentQuestionIndex = 0;
