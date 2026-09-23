@@ -2,6 +2,9 @@
 
 # 📝 Moodle XML Редактор
 
+
+https://tregubovvn.github.io/mt/editor/ 
+
 **Редактор тестов Moodle XML с поддержкой формул LaTeX, облачным хранением в GitHub Gist и AI-генерацией через DeepSeek**
 
 [![Live Demo](https://img.shields.io/badge/🌐_Демо-Онлайн-38bdf8?style=for-the-badge)](https://tregubovvn.github.io/mt/editor/index.html)
