@@ -200,6 +200,13 @@
 
         .test-controls { display: flex; gap: 10px; justify-content: space-between; flex-wrap: wrap; margin-top: 8px; }
 
+        /* ===== Режим проверки (CheckMode=true в URL) ===== */
+        .check-block { margin-top: 18px; }
+        .check-feedback { margin-top: 14px; animation: fadeIn .25s; }
+        .check-feedback:empty { display: none; }
+        .answer-option.correct .answer-letter   { background: var(--success); color: #fff; }
+        .answer-option.incorrect .answer-letter { background: var(--danger);  color: #fff; }
+
         /* ===== Results ===== */
         .results-hero {
             border: 1px solid var(--border); border-radius: 20px;
@@ -314,7 +321,7 @@
         .overlay-actions { margin-top: 20px; }
         .overlay-actions .btn { width: 100%; padding: 14px; font-size: 15px; }
 
-        #qrVideo { width: 100%; max-width: 300px; border-radius: 12px; }
+        #qrVideo { width: 100%; max-width: 300px; border-radius: 12px; display: block; margin: 0 auto; background: #000; min-height: 180px; }
         .qr-instruction {
             margin-top: 16px; padding: 15px; text-align: left;
             background: #f8fafc; border-radius: 12px; font-size: 13.5px; color: var(--muted);
@@ -333,12 +340,12 @@
             .section { padding: 18px 16px; }
             .student-chip { margin-left: 0; }
             .name-grid { grid-template-columns: 1fr; }
-            .input-row .btn, .test-controls .btn { width: 100%; }
+            .input-row .btn, .test-controls .btn, .check-block .btn { width: 100%; }
             .stats-row { grid-template-columns: 1fr; }
         }
     </style>
     <!-- Библиотека сканирования QR-кодов -->
-    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
     <!-- MathJax -->
     <script>
         window.MathJax = {
@@ -484,7 +491,7 @@
                 </div>
                 <div class="field field-full">
                     <label for="middleNameInput">Группа</label>
-                    <input type="text" id="middleNameInput" placeholder="б1_МЕНЖ-11 (необязательно)" autocomplete="additional-name">
+                    <input type="text" id="middleNameInput" placeholder="б1_МЕНЖ-11 (необязательно)" autocomplete="organization">
                 </div>
             </div>
             <div id="nameError" class="name-error hidden"></div>
@@ -522,14 +529,17 @@
         let questions = [];
         let currentQuestionIndex = 0;
         let userAnswers = [];
-        let startTime;
-        let timerInterval;
+        let startTime = null;
+        let timerInterval = null;
         let timeSpent = 0;
-        let qrScannerActive = false;
-        let videoStream = null;
         let studentName = '';
         let pendingStartAfterName = false; // тест загружен, ждём подтверждения ФИО
+        let qrScannerActive = false;
+        let videoStream = null;
+        let checkMode = false;      // режим мгновенной проверки (параметр CheckMode=true в URL)
+        let checkedQuestions = [];  // какие вопросы уже проверены
         const LETTERS = ['А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ж', 'З', 'И', 'К'];
+        const YANDEX_API_PREFIX = 'https://cloud-api.yandex.net/v1/disk/public/resources/download?public_key=';
 
         // ===== Элементы DOM =====
         const uploadSection = document.getElementById('uploadSection');
@@ -540,43 +550,39 @@
         const demoBtn = document.getElementById('demoBtn');
         const uploadStatus = document.getElementById('uploadStatus');
         const testSection = document.getElementById('testSection');
+        const timerElement = document.getElementById('timer');
+        const currentQuestionElement = document.getElementById('currentQuestion');
+        const totalQuestionsElement = document.getElementById('totalQuestions');
+        const progressFill = document.getElementById('progressFill');
         const questionsContainer = document.getElementById('questionsContainer');
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
         const finishBtn = document.getElementById('finishBtn');
         const resultsSection = document.getElementById('resultsSection');
-        const scoreElement = document.getElementById('score');
+        const resultAvatar = document.getElementById('resultAvatar');
+        const resultStudentName = document.getElementById('resultStudentName');
         const scoreRing = document.getElementById('scoreRing');
+        const scoreElement = document.getElementById('score');
         const gradePill = document.getElementById('gradePill');
         const correctAnswersElement = document.getElementById('correctAnswers');
         const totalAnswersElement = document.getElementById('totalAnswers');
         const timeSpentElement = document.getElementById('timeSpent');
         const restartBtn = document.getElementById('restartBtn');
         const changeNameBtn = document.getElementById('changeNameBtn');
-        const timerElement = document.getElementById('timer');
-        const currentQuestionElement = document.getElementById('currentQuestion');
-        const totalQuestionsElement = document.getElementById('totalQuestions');
-        const progressFill = document.getElementById('progressFill');
         const detailedResults = document.getElementById('detailedResults');
-        const qrModal = document.getElementById('qrModal');
-        const qrVideo = document.getElementById('qrVideo');
-        const qrStatus = document.getElementById('qrStatus');
-        const closeQrBtn = document.getElementById('closeQrBtn');
         const studentChip = document.getElementById('studentChip');
         const chipAvatar = document.getElementById('chipAvatar');
         const chipName = document.getElementById('chipName');
-        const resultAvatar = document.getElementById('resultAvatar');
-        const resultStudentName = document.getElementById('resultStudentName');
-
-        // Элементы приветственного окна
         const welcomeOverlay = document.getElementById('welcomeOverlay');
         const lastNameInput = document.getElementById('lastNameInput');
         const firstNameInput = document.getElementById('firstNameInput');
         const middleNameInput = document.getElementById('middleNameInput');
         const nameError = document.getElementById('nameError');
         const confirmNameBtn = document.getElementById('confirmNameBtn');
-
-        const BASE_PUBLIC_YANDEX_DISK_URL_PREFIX = 'https://cloud-api.yandex.net/v1/disk/public/resources/download?public_key=';
+        const qrModal = document.getElementById('qrModal');
+        const qrVideo = document.getElementById('qrVideo');
+        const qrStatus = document.getElementById('qrStatus');
+        const closeQrBtn = document.getElementById('closeQrBtn');
 
         // ===== Вспомогательные функции =====
         function isAnyOverlayOpen() {
@@ -586,6 +592,38 @@
 
         function updateScrollLock() {
             document.body.style.overflow = isAnyOverlayOpen() ? 'hidden' : 'auto';
+        }
+
+        function formatTime(totalSeconds) {
+            const h = Math.floor(totalSeconds / 3600);
+            const m = Math.floor((totalSeconds % 3600) / 60);
+            const s = totalSeconds % 60;
+            const pad = n => n.toString().padStart(2, '0');
+            return `${pad(h)}:${pad(m)}:${pad(s)}`;
+        }
+
+        function friendlyError(error) {
+            if (error instanceof TypeError && /fetch/i.test(error.message)) {
+                return new Error('Не удалось загрузить файл. Проверьте ссылку, доступность файла и разрешения CORS на сервере.');
+            }
+            return error;
+        }
+
+        function isValidUrl(string) {
+            try { new URL(string); return true; } catch (_) { return false; }
+        }
+
+        function showUploadStatus(message, type) {
+            uploadStatus.textContent = message;
+            uploadStatus.className = 'status-message';
+            if (type) uploadStatus.classList.add(type);
+            uploadStatus.classList.remove('hidden');
+        }
+
+        function applyMathJax() {
+            if (window.MathJax && MathJax.typesetPromise) {
+                MathJax.typesetPromise().catch(err => console.log('Ошибка MathJax: ' + err.message));
+            }
         }
 
         // ===== Логика ФИО =====
@@ -633,12 +671,7 @@
             }
         }
 
-        confirmNameBtn.addEventListener('click', confirmName);
-        [lastNameInput, firstNameInput, middleNameInput].forEach(inp => {
-            inp.addEventListener('keydown', e => { if (e.key === 'Enter') confirmName(); });
-        });
-
-        changeNameBtn.addEventListener('click', () => {
+        function openNameOverlay() {
             try {
                 const saved = JSON.parse(localStorage.getItem('quizStudent') || 'null');
                 if (saved) {
@@ -647,11 +680,13 @@
                     middleNameInput.value = saved.m || '';
                 }
             } catch (e) {}
+            pendingStartAfterName = false; // смена имени не должна перезапускать тест
+            nameError.classList.add('hidden');
             welcomeOverlay.classList.remove('hidden');
             updateScrollLock();
-        });
+        }
 
-        // ===== Чтение ссылки на тест из адресной строки =====
+        // ===== Чтение ссылки на тест и режима проверки из адресной строки =====
         function getTestUrlFromLocation() {
             try {
                 const params = new URLSearchParams(window.location.search);
@@ -663,15 +698,27 @@
             }
         }
 
-        // ===== Общая функция загрузки и парсинга теста =====
+        function getCheckModeFromLocation() {
+            try {
+                const params = new URLSearchParams(window.location.search);
+                for (const [key, value] of params.entries()) {
+                    if (key.toLowerCase() === 'checkmode') {
+                        return ['true', '1', 'yes'].includes(value.toLowerCase());
+                    }
+                }
+            } catch (e) { console.error('Ошибка парсинга URL параметров:', e); }
+            return false;
+        }
+
+        // ===== Загрузка и парсинг теста =====
         async function fetchAndParseTest(url) {
             let target = url;
 
             // Если это ссылка Яндекс.Диска — сначала получаем прямую ссылку
             if (url.includes('yadi.sk') || url.includes('disk.yandex')) {
-                const resp = await fetch(BASE_PUBLIC_YANDEX_DISK_URL_PREFIX + encodeURIComponent(url));
+                const resp = await fetch(YANDEX_API_PREFIX + encodeURIComponent(url));
                 if (!resp.ok) {
-                    if (resp.status === 403) throw new Error('403: Доступ запрещен. Проверьте права доступа к файлу');
+                    if (resp.status === 403) throw new Error('403: Доступ запрещён. Проверьте права доступа к файлу');
                     if (resp.status === 404) throw new Error('404: Файл не найден. Проверьте ссылку и права доступа');
                     throw new Error(`Ошибка HTTP: ${resp.status}`);
                 }
@@ -690,11 +737,11 @@
             }
         }
 
-        // ===== Автоматическая загрузка теста из URL страницы =====
         async function autoLoadTest(url) {
             try {
                 await fetchAndParseTest(url);
                 console.log(`Автоматически загружен тест с ${questions.length} вопросами`);
+                uploadSection.classList.add('hidden');
                 // Если ФИО уже подтверждено — стартуем сразу, иначе ждём
                 if (studentName) {
                     startTest();
@@ -702,22 +749,23 @@
                     pendingStartAfterName = true;
                 }
             } catch (error) {
-                console.error('Ошибка автозагрузки теста:', error);
+                const err = friendlyError(error);
+                console.error('Ошибка автозагрузки теста:', err);
                 // Показываем секцию загрузки снова, чтобы можно было ввести ссылку вручную
                 uploadSection.classList.remove('hidden');
                 urlInput.value = url;
-                showUploadStatus(`Ошибка загрузки: ${error.message}`, 'error');
+                showUploadStatus(`Ошибка загрузки: ${err.message}`, 'error');
             }
         }
 
         // ===== Демо-тест =====
-        window.loadExampleTest = function() {
+        window.loadExampleTest = function () {
             const exampleXML = `<?xml version="1.0" encoding="UTF-8"?>
 <quiz>
     <question type="multichoice">
         <name><text>Пример с формулой 1</text></name>
         <questiontext format="html">
-            <text><![CDATA[<p>Выберите правильную формулу для расчета коэффициента:</p><p>\\(\\alpha_{\\text{н}} = \\frac{\\text{АД}_{\\text{сэ}}}{\\text{АД}_{\\text{с}}}\\)</p>]]></text>
+            <text><![CDATA[<p>Выберите правильную формулу для расчёта коэффициента:</p><p>\\(\\alpha_{\\text{н}} = \\frac{\\text{АД}_{\\text{сэ}}}{\\text{АД}_{\\text{с}}}\\)</p>]]></text>
         </questiontext>
         <answer fraction="100"><text><![CDATA[\\(\\alpha_{\\text{н}} = \\frac{\\text{АД}_{\\text{сэ}}}{\\text{АД}_{\\text{с}}}\\)]]></text></answer>
         <answer fraction="0"><text><![CDATA[\\(\\alpha_{\\text{н}} = \\frac{\\text{АД}_{\\text{с}}}{\\text{АД}_{\\text{сэ}}}\\)]]></text></answer>
@@ -726,7 +774,7 @@
     <question type="multichoice">
         <name><text>Пример с формулой 2</text></name>
         <questiontext format="html">
-            <text><![CDATA[<p>Чему равно значение \\(E = mc^2\\) при m=2, c=3?</p>]]></text>
+            <text><![CDATA[<p>Чему равно значение \\(E = mc^2\\) при m = 2, c = 3?</p>]]></text>
         </questiontext>
         <answer fraction="0"><text>6</text></answer>
         <answer fraction="100"><text>18</text></answer>
@@ -748,7 +796,6 @@
                 setTimeout(() => { uploadStatus.classList.add('hidden'); startTest(); }, 1200);
             }
         };
-        demoBtn.addEventListener('click', () => window.loadExampleTest());
 
         // ===== Ручная загрузка по URL =====
         async function handleUrlLoad() {
@@ -763,6 +810,7 @@
                 loadUrlBtn.disabled = true;
                 qrCodeBtn.disabled = true;
                 yandexBtn.disabled = true;
+                demoBtn.disabled = true;
                 loadUrlBtn.textContent = 'Загрузка...';
 
                 await fetchAndParseTest(url);
@@ -770,55 +818,31 @@
                 showUploadStatus(`Успешно загружен тест с ${questions.length} вопросами`, 'success');
                 setTimeout(() => { uploadStatus.classList.add('hidden'); startTest(); }, 1200);
             } catch (error) {
-                console.error('Ошибка загрузки теста:', error);
-                showUploadStatus(`Ошибка загрузки: ${error.message}`, 'error');
+                const err = friendlyError(error);
+                console.error('Ошибка загрузки теста:', err);
+                showUploadStatus(`Ошибка загрузки: ${err.message}`, 'error');
             } finally {
                 loadUrlBtn.disabled = false;
                 qrCodeBtn.disabled = false;
                 yandexBtn.disabled = false;
-                loadUrlBtn.innerHTML = '🔗 Загрузить';
+                demoBtn.disabled = false;
+                loadUrlBtn.textContent = '🔗 Загрузить';
             }
         }
 
-        function isValidUrl(string) {
-            try { new URL(string); return true; } catch (_) { return false; }
+        function handleYandexLoad() {
+            const link = prompt('Вставьте публичную ссылку на XML-файл на Яндекс.Диске:', urlInput.value);
+            if (!link) return;
+            urlInput.value = link.trim();
+            handleUrlLoad();
         }
-
-        function showUploadStatus(message, type) {
-            uploadStatus.textContent = message;
-            uploadStatus.className = 'status-message';
-            uploadStatus.classList.add(type);
-            uploadStatus.classList.remove('hidden');
-        }
-
-        // ===== События =====
-        loadUrlBtn.addEventListener('click', handleUrlLoad);
-        urlInput.addEventListener('keypress', e => { if (e.key === 'Enter') handleUrlLoad(); });
-        qrCodeBtn.addEventListener('click', startQRScanner);
-        closeQrBtn.addEventListener('click', stopQRScanner);
-        qrModal.addEventListener('click', e => { if (e.target === qrModal) stopQRScanner(); });
-        document.addEventListener('keydown', e => {
-            if (e.key === 'Escape' && !qrModal.classList.contains('hidden')) stopQRScanner();
-        });
-        prevBtn.addEventListener('click', () => {
-            if (currentQuestionIndex > 0) {
-                currentQuestionIndex--;
-                showQuestion(currentQuestionIndex);
-                updateNavigationButtons();
-            }
-        });
-        nextBtn.addEventListener('click', () => {
-            if (currentQuestionIndex < questions.length - 1) {
-                currentQuestionIndex++;
-                showQuestion(currentQuestionIndex);
-                updateNavigationButtons();
-            }
-        });
-        finishBtn.addEventListener('click', finishTest);
-        restartBtn.addEventListener('click', restartTest);
 
         // ===== QR-сканер =====
         async function startQRScanner() {
+            if (typeof jsQR !== 'function') {
+                showUploadStatus('Библиотека сканирования не загрузилась. Введите ссылку вручную.', 'error');
+                return;
+            }
             qrModal.classList.remove('hidden');
             updateScrollLock();
             qrScannerActive = true;
@@ -834,10 +858,10 @@
                 qrVideo.setAttribute('playsinline', true);
                 await qrVideo.play();
                 qrStatus.textContent = 'Наведите камеру на QR-код';
+                qrStatus.style.color = '';
                 requestAnimationFrame(scanQRCode);
             } catch (error) {
                 console.error('Ошибка доступа к камере:', error);
-                // Без всплывающих окон — просто показываем сообщение
                 qrStatus.textContent = 'Ошибка доступа к камере. Разрешите доступ в настройках браузера или введите ссылку вручную в поле выше.';
                 qrStatus.style.color = 'red';
             }
@@ -855,14 +879,14 @@
                 const code = jsQR(imageData.data, imageData.width, imageData.height, {
                     inversionAttempts: 'dontInvert'
                 });
-                if (code) {
+                if (code && code.data) {
                     qrStatus.textContent = 'QR-код распознан!';
                     qrStatus.style.color = 'green';
                     urlInput.value = code.data;
                     setTimeout(() => {
                         stopQRScanner();
                         showUploadStatus('Ссылка из QR-кода вставлена', 'success');
-                        setTimeout(() => uploadStatus.classList.add('hidden'), 2000);
+                        setTimeout(() => uploadStatus.classList.add('hidden'), 2500);
                     }, 800);
                     return;
                 }
@@ -894,30 +918,28 @@
                 const type = node.getAttribute('type');
                 if (type !== 'multichoice') continue;
 
-                const questionTextNode = node.querySelector('questiontext text');
-                let questionText = questionTextNode ? questionTextNode.textContent.trim() : '';
-                if (questionTextNode && questionTextNode.firstChild &&
-                    questionTextNode.firstChild.nodeType === Node.CDATA_SECTION_NODE) {
-                    questionText = questionTextNode.firstChild.nodeValue.trim();
+                // Текст вопроса
+                let questionText = '';
+                const questionTextNodes = node.getElementsByTagName('questiontext');
+                if (questionTextNodes.length > 0) {
+                    const textNodes = questionTextNodes[0].getElementsByTagName('text');
+                    if (textNodes.length > 0) questionText = textNodes[0].textContent.trim();
                 }
                 if (!questionText) continue;
                 questionText = processHtmlContent(questionText);
 
+                // Варианты ответа
                 const answers = [];
-                const answerNodes = node.querySelectorAll('answer');
-                answerNodes.forEach(answerNode => {
-                    const answerTextNode = answerNode.querySelector('text');
-                    let answerText = answerTextNode ? answerTextNode.textContent.trim() : '';
-                    if (answerTextNode && answerTextNode.firstChild &&
-                        answerTextNode.firstChild.nodeType === Node.CDATA_SECTION_NODE) {
-                        answerText = answerTextNode.firstChild.nodeValue.trim();
-                    }
+                const answerNodes = node.getElementsByTagName('answer');
+                for (let answerNode of answerNodes) {
+                    let answerText = '';
+                    const textNodes = answerNode.getElementsByTagName('text');
+                    if (textNodes.length > 0) answerText = textNodes[0].textContent.trim();
+                    if (!answerText) continue;
                     answerText = processHtmlContent(answerText);
                     const fraction = parseFloat(answerNode.getAttribute('fraction') || 0);
-                    if (answerText) {
-                        answers.push({ text: answerText, isCorrect: fraction > 0 });
-                    }
-                });
+                    answers.push({ text: answerText, isCorrect: fraction > 0 });
+                }
 
                 if (answers.length === 0) continue;
                 questions.push({ text: questionText, answers, userAnswer: null, isCorrect: false });
@@ -926,37 +948,32 @@
         }
 
         function processHtmlContent(content) {
-            content = content.replace(/<\/?p>/g, '');
-            content = content.replace(/<!\[CDATA\[|\]\]>/g, '');
-            content = content.replace(/<br\s*\/?>/g, '\n');
-            return content;
+            let c = content || '';
+            c = c.replace(/<\/?p>/gi, '');
+            c = c.replace(/<!\[CDATA\[|\]\]>/g, '');
+            c = c.replace(/<br\s*\/?>/gi, '<br>');
+            return c.trim();
         }
 
         function renderTextWithMath(text) {
-            const tempDiv = document.createElement('div');
-            text = text.replace(/\\\\\(/g, '\\(').replace(/\\\\\)/g, '\\)');
-            tempDiv.innerHTML = text;
-            const mathContainer = document.createElement('div');
-            mathContainer.className = 'formula-container';
-            if (text.includes('\\(') || text.includes('\\[')) {
-                mathContainer.innerHTML = text;
+            const container = document.createElement('div');
+            container.className = 'formula-container';
+            const t = text || '';
+            if (t.includes('\\(') || t.includes('\\[')) {
+                container.innerHTML = t; // MathJax обработает \( \) и \[ \]
             } else {
-                mathContainer.textContent = text;
+                container.textContent = t;
             }
-            return mathContainer;
-        }
-
-        function applyMathJax() {
-            if (window.MathJax) {
-                MathJax.typesetPromise().catch(err => console.log('Ошибка MathJax: ' + err.message));
-            }
+            return container;
         }
 
         // ===== Тест =====
         function startTest() {
             userAnswers = new Array(questions.length).fill(null);
+            checkedQuestions = new Array(questions.length).fill(false);
             currentQuestionIndex = 0;
 
+            uploadSection.classList.add('hidden');
             testSection.classList.remove('hidden');
             resultsSection.classList.add('hidden');
             totalQuestionsElement.textContent = questions.length;
@@ -998,22 +1015,103 @@
                 answerElement.appendChild(renderTextWithMath(answer.text));
 
                 answerElement.addEventListener('click', () => {
+                    // В режиме проверки после сверки ответ изменить нельзя
+                    if (checkMode && checkedQuestions[index]) return;
                     questionElement.querySelectorAll('.answer-option')
                         .forEach(opt => opt.classList.remove('selected'));
                     answerElement.classList.add('selected');
                     userAnswers[index] = answerIndex;
+                    const checkBtn = questionElement.querySelector('.check-answer-btn');
+                    if (checkBtn) checkBtn.disabled = false;
                 });
 
                 questionElement.appendChild(answerElement);
             });
 
+            // ===== Блок режима проверки (CheckMode=true в URL) =====
+            if (checkMode) {
+                const checkWrap = document.createElement('div');
+                checkWrap.className = 'check-block';
+
+                const checkBtn = document.createElement('button');
+                checkBtn.type = 'button';
+                checkBtn.className = 'btn btn-primary check-answer-btn';
+                checkBtn.textContent = '🔍 Проверить';
+                checkBtn.disabled = userAnswers[index] === null || checkedQuestions[index];
+                checkBtn.addEventListener('click', () => checkCurrentAnswer(index, questionElement));
+
+                const feedbackBox = document.createElement('div');
+                feedbackBox.className = 'check-feedback';
+
+                checkWrap.appendChild(checkBtn);
+                checkWrap.appendChild(feedbackBox);
+                questionElement.appendChild(checkWrap);
+
+                // Если вопрос уже проверялся — восстанавливаем результат при возврате
+                if (checkedQuestions[index]) {
+                    applyCheckFeedback(index, questionElement);
+                }
+            }
+
             questionsContainer.appendChild(questionElement);
             applyMathJax();
         }
 
+        // ===== Мгновенная проверка ответа (CheckMode) =====
+        function checkCurrentAnswer(index, questionElement) {
+            if (checkedQuestions[index]) return;
+            const selected = userAnswers[index];
+            if (selected === null || selected === undefined) return;
+            checkedQuestions[index] = true;
+            applyCheckFeedback(index, questionElement);
+        }
+
+        function applyCheckFeedback(index, questionElement) {
+            const question = questions[index];
+            const selectedIndex = userAnswers[index];
+            if (selectedIndex === null || selectedIndex === undefined) return;
+
+            const isRight = question.answers[selectedIndex].isCorrect;
+
+            // Подсветка: правильный — зелёным, неверно выбранный — красным
+            questionElement.querySelectorAll('.answer-option').forEach((opt, i) => {
+                opt.classList.remove('selected');
+                opt.classList.toggle('correct', !!question.answers[i].isCorrect);
+                opt.classList.toggle('incorrect', i === selectedIndex && !question.answers[i].isCorrect);
+            });
+
+            const checkBtn = questionElement.querySelector('.check-answer-btn');
+            if (checkBtn) {
+                checkBtn.disabled = true;
+                checkBtn.textContent = '✓ Ответ проверен';
+            }
+
+            const feedbackBox = questionElement.querySelector('.check-feedback');
+            if (feedbackBox) {
+                feedbackBox.innerHTML = '';
+
+                const badge = document.createElement('span');
+                badge.className = 'status-badge ' + (isRight ? 'correct' : 'incorrect');
+                badge.textContent = isRight ? '✓ Верно!' : '✗ Неверно';
+                feedbackBox.appendChild(badge);
+
+                // Показываем правильный ответ (формулы рендерятся через MathJax)
+                const correctIndex = question.answers.findIndex(a => a.isCorrect);
+                if (correctIndex !== -1) {
+                    const line = document.createElement('div');
+                    line.className = 'answer-line';
+                    const label = document.createElement('strong');
+                    label.textContent = `Правильный ответ (${LETTERS[correctIndex] || correctIndex + 1}):`;
+                    line.appendChild(label);
+                    line.appendChild(renderTextWithMath(question.answers[correctIndex].text));
+                    feedbackBox.appendChild(line);
+                    applyMathJax();
+                }
+            }
+        }
+
         function updateNavigationButtons() {
             prevBtn.disabled = currentQuestionIndex === 0;
-            nextBtn.disabled = currentQuestionIndex === questions.length - 1;
             if (currentQuestionIndex === questions.length - 1) {
                 finishBtn.style.display = 'inline-flex';
                 nextBtn.style.display = 'none';
@@ -1024,100 +1122,120 @@
         }
 
         function updateTimer() {
-            const now = new Date();
-            timeSpent = Math.floor((now - startTime) / 1000);
-            const h = Math.floor(timeSpent / 3600);
-            const m = Math.floor((timeSpent % 3600) / 60);
-            const s = timeSpent % 60;
-            timerElement.textContent =
-                `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+            if (!startTime) return;
+            timeSpent = Math.floor((Date.now() - startTime.getTime()) / 1000);
+            timerElement.textContent = formatTime(timeSpent);
         }
 
         function finishTest() {
+            const unanswered = userAnswers.filter(a => a === null || a === undefined).length;
+            if (unanswered > 0 &&
+                !confirm(`Вы ответили не на все вопросы (без ответа: ${unanswered}). Завершить тест?`)) {
+                return;
+            }
+
             clearInterval(timerInterval);
+            if (startTime) timeSpent = Math.floor((Date.now() - startTime.getTime()) / 1000);
+
             let correctCount = 0;
             questions.forEach((question, index) => {
                 const userAnswerIndex = userAnswers[index];
-                if (userAnswerIndex !== null && userAnswerIndex !== undefined) {
-                    const isCorrect = question.answers[userAnswerIndex].isCorrect;
-                    question.isCorrect = isCorrect;
-                    question.userAnswer = userAnswerIndex;
-                    if (isCorrect) correctCount++;
-                } else {
-                    question.isCorrect = false;
-                    question.userAnswer = null;
-                }
+                question.userAnswer = (userAnswerIndex === null || userAnswerIndex === undefined)
+                    ? null : userAnswerIndex;
+                question.isCorrect = question.userAnswer !== null &&
+                                     question.answers[question.userAnswer].isCorrect;
+                if (question.isCorrect) correctCount++;
             });
+
             showResults(correctCount);
         }
 
+        // ===== Результаты =====
         function showResults(correctCount) {
             testSection.classList.add('hidden');
             resultsSection.classList.remove('hidden');
 
-            const percentage = Math.round((correctCount / questions.length) * 100);
-            const studentPoint = Math.ceil((correctCount / questions.length) * 5);
-
-            scoreElement.textContent = `${percentage}%`;
-            gradePill.textContent = `Оценка: ${studentPoint}`;
-            gradePill.className = `grade-pill grade-${studentPoint}`;
-            scoreRing.style.strokeDashoffset = 440 * (1 - percentage / 100);
-
-            correctAnswersElement.textContent = correctCount;
-            totalAnswersElement.textContent = questions.length;
-            timeSpentElement.textContent = timerElement.textContent;
+            const total = questions.length;
+            const percent = total > 0 ? Math.round((correctCount / total) * 100) : 0;
 
             updateStudentUI();
-            showDetailedResults();
+
+            scoreElement.textContent = percent + '%';
+
+            // Анимация кольца
+            scoreRing.style.transition = 'none';
+            scoreRing.style.strokeDashoffset = 440;
+            void scoreRing.getBoundingClientRect();
+            scoreRing.style.transition = '';
+            requestAnimationFrame(() => {
+                scoreRing.style.strokeDashoffset = 440 - (440 * percent / 100);
+            });
+
+            // Оценка: 5 — от 85%, 4 — от 70%, 3 — от 50%, иначе 2
+            let grade;
+            if (percent >= 85) grade = 5;
+            else if (percent >= 70) grade = 4;
+            else if (percent >= 50) grade = 3;
+            else grade = 2;
+            gradePill.textContent = 'Оценка: ' + grade;
+            gradePill.className = 'grade-pill grade-' + grade;
+
+            correctAnswersElement.textContent = correctCount;
+            totalAnswersElement.textContent = total;
+            timeSpentElement.textContent = formatTime(timeSpent);
+
+            renderDetailedResults();
             resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
-        function showDetailedResults() {
-            detailedResults.innerHTML = '<h3 style="margin:0 0 16px;">Подробные результаты:</h3>';
+        function renderDetailedResults() {
+            detailedResults.innerHTML = '';
+
             questions.forEach((question, index) => {
-                const resultElement = document.createElement('div');
-                resultElement.className = 'question';
+                const block = document.createElement('div');
+                block.className = 'question';
 
-                const statusDiv = document.createElement('div');
-                if (question.isCorrect) {
-                    statusDiv.className = 'status-badge correct';
-                    statusDiv.textContent = '✓ Правильно';
-                } else if (question.userAnswer === null) {
-                    statusDiv.className = 'status-badge skipped';
-                    statusDiv.textContent = '— Без ответа';
-                } else {
-                    statusDiv.className = 'status-badge incorrect';
-                    statusDiv.textContent = '✗ Неправильно';
-                }
+                const badge = document.createElement('span');
+                badge.className = 'status-badge ' +
+                    (question.userAnswer === null ? 'skipped'
+                        : (question.isCorrect ? 'correct' : 'incorrect'));
+                badge.textContent = question.userAnswer === null ? '— Без ответа'
+                    : (question.isCorrect ? '✓ Верно' : '✗ Неверно');
+                block.appendChild(badge);
 
-                const questionDiv = document.createElement('div');
-                questionDiv.className = 'question-text';
-                questionDiv.appendChild(renderTextWithMath(`Вопрос ${index + 1}. ${question.text}`));
+                const num = document.createElement('div');
+                num.className = 'question-text';
+                num.appendChild(document.createTextNode(`Вопрос ${index + 1}. `));
+                num.appendChild(renderTextWithMath(question.text));
+                block.appendChild(num);
 
-                const yourAnswerDiv = document.createElement('div');
-                yourAnswerDiv.className = 'answer-line';
-                yourAnswerDiv.innerHTML = '<strong>Ваш ответ:</strong> ';
                 if (question.userAnswer !== null) {
-                    yourAnswerDiv.appendChild(renderTextWithMath(question.answers[question.userAnswer].text));
+                    const userLine = document.createElement('div');
+                    userLine.className = 'answer-line';
+                    const label = document.createElement('strong');
+                    label.textContent = `Ваш ответ (${LETTERS[question.userAnswer] || question.userAnswer + 1}):`;
+                    userLine.appendChild(label);
+                    userLine.appendChild(renderTextWithMath(question.answers[question.userAnswer].text));
+                    block.appendChild(userLine);
                 } else {
-                    yourAnswerDiv.appendChild(document.createTextNode('Нет ответа'));
+                    const userLine = document.createElement('div');
+                    userLine.className = 'answer-line';
+                    userLine.textContent = 'Ответ не дан';
+                    block.appendChild(userLine);
                 }
 
-                const correctAnswerDiv = document.createElement('div');
-                correctAnswerDiv.className = 'answer-line';
-                correctAnswerDiv.innerHTML = '<strong>Правильный ответ:</strong> ';
-                const correctAnswer = question.answers.find(a => a.isCorrect);
-                if (correctAnswer) {
-                    correctAnswerDiv.appendChild(renderTextWithMath(correctAnswer.text));
-                } else {
-                    correctAnswerDiv.appendChild(document.createTextNode('Не определен'));
+                const correctIndex = question.answers.findIndex(a => a.isCorrect);
+                if (correctIndex !== -1 && !question.isCorrect) {
+                    const correctLine = document.createElement('div');
+                    correctLine.className = 'answer-line';
+                    const label = document.createElement('strong');
+                    label.textContent = `Правильный ответ (${LETTERS[correctIndex] || correctIndex + 1}):`;
+                    correctLine.appendChild(label);
+                    correctLine.appendChild(renderTextWithMath(question.answers[correctIndex].text));
+                    block.appendChild(correctLine);
                 }
 
-                resultElement.appendChild(statusDiv);
-                resultElement.appendChild(questionDiv);
-                resultElement.appendChild(yourAnswerDiv);
-                resultElement.appendChild(correctAnswerDiv);
-                detailedResults.appendChild(resultElement);
+                detailedResults.appendChild(block);
             });
             applyMathJax();
         }
@@ -1127,12 +1245,49 @@
             startTest();
         }
 
-        // ===== Инициализация =====
-        document.addEventListener('DOMContentLoaded', () => {
-            console.log('Приложение загружено');
-            document.body.style.overflow = 'hidden'; // открыто окно ввода ФИО
+        // ===== События =====
+        confirmNameBtn.addEventListener('click', confirmName);
+        [lastNameInput, firstNameInput, middleNameInput].forEach(inp => {
+            inp.addEventListener('keydown', e => { if (e.key === 'Enter') confirmName(); });
+        });
+        changeNameBtn.addEventListener('click', openNameOverlay);
 
-            // Подставляем сохранённое ФИО
+        loadUrlBtn.addEventListener('click', handleUrlLoad);
+        urlInput.addEventListener('keypress', e => { if (e.key === 'Enter') handleUrlLoad(); });
+        qrCodeBtn.addEventListener('click', startQRScanner);
+        yandexBtn.addEventListener('click', handleYandexLoad);
+        demoBtn.addEventListener('click', () => window.loadExampleTest());
+
+        closeQrBtn.addEventListener('click', stopQRScanner);
+        qrModal.addEventListener('click', e => { if (e.target === qrModal) stopQRScanner(); });
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape' && !qrModal.classList.contains('hidden')) stopQRScanner();
+        });
+
+        prevBtn.addEventListener('click', () => {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion(currentQuestionIndex);
+                updateNavigationButtons();
+            }
+        });
+        nextBtn.addEventListener('click', () => {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                showQuestion(currentQuestionIndex);
+                updateNavigationButtons();
+            }
+        });
+        finishBtn.addEventListener('click', finishTest);
+        restartBtn.addEventListener('click', restartTest);
+
+        // ===== Инициализация =====
+        function init() {
+            // Параметр CheckMode=true в URL включает кнопку «Проверить»
+            checkMode = getCheckModeFromLocation();
+            if (checkMode) console.log('Режим проверки (CheckMode) включён');
+
+            // Предзаполняем ФИО, если сохранялось ранее
             try {
                 const saved = JSON.parse(localStorage.getItem('quizStudent') || 'null');
                 if (saved) {
@@ -1140,16 +1295,20 @@
                     firstNameInput.value = saved.f || '';
                     middleNameInput.value = saved.m || '';
                 }
-            } catch (e) { console.error('Ошибка чтения localStorage:', e); }
+            } catch (e) {}
 
-            // Если ссылка на тест указана в URL страницы — скрываем секцию загрузки
-            // и загружаем тест автоматически, без каких-либо диалоговых окон
+            updateScrollLock();
+
+            // Автозагрузка теста, если ссылка передана в URL (?name= / ?test= / ?url=)
             const testUrl = getTestUrlFromLocation();
-            if (testUrl && isValidUrl(testUrl)) {
+            if (testUrl) {
                 uploadSection.classList.add('hidden');
+                urlInput.value = testUrl;
                 autoLoadTest(testUrl);
             }
-        });
+        }
+
+        init();
     </script>
 </body>
 </html>
