@@ -243,8 +243,9 @@
                 <h1 style="font-size: 1.25rem; font-weight: 700; letter-spacing: -0.5px;">Moodle XML Редактор</h1>
             </div>
             <div class="flex-gap">
-                <button class="btn" onclick="showLoadModal()">Загрузить GIST</button>
-                <button class="btn btn-primary" onclick="createNewGist()">Новый GIST</button>
+              <button onclick="window.open('https://gist.githubusercontent.com/tregubovvn/5abee72a0846a0481506b5947e0fb270/raw/7275ff630153751aefb44572a0ed0c44562ed428/XMLTestBuilder.md', '_blank')" class="token-link">Промпт для заданий</button>
+              <button class="btn" onclick="showLoadModal()">Загрузить GIST</button>
+              <button class="btn btn-primary" onclick="createNewGist()">Новый GIST</button>
             </div>
         </div>
 
@@ -252,15 +253,12 @@
             <div class="token-group">
                 <label class="label nowrap" style="margin:0;">GitHub Token:</label>
                 <input type="password" id="githubToken" class="input-base mono" onchange="saveTokens()">
-                <a href="https://github.com/settings/tokens/new" target="_blank" class="token-link">Получить</a>
-                
-                <a href="https://gist.github.com/tregubovvn/5abee72a0846a0481506b5947e0fb270" target="_blank" class="token-link">Промпт для заданий</a>
-                
+                <a href="https://github.com/settings/tokens/new" target="_blank" class="token-link">get</a>
             </div>
             <div class="token-group">
                 <label class="label nowrap" style="margin:0;">DeepSeek Token:</label>
                 <input type="password" id="deepseekToken" class="input-base mono" placeholder="sk-..." onchange="saveTokens()">
-                <a href="https://platform.deepseek.com/api_keys" target="_blank" class="token-link">Получить</a>
+                <a href="https://platform.deepseek.com/api_keys" target="_blank" class="token-link">get</a>
             </div>
         </div>
 
