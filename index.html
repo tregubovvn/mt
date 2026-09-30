@@ -560,7 +560,7 @@
         let videoStream = null;
         let checkMode = false;      // CheckMode=true  — мгновенная проверка каждого вопроса
         let crushMode = false;      // CrushMode=true  — ошибка возвращает на первый вопрос
-        let crushChecking = false;  // идёт проверка в CrushMode (блокировка кликов)
+        let crushState = 'answering'; // 'answering' | 'correct' | 'wrong' — состояние текущего вопроса в CrushMode
         let checkedQuestions = [];  // какие вопросы уже проверены
         const LETTERS = ['А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ж', 'З', 'И', 'К'];
         const YANDEX_API_PREFIX = 'https://cloud-api.yandex.net/v1/disk/public/resources/download?public_key=';
@@ -1026,7 +1026,7 @@
             userAnswers = new Array(questions.length).fill(null);
             checkedQuestions = new Array(questions.length).fill(false);
             currentQuestionIndex = 0;
-            crushChecking = false;
+            crushState = 'answering';
 
             uploadSection.classList.add('hidden');
             testSection.classList.remove('hidden');
@@ -1051,6 +1051,7 @@
             currentQuestionElement.textContent = index + 1;
             progressFill.style.width = `${((index + 1) / questions.length) * 100}%`;
             questionsContainer.innerHTML = '';
+            if (crushMode) crushState = 'answering';
 
             const question = questions[index];
             const questionElement = document.createElement('div');
@@ -1073,8 +1074,10 @@
                 answerElement.appendChild(renderTextWithMath(answer.text));
 
                 answerElement.addEventListener('click', () => {
-                    // после проверки в CheckMode и во время проверки в CrushMode ответ изменить нельзя
-                    if ((checkMode && checkedQuestions[index]) || crushChecking) return;
+                    // после проверки в CheckMode ответ изменить нельзя;
+                    // в CrushMode клики блокируются после проверки (ждём «Дальше»)
+                    if (checkMode && checkedQuestions[index]) return;
+                    if (crushMode && crushState !== 'answering') return;
                     questionElement.querySelectorAll('.answer-option')
                         .forEach(opt => opt.classList.remove('selected'));
                     answerElement.classList.add('selected');
@@ -1150,45 +1153,52 @@
 
         // ===== CrushMode: проверка при переходе к следующему вопросу =====
         function handleCrushNext() {
-            if (crushChecking) return;
             const idx = currentQuestionIndex;
             const question = questions[idx];
 
+            // Правильный ответ уже дан — «Дальше» ведёт к следующему вопросу
+            if (crushState === 'correct') {
+                if (idx < questions.length - 1) {
+                    showQuestion(idx + 1);
+                } else {
+                    finishTest();
+                }
+                return;
+            }
+
+            // Ошибка уже показана — «Дальше» возвращает к первому вопросу
+            if (crushState === 'wrong') {
+                resetCrushAttempt();
+                return;
+            }
+
+            // crushState === 'answering' — выполняем проверку
             if (userAnswers[idx] === null) {
                 setCrushFeedback('Сначала выберите вариант ответа', 'skipped');
                 return;
             }
 
-            crushChecking = true;
-            const selectedIsCorrect = question.answers[userAnswers[idx]].isCorrect;
             const options = questionsContainer.querySelectorAll('.answer-option');
+            const selectedIsCorrect = question.answers[userAnswers[idx]].isCorrect;
 
             if (selectedIsCorrect) {
-                // Верно: подсвечиваем и переходим дальше
-                options.forEach((opt, i) => {
-                    if (question.answers[i].isCorrect) opt.classList.add('correct');
-                });
+                // Верно: выделяем зелёным и ждём нажатия «Дальше»
+                crushState = 'correct';
                 checkedQuestions[idx] = true;
-                setCrushFeedback('Верно! Переходим к следующему вопросу…', 'correct');
-                setTimeout(() => {
-                    crushChecking = false;
-                    if (idx < questions.length - 1) {
-                        showQuestion(idx + 1);
-                    } else {
-                        finishTest();
-                    }
-                }, 900);
+                options.forEach((opt, i) => {
+                    if (i === userAnswers[idx]) opt.classList.add('correct');
+                });
+                setCrushFeedback('✓ Верно! Нажмите «Дальше», чтобы продолжить', 'correct');
+                updateNavigationButtons();
             } else {
-                // Неверно: показываем ошибку и правильный вариант, затем возврат к первому вопросу
+                // Неверно: выделяем красным только выбранный вариант (правильный не показываем),
+                // ждём нажатия «Дальше», после которого — возврат к первому вопросу
+                crushState = 'wrong';
                 options.forEach((opt, i) => {
                     if (i === userAnswers[idx]) opt.classList.add('incorrect');
-                    if (question.answers[i].isCorrect) opt.classList.add('correct');
                 });
-                setCrushFeedback('Неверно! Возврат к первому вопросу…', 'incorrect');
-                setTimeout(() => {
-                    crushChecking = false;
-                    resetCrushAttempt();
-                }, 1800);
+                setCrushFeedback('✕ Ошибка! Нажмите «Дальше», чтобы вернуться к первому вопросу', 'incorrect');
+                updateNavigationButtons();
             }
         }
 
@@ -1196,6 +1206,7 @@
             // Полный сброс попытки и возврат к первому вопросу
             userAnswers = new Array(questions.length).fill(null);
             checkedQuestions = new Array(questions.length).fill(false);
+            crushState = 'answering';
             shuffleAnswers(); // варианты снова перемешиваются для новой попытки
             showQuestion(0);
             testSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1212,14 +1223,19 @@
         // ===== Навигация =====
         function updateNavigationButtons() {
             if (crushMode) {
-                // В CrushMode назад ходить нельзя, завершение — только через последнее предупреждение
+                // В CrushMode назад ходить нельзя, завершение — только после последнего правильного ответа
                 prevBtn.style.display = 'none';
                 finishBtn.style.display = 'none';
                 nextBtn.style.display = '';
                 nextBtn.disabled = false;
-                nextBtn.textContent = currentQuestionIndex === questions.length - 1
-                    ? 'Проверить и завершить ✓'
-                    : 'Проверить ответ →';
+                if (crushState === 'answering') {
+                    nextBtn.textContent = currentQuestionIndex === questions.length - 1
+                        ? 'Проверить и завершить ✓'
+                        : 'Проверить ответ →';
+                } else {
+                    // после проверки (верно или неверно) кнопка ждёт действия студента
+                    nextBtn.textContent = 'Дальше →';
+                }
             } else {
                 prevBtn.style.display = '';
                 finishBtn.style.display = '';
