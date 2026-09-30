@@ -990,23 +990,15 @@
             return container;
         }
 
-        // ===== Перемешивание =====
-        function shuffleArray(arr) {
-            for (let i = arr.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [arr[i], arr[j]] = [arr[j], arr[i]];
-            }
-            return arr;
-        }
-
-        // Перемешивание порядка вопросов (CheckMode / CrushMode)
-        function shuffleQuestions() {
-            shuffleArray(questions);
-        }
-
-        // Перемешивание вариантов ответов внутри каждого вопроса
+        // ===== Перемешивание вариантов ответов =====
+        // Вопросы идут в исходном порядке — перемешиваются только варианты ответов
         function shuffleAnswers() {
-            questions.forEach(q => shuffleArray(q.answers));
+            questions.forEach(q => {
+                for (let i = q.answers.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [q.answers[i], q.answers[j]] = [q.answers[j], q.answers[i]];
+                }
+            });
         }
 
         // ===== Таймер =====
@@ -1018,9 +1010,7 @@
 
         // ===== Тест =====
         function startTest() {
-            // В режимах проверки вопросы перемешиваются при каждом запуске
-            if (checkMode || crushMode) shuffleQuestions();
-            // Варианты ответов каждого вопроса перемешиваются
+            // Перемешиваются только варианты ответов; вопросы идут в исходном порядке
             shuffleAnswers();
 
             userAnswers = new Array(questions.length).fill(null);
