@@ -3,379 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Moodle XML Тестирование</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg: #eef1f6;
-            --surface: #ffffff;
-            --text: #0f172a;
-            --muted: #64748b;
-            --border: #e8ecf3;
-            --primary: #4f46e5;
-            --primary-2: #9333ea;
-            --success: #10b981;
-            --danger: #ef4444;
-            --warning: #f59e0b;
-        }
-        * { box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body {
-            margin: 0; padding: 24px 16px;
-            font-family: 'Inter', system-ui, 'Segoe UI', sans-serif;
-            background: var(--bg);
-            background-image:
-                radial-gradient(1100px 500px at 8% -8%, rgba(99,102,241,.14), transparent 60%),
-                radial-gradient(900px 480px at 105% 8%, rgba(168,85,247,.12), transparent 60%);
-            color: var(--text);
-            line-height: 1.6;
-        }
-        ::selection { background: #c7d2fe; }
-        .container {
-            max-width: 920px; margin: 0 auto;
-            background: var(--surface);
-            border-radius: 24px;
-            box-shadow: 0 1px 2px rgba(15,23,42,.05), 0 24px 60px rgba(15,23,42,.10);
-            overflow: hidden;
-        }
-
-        /* ===== Header ===== */
-        .app-header {
-            background: linear-gradient(120deg, #4338ca, #6d28d9 55%, #9333ea);
-            color: #fff; padding: 30px 30px 78px;
-        }
-        .header-content { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-        .logo-mark {
-            width: 50px; height: 50px; border-radius: 15px; flex-shrink: 0;
-            background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.25);
-            display: flex; align-items: center; justify-content: center; font-size: 25px;
-        }
-        .app-header h1 { margin: 0; font-size: 24px; font-weight: 800; letter-spacing: -.02em; }
-        .subtitle { margin: 4px 0 0; color: rgba(255,255,255,.78); font-size: 13.5px; }
-        .student-chip {
-            margin-left: auto; display: flex; align-items: center; gap: 9px;
-            background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.3);
-            border-radius: 999px; padding: 6px 15px 6px 7px;
-            font-size: 13px; font-weight: 600; backdrop-filter: blur(4px);
-        }
-        .chip-avatar {
-            width: 27px; height: 27px; border-radius: 50%; background: #fff; color: #4338ca;
-            display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800;
-        }
-
-        /* ===== Layout ===== */
-        .main-content { padding: 0 26px 26px; margin-top: -48px; position: relative; }
-        .section {
-            background: #fff; border: 1px solid var(--border);
-            border-radius: 18px; padding: 24px; margin-bottom: 20px;
-            box-shadow: 0 1px 2px rgba(15,23,42,.04);
-        }
-        .section-title {
-            display: flex; align-items: center; gap: 10px;
-            margin: 0 0 18px; font-size: 17px; font-weight: 700;
-        }
-        .section-title .num {
-            width: 27px; height: 27px; border-radius: 9px; flex-shrink: 0;
-            background: #eef2ff; color: #4f46e5;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 13px; font-weight: 800;
-        }
-        .hidden { display: none; }
-
-        /* ===== Inputs & buttons ===== */
-        .input-row { display: flex; gap: 10px; flex-wrap: wrap; }
-        .text-input {
-            flex: 1; min-width: 220px; padding: 13px 16px;
-            border: 1.5px solid #e2e8f0; border-radius: 12px;
-            font-size: 15px; font-family: inherit; background: #f8fafc;
-            transition: border-color .2s, box-shadow .2s, background .2s;
-        }
-        .text-input:focus {
-            outline: none; border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(99,102,241,.15); background: #fff;
-        }
-        .text-input::placeholder { color: #94a3b8; }
-        .btn {
-            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-            border: none; padding: 12px 20px; border-radius: 12px;
-            font-size: 14px; font-weight: 600; font-family: inherit;
-            cursor: pointer; white-space: nowrap;
-            transition: transform .15s, box-shadow .2s, background .2s, border-color .2s;
-        }
-        .btn:active { transform: scale(.97); }
-        .btn-primary {
-            background: linear-gradient(120deg, #4f46e5, #7c3aed); color: #fff;
-            box-shadow: 0 6px 16px rgba(79,70,229,.30);
-        }
-        .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 10px 22px rgba(79,70,229,.38); }
-        .btn-dark { background: #0f172a; color: #fff; }
-        .btn-dark:hover { background: #1e293b; transform: translateY(-1px); }
-        .btn-success {
-            background: linear-gradient(120deg, #059669, #10b981); color: #fff;
-            box-shadow: 0 6px 16px rgba(16,185,129,.30);
-        }
-        .btn-success:hover { transform: translateY(-1px); }
-        .btn-ghost { background: #fff; border: 1.5px solid #e2e8f0; color: #334155; }
-        .btn-ghost:hover { border-color: #c7d2fe; background: #f8faff; }
-        .btn:disabled { opacity: .5; cursor: not-allowed; transform: none !important; box-shadow: none; }
-        .link-btn {
-            background: none; border: none; color: #6366f1; cursor: pointer;
-            font-family: inherit; font-weight: 600; font-size: 14px; padding: 8px;
-        }
-        .link-btn:hover { text-decoration: underline; }
-
-        /* ===== Status ===== */
-        .status-message {
-            display: flex; align-items: center; justify-content: center; gap: 8px;
-            padding: 12px 16px; border-radius: 12px; margin-top: 14px;
-            font-size: 14px; font-weight: 500; animation: fadeIn .25s;
-        }
-        .status-message.hidden { display: none; }
-        .success { background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; }
-        .error   { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
-        .loading { background: #eef2ff; color: #3730a3; border: 1px solid #c7d2fe; }
-        .loading::before {
-            content: ''; width: 14px; height: 14px; flex-shrink: 0;
-            border: 2px solid #6366f1; border-top-color: transparent;
-            border-radius: 50%; animation: spin .7s linear infinite;
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; } }
-
-        /* ===== Quiz ===== */
-        .quiz-topbar {
-            display: flex; align-items: center; justify-content: space-between;
-            gap: 12px; flex-wrap: wrap; margin-bottom: 14px;
-        }
-        .timer-pill {
-            display: inline-flex; align-items: center; gap: 8px;
-            background: #0f172a; color: #fff; padding: 9px 17px;
-            border-radius: 999px; font-weight: 700; font-size: 15px;
-            font-variant-numeric: tabular-nums;
-        }
-        .counter-pill {
-            background: #f1f5f9; border: 1px solid #e2e8f0; border-radius: 999px;
-            padding: 9px 16px; font-size: 13.5px; font-weight: 600; color: #475569;
-        }
-        .progress-track {
-            height: 8px; background: #eef1f6; border-radius: 999px;
-            overflow: hidden; margin-bottom: 22px;
-        }
-        .progress-fill {
-            height: 100%; width: 0; border-radius: 999px;
-            background: linear-gradient(90deg, #4f46e5, #a855f7);
-            transition: width .35s ease;
-        }
-
-        .question {
-            background: #fff; border: 1.5px solid var(--border);
-            border-radius: 16px; padding: 22px; margin-bottom: 18px; animation: fadeIn .3s;
-        }
-        .question-text { font-size: 16.5px; font-weight: 600; margin-bottom: 16px; }
-        .formula-container { overflow-x: auto; padding: 4px 0; }
-        .math-inline, .math-display { font-size: 1.08em; }
-
-        /* Заголовок вопроса (HeaderShow=true в URL) */
-        .question-header {
-            display: inline-flex; align-items: center; max-width: 100%;
-            margin-bottom: 14px; padding: 5px 14px;
-            background: #eef2ff; color: #4338ca;
-            border: 1px solid #c7d2fe; border-radius: 999px;
-            font-size: 13px; font-weight: 700;
-        }
-        .question-header .formula-container { padding: 0; overflow: visible; }
-
-        .answer-option {
-            display: flex; align-items: center; gap: 13px;
-            padding: 13px 15px; margin-bottom: 10px;
-            background: #fff; border: 1.5px solid var(--border);
-            border-radius: 13px; cursor: pointer; transition: all .18s;
-        }
-        .answer-option:hover {
-            border-color: #a5b4fc; transform: translateY(-1px);
-            box-shadow: 0 4px 14px rgba(79,70,229,.10);
-        }
-        .answer-option.selected { border-color: var(--primary); background: #eef2ff; }
-        .answer-option.correct   { border-color: var(--success); background: #ecfdf5; }
-        .answer-option.incorrect { border-color: var(--danger);  background: #fef2f2; }
-        .answer-option .formula-container { flex: 1; min-width: 0; }
-        .answer-letter {
-            width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
-            background: #f1f5f9; color: var(--muted);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 13px; font-weight: 800; transition: .18s;
-        }
-        .answer-option.selected .answer-letter { background: var(--primary); color: #fff; }
-
-        .test-controls { display: flex; gap: 10px; justify-content: space-between; flex-wrap: wrap; margin-top: 8px; }
-
-        /* ===== Режимы проверки (CheckMode / CrushMode) ===== */
-        .check-block { margin-top: 18px; }
-        .check-feedback { margin-top: 14px; animation: fadeIn .25s; }
-        .check-feedback:empty { display: none; }
-        .answer-option.correct .answer-letter   { background: var(--success); color: #fff; }
-        .answer-option.incorrect .answer-letter { background: var(--danger);  color: #fff; }
-
-        .mode-pill {
-            display: inline-flex; align-items: center; gap: 6px;
-            padding: 9px 16px; border-radius: 999px;
-            font-size: 13px; font-weight: 700;
-        }
-        .mode-pill.hidden { display: none; }
-        .mode-pill.check  { background: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; }
-        .mode-pill.crush  { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
-        .mode-pill.header { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
-
-        /* ===== Results ===== */
-        .results-hero {
-            border: 1px solid var(--border); border-radius: 20px;
-            padding: 28px 22px; text-align: center; margin-bottom: 20px;
-            background: linear-gradient(180deg, #fafbff, #fff);
-        }
-        .student-badge {
-            display: inline-flex; align-items: center; gap: 13px;
-            background: #f8fafc; border: 1px solid var(--border);
-            border-radius: 999px; padding: 8px 20px 8px 9px; margin-bottom: 22px;
-        }
-        .avatar {
-            width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0;
-            background: linear-gradient(135deg, #4f46e5, #9333ea); color: #fff;
-            display: flex; align-items: center; justify-content: center;
-            font-weight: 800; font-size: 15px;
-        }
-        .student-label {
-            font-size: 10.5px; text-transform: uppercase; letter-spacing: .09em;
-            color: #94a3b8; font-weight: 700; text-align: left;
-        }
-        .student-name { font-weight: 700; font-size: 15px; text-align: left; }
-        .score-wrap { position: relative; width: 180px; height: 180px; margin: 0 auto 6px; }
-        .score-ring { transform: rotate(-90deg); }
-        .ring-bg { fill: none; stroke: #eef1f6; stroke-width: 14; }
-        .ring-fill {
-            fill: none; stroke: url(#ringGrad); stroke-width: 14; stroke-linecap: round;
-            stroke-dasharray: 440; stroke-dashoffset: 440;
-            transition: stroke-dashoffset 1.2s cubic-bezier(.4, 0, .2, 1);
-        }
-        .ring-center {
-            position: absolute; inset: 0;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-        }
-        .score {
-            font-size: 40px; font-weight: 800; letter-spacing: -.03em; line-height: 1.1;
-            background: linear-gradient(120deg, #4f46e5, #9333ea);
-            -webkit-background-clip: text; background-clip: text; color: transparent;
-        }
-        .grade-pill {
-            display: inline-block; margin-top: 14px; padding: 7px 18px;
-            border-radius: 999px; font-weight: 700; font-size: 14px;
-        }
-        .grade-5 { background: #ecfdf5; color: #059669; }
-        .grade-4 { background: #eff6ff; color: #2563eb; }
-        .grade-3 { background: #fffbeb; color: #b45309; }
-        .grade-0, .grade-1, .grade-2 { background: #fef2f2; color: #dc2626; }
-        .stats-row {
-            display: grid; grid-template-columns: repeat(3, 1fr);
-            gap: 12px; margin-top: 20px;
-        }
-        .stat { background: #f8fafc; border: 1px solid #eef1f6; border-radius: 14px; padding: 14px; }
-        .stat-value { font-size: 21px; font-weight: 800; }
-        .stat-label { font-size: 12px; color: var(--muted); font-weight: 600; margin-top: 2px; }
-        .results-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 20px; }
-
-        .status-badge {
-            display: inline-flex; align-items: center; gap: 6px;
-            padding: 6px 13px; border-radius: 999px;
-            font-size: 12.5px; font-weight: 700; margin-bottom: 12px;
-        }
-        .status-badge.correct   { background: #ecfdf5; color: #059669; }
-        .status-badge.incorrect { background: #fef2f2; color: #dc2626; }
-        .status-badge.skipped   { background: #fffbeb; color: #b45309; }
-        .answer-line {
-            display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap;
-            padding: 10px 14px; border-radius: 10px;
-            background: #f8fafc; margin-top: 8px; font-size: 14.5px;
-        }
-
-        /* Детальные результаты: только правильные ответы */
-        .detail-title { margin: 0 0 4px; font-size: 16px; font-weight: 700; }
-        .detail-note { font-size: 13px; color: var(--muted); margin-bottom: 14px; }
-        .empty-note {
-            background: #f8fafc; border: 1.5px dashed #e2e8f0; color: var(--muted);
-            border-radius: 14px; padding: 20px; text-align: center; font-size: 14px;
-        }
-
-        /* ===== Overlays ===== */
-        .overlay {
-            position: fixed; inset: 0; z-index: 2000; padding: 20px;
-            display: flex; align-items: center; justify-content: center;
-            background: rgba(15, 23, 42, .62); backdrop-filter: blur(8px);
-            transition: opacity .3s, visibility .3s;
-        }
-        .overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-        .overlay-card {
-            background: #fff; border-radius: 24px; padding: 34px;
-            max-width: 480px; width: 100%;
-            box-shadow: 0 30px 80px rgba(15,23,42,.35);
-            animation: pop .35s cubic-bezier(.34, 1.4, .64, 1);
-            max-height: 92vh; overflow-y: auto;
-        }
-        @keyframes pop { from { opacity: 0; transform: translateY(18px) scale(.96); } to { opacity: 1; } }
-        .welcome-logo {
-            width: 64px; height: 64px; margin: 0 auto 18px; border-radius: 19px;
-            background: linear-gradient(135deg, #4f46e5, #9333ea);
-            display: flex; align-items: center; justify-content: center; font-size: 30px;
-            box-shadow: 0 10px 24px rgba(79,70,229,.35);
-        }
-        .overlay-card h2 { margin: 0 0 6px; text-align: center; font-size: 21px; font-weight: 800; }
-        .overlay-card > p { margin: 0 0 4px; text-align: center; color: var(--muted); font-size: 14px; }
-        .name-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 22px 0 4px; }
-        .field { display: flex; flex-direction: column; gap: 6px; text-align: left; }
-        .field-full { grid-column: 1 / -1; }
-        .field label { font-size: 12.5px; font-weight: 700; color: #475569; }
-        .field input {
-            padding: 12px 14px; border: 1.5px solid #e2e8f0; border-radius: 12px;
-            font-size: 15px; font-family: inherit; background: #f8fafc; transition: .2s;
-        }
-        .field input:focus {
-            outline: none; border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(99,102,241,.14); background: #fff;
-        }
-        .name-error {
-            margin-top: 14px; background: #fef2f2; color: #b91c1c;
-            border: 1px solid #fecaca; border-radius: 10px;
-            padding: 10px 14px; font-size: 13.5px; font-weight: 500;
-        }
-        .overlay-actions { margin-top: 20px; }
-        .overlay-actions .btn { width: 100%; padding: 14px; font-size: 15px; }
-
-        #qrVideo { width: 100%; max-width: 300px; border-radius: 12px; display: block; margin: 0 auto; background: #000; min-height: 180px; }
-        .qr-instruction {
-            margin-top: 16px; padding: 15px; text-align: left;
-            background: #f8fafc; border-radius: 12px; font-size: 13.5px; color: var(--muted);
-        }
-        .qr-instruction ol { margin: 10px 0 0 0; padding-left: 20px; }
-        .qr-instruction li { margin-bottom: 7px; }
-        #qrStatus { margin: 14px 0 4px; font-weight: 600; }
-
-        footer { text-align: center; padding: 22px; color: #94a3b8; font-size: 13px; border-top: 1px solid #eef1f6; }
-        footer p { margin: 4px 0; }
-
-        @media (max-width: 640px) {
-            body { padding: 12px 8px; }
-            .app-header { padding: 24px 20px 70px; }
-            .main-content { padding: 0 14px 14px; }
-            .section { padding: 18px 16px; }
-            .student-chip { margin-left: 0; }
-            .name-grid { grid-template-columns: 1fr; }
-            .input-row .btn, .test-controls .btn, .check-block .btn { width: 100%; }
-            .stats-row { grid-template-columns: 1fr; }
-        }
-    </style>
-    <!-- Библиотека сканирования QR-кодов -->
-    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
-    <!-- MathJax -->
+    <title>Moodle XML Редактор</title>
+    <!-- MathJax для предпросмотра формул -->
     <script>
         window.MathJax = {
             tex: {
@@ -386,1028 +15,1053 @@
             },
             options: {
                 skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
-            },
-            startup: {
-                pageReady: () => {
-                    console.log('MathJax готов к работе');
-                    return MathJax.startup.defaultPageReady();
-                }
             }
         };
     </script>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; }
+        body, h1, h2, h3, p, div, button, input, textarea, select { margin: 0; padding: 0; font-family: inherit; }
+
+        :root {
+            --bg: #0f172a;
+            --bg-elevated: #1e293b;
+            --bg-card: #334155;
+            --fg: #f1f5f9;
+            --fg-muted: #94a3b8;
+            --accent: #38bdf8;
+            --accent-hover: #7dd3fc;
+            --border: #475569;
+            --danger: #f87171;
+            --success: #4ade80;
+            --warning: #fbbf24;
+            --radius: 8px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--fg);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--fg-muted); }
+
+        header {
+            background: var(--bg-elevated);
+            border-bottom: 1px solid var(--border);
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            z-index: 10;
+        }
+        .header-row { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+        .header-tokens { display: flex; gap: 1rem; width: 100%; }
+        .token-group { flex: 1; display: flex; align-items: center; gap: 0.5rem; }
+        .nowrap { white-space: nowrap; }
+        .token-link { font-size: 0.7rem; color: var(--accent); white-space: nowrap; }
+
+        main { flex: 1; display: flex; flex-direction: column; overflow: hidden; position: relative; }
+        .editor-scroll-container { flex: 1; overflow-y: auto; padding: 1.5rem; }
+        .center-container { max-width: 900px; margin: 0 auto; }
+
+        .resizer { height: 5px; background: var(--border); cursor: ns-resize; transition: background 0.2s; }
+        .resizer:hover, .resizer.active { background: var(--accent); }
+
+        .xml-panel {
+            height: 300px; min-height: 100px; max-height: 80vh;
+            background: var(--bg); border-top: 1px solid var(--border);
+            display: flex; flex-direction: column;
+        }
+        .xml-header {
+            padding: 0.5rem 1rem; background: var(--bg-elevated);
+            border-bottom: 1px solid var(--border);
+            display: flex; justify-content: space-between; align-items: center;
+            font-size: 0.875rem; font-weight: 600; flex-wrap: wrap; gap: 0.5rem;
+        }
+        .xml-textarea {
+            flex: 1; width: 100%; background: transparent; border: none;
+            color: var(--fg); font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 13px; padding: 1rem; resize: none; outline: none; line-height: 1.5;
+        }
+
+        .btn {
+            background: var(--bg-card); border: 1px solid var(--border); color: var(--fg);
+            padding: 0.5rem 1rem; border-radius: var(--radius); cursor: pointer;
+            font-weight: 500; font-size: 0.875rem; transition: all 0.15s ease; white-space: nowrap;
+        }
+        .btn:hover { background: var(--border); }
+        .btn-primary { background: var(--accent); color: #000; border-color: var(--accent); font-weight: 600; }
+        .btn-primary:hover { background: var(--accent-hover); }
+        .btn-ai { background: #8b5cf6; color: #fff; border-color: #8b5cf6; }
+        .btn-ai:hover { background: #a78bfa; }
+
+        .input-base {
+            background: var(--bg); border: 1px solid var(--border); color: var(--fg);
+            padding: 0.5rem 0.75rem; border-radius: var(--radius); font-size: 0.875rem;
+            width: 100%; outline: none; transition: border-color 0.15s;
+        }
+        .input-base:focus { border-color: var(--accent); }
+        .mono { font-family: monospace; font-size: 0.8rem; }
+        .code { font-family: 'Consolas', 'Monaco', monospace; font-size: 0.9rem; }
+
+        .nav-bar { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+        .nav-btn {
+            padding: 0.4rem 0.8rem; background: var(--bg); border: 1px solid var(--border);
+            color: var(--fg-muted); border-radius: 6px; cursor: pointer; font-size: 0.85rem;
+        }
+        .nav-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+        .nav-btn:disabled { opacity: 0.5; cursor: default; }
+        .nav-btn.active { background: var(--accent); color: #000; border-color: var(--accent); }
+
+        .card {
+            background: var(--bg-elevated); border: 1px solid var(--border);
+            border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1.5rem;
+        }
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+        .card-header h2 { font-size: 1.1rem; font-weight: 700; }
+        .card-header h3 { font-size: 1rem; font-weight: 600; }
+
+        .settings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+        .field-block { margin-bottom: 1rem; }
+        .label-row { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
+        .label { font-size: 0.75rem; color: var(--fg-muted); margin-bottom: 0.25rem; display: block; }
+        .hint { font-size: 0.75rem; color: var(--fg-muted); }
+        .hint code { font-family: monospace; color: var(--accent); }
+        .empty-hint { color: var(--fg-muted); text-align: center; padding: 1rem; opacity: 0.7; font-size: 0.9rem; }
+
+        /* Панель вставки формул */
+        .fx-bar { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 0.25rem 0 1rem; }
+        .fx-btn {
+            background: var(--bg); border: 1px solid var(--border); color: var(--fg);
+            border-radius: 6px; padding: 0.25rem 0.55rem; cursor: pointer;
+            font-size: 0.8rem; font-family: 'Consolas', 'Monaco', monospace; transition: 0.15s;
+        }
+        .fx-btn:hover { border-color: var(--accent); color: var(--accent); }
+        .fx-sep { width: 1px; height: 18px; background: var(--border); margin: 0 4px; }
+
+        /* Ответы */
+        .answer-row {
+            display: flex; align-items: flex-start; gap: 0.5rem; margin-top: 0.5rem;
+            padding: 0.6rem; background: var(--bg); border-radius: 6px; border: 1px solid transparent;
+        }
+        .answer-row.correct { border-color: var(--accent); background: rgba(56, 189, 248, 0.08); }
+        .answer-row textarea {
+            flex: 1; background: transparent; border: none; color: var(--fg); outline: none;
+            font-size: 0.9rem; resize: vertical; min-height: 38px; line-height: 1.45;
+        }
+        .radio {
+            width: 16px; height: 16px; border: 2px solid var(--border); border-radius: 50%;
+            cursor: pointer; flex-shrink: 0; margin-top: 0.45rem;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .radio.selected { border-color: var(--accent); background: var(--accent); }
+        .radio.selected::after { content: ''; width: 4px; height: 4px; background: #000; border-radius: 50%; }
+        .frac-badge {
+            font-size: 0.7rem; font-weight: 700; padding: 0.15rem 0.4rem; border-radius: 4px;
+            margin-top: 0.4rem; white-space: nowrap;
+        }
+        .frac-100 { background: rgba(74, 222, 128, 0.15); color: var(--success); }
+        .frac-0 { background: rgba(148, 163, 184, 0.15); color: var(--fg-muted); }
+
+        /* Предпросмотр */
+        .preview-box { background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 1rem 1.25rem; }
+        .pv-question { font-weight: 600; margin-bottom: 0.75rem; line-height: 1.6; }
+        .pv-question p { margin: 0.3rem 0; }
+        .pv-answer {
+            display: flex; gap: 0.6rem; align-items: baseline;
+            padding: 0.35rem 0.6rem; border-radius: 6px; margin-bottom: 0.25rem;
+            border: 1px solid transparent;
+        }
+        .pv-answer.pv-correct { border-color: var(--success); background: rgba(74, 222, 128, 0.08); }
+        .pv-letter { font-weight: 700; color: var(--fg-muted); font-size: 0.85rem; flex-shrink: 0; }
+        .pv-check { color: var(--success); font-weight: 800; margin-left: auto; white-space: nowrap; font-size: 0.8rem; }
+
+        .status-bar {
+            background: var(--bg); padding: 0.5rem 1rem; border-top: 1px solid var(--border);
+            font-size: 0.8rem; display: flex; align-items: center; justify-content: space-between; min-height: 40px;
+        }
+        .status-item { display: flex; align-items: center; gap: 0.5rem; color: var(--fg-muted); }
+
+        .raw-url-display {
+            background: var(--bg-elevated); padding: 4px 8px; border-radius: 4px;
+            border: 1px solid var(--border); display: flex; align-items: center; gap: 8px; max-width: 400px;
+        }
+        .url-text {
+            color: var(--accent); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+            font-family: monospace; font-size: 0.8rem;
+        }
+
+        .toast {
+            position: fixed; bottom: 20px; right: 20px; padding: 12px 20px;
+            background: var(--bg-card); border-left: 4px solid var(--accent); color: var(--fg);
+            border-radius: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transform: translateY(100px); opacity: 0; transition: all 0.3s ease; z-index: 1000;
+        }
+        .toast.show { transform: translateY(0); opacity: 1; }
+        .toast.error { border-color: var(--danger); }
+
+        .modal-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.7);
+            display: flex; align-items: center; justify-content: center; z-index: 100;
+            opacity: 0; pointer-events: none; transition: opacity 0.2s;
+        }
+        .modal-overlay.show { opacity: 1; pointer-events: all; }
+        .modal {
+            background: var(--bg-elevated); padding: 2rem; border-radius: var(--radius);
+            width: 90%; max-width: 400px; border: 1px solid var(--border);
+            transform: scale(0.95); transition: transform 0.2s;
+        }
+        .modal-overlay.show .modal { transform: scale(1); }
+
+        .hidden { display: none !important; }
+        .flex-gap { display: flex; gap: 0.5rem; align-items: center; }
+        .btn-sm { padding: 0.25rem 0.5rem; font-size: 0.75rem; }
+        .btn-icon { background: transparent; border: none; color: var(--fg-muted); cursor: pointer; padding: 2px; line-height: 1; }
+        .btn-icon:hover { color: var(--danger); }
+
+        @media (max-width: 768px) {
+            .header-tokens { flex-direction: column; }
+            .token-group { width: 100%; }
+            .header-row { flex-wrap: wrap; }
+            .settings-grid { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <header class="app-header">
-            <div class="header-content">
-                <div class="logo-mark">🎓</div>
-                <div>
-                    <h1>Moodle XML Тестирование</h1>
-                    <p class="subtitle">Формулы LaTeX · Таймер · Автоматическая проверка</p>
-                </div>
-                <div class="student-chip hidden" id="studentChip">
-                    <span class="chip-avatar" id="chipAvatar">—</span>
-                    <span id="chipName">—</span>
+
+    <header>
+        <div class="header-row">
+            <div>
+                <h1 style="font-size: 1.25rem; font-weight: 700; letter-spacing: -0.5px;">Moodle XML Редактор</h1>
+            </div>
+            <div class="flex-gap">
+              <button class="btn" onclick="window.open('https://gist.githubusercontent.com/tregubovvn/5abee72a0846a0481506b5947e0fb270/raw/7275ff630153751aefb44572a0ed0c44562ed428/XMLTestBuilder.md', '_blank')"">Промпт для заданий</button>
+              <button class="btn" onclick="showLoadModal()">Загрузить GIST</button>
+              <button class="btn btn-primary" onclick="createNewGist()">Новый GIST</button>
+            </div>
+        </div>
+
+        <div class="header-tokens">
+            <div class="token-group">
+                <label class="label nowrap" style="margin:0;">GitHub Token:</label>
+                <input type="password" id="githubToken" class="input-base mono" onchange="saveTokens()">
+                <a href="https://github.com/settings/tokens/new" target="_blank" class="token-link">get</a>
+            </div>
+            <div class="token-group">
+                <label class="label nowrap" style="margin:0;">DeepSeek Token:</label>
+                <input type="password" id="deepseekToken" class="input-base mono" placeholder="sk-..." onchange="saveTokens()">
+                <a href="https://platform.deepseek.com/api_keys" target="_blank" class="token-link">get</a>
+            </div>
+        </div>
+
+        <div class="header-tokens">
+            <div class="token-group">
+                <label class="label nowrap" style="margin:0;">Название теста:</label>
+                <input type="text" id="quizName" class="input-base" placeholder="Название (используется в описании GIST)" oninput="updateQuizName()">
+            </div>
+            <div class="token-group">
+                <label class="label nowrap" style="margin:0;">GIST:</label>
+                <div id="gistLinkContainer" class="raw-url-display hidden" style="flex: 1; max-width: none;">
+                    <a id="gistLinkText" class="url-text" style="flex: 1; min-width: 0;" href="#" target="_blank" title="Открыть GIST в новой вкладке"></a>
+                    <button class="btn-icon" onclick="copyGistUrl()" title="Копировать ссылку GIST">
+                        <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                    </button>
+                    <button class="btn btn-sm" onclick="openTest()" title="Открыть тест в приложении тестирования и скопировать ссылку">Открыть тест</button>
                 </div>
             </div>
-        </header>
+        </div>
+    </header>
 
-        <div class="main-content">
-            <!-- Секция загрузки теста -->
-            <section id="uploadSection" class="section">
-                <h2 class="section-title"><span class="num">1</span> Загрузка теста</h2>
-
-                <div class="input-row">
-                    <input type="url" id="urlInput" class="text-input"
-                           placeholder="https://example.com/test.xml">
-                    <button id="loadUrlBtn" class="btn btn-primary">🔗 Загрузить</button>
-                    <button id="qrCodeBtn" class="btn btn-dark">📷 QR-код</button>
-                    <button id="yandexBtn" class="btn btn-ghost">☁️ Яндекс.Диск</button>
-                    <button id="demoBtn" class="btn btn-ghost">▶ Демо-тест</button>
+    <main>
+        <div class="editor-scroll-container" id="editorContainer">
+            <div class="center-container">
+                <!-- Навигация по вопросам -->
+                <div class="nav-bar">
+                    <button id="prevBtn" class="nav-btn" onclick="prevQuestion()" disabled>◀ Назад</button>
+                    <div id="questionTabs" style="display: flex; gap: 4px; flex-wrap: wrap;"></div>
+                    <button id="nextBtn" class="nav-btn" onclick="nextQuestion()">Вперёд ▶</button>
+                    <div style="flex:1"></div>
+                    <button class="btn btn-sm" onclick="duplicateQuestion()">⧉ Дублировать</button>
+                    <button class="btn btn-sm" onclick="addQuestion()">+ Добавить вопрос</button>
                 </div>
 
-                <div id="uploadStatus" class="status-message hidden"></div>
-            </section>
-
-            <!-- Секция тестирования -->
-            <section id="testSection" class="section hidden">
-                <h2 class="section-title"><span class="num">2</span> Тестирование</h2>
-
-                <div class="quiz-topbar">
-                    <div class="timer-pill">
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-                        <span id="timer">00:00:00</span>
+                <!-- Редактор вопроса -->
+                <div class="card" id="questionCard">
+                    <div class="card-header">
+                        <h2>Вопрос <span id="questionNumber">1</span></h2>
+                        <button class="btn-icon" onclick="deleteQuestion()" title="Удалить вопрос">
+                            <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                        </button>
                     </div>
-                    <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
-                        <span class="mode-pill check hidden" id="checkBadge">🔍 Режим проверки</span>
-                        <span class="mode-pill crush hidden" id="crushBadge">💥 Crush Mode</span>
-                        <span class="mode-pill header hidden" id="headerBadge">🏷 Заголовки вопросов</span>
-                        <div class="counter-pill">Вопрос <span id="currentQuestion">1</span> из <span id="totalQuestions">0</span></div>
+
+                    <div class="field-block">
+                        <label class="label">Название вопроса</label>
+                        <input type="text" id="qName" class="input-base" oninput="updateName(this.value)"
+                               placeholder="Например: Коэффициент нервной регуляции">
                     </div>
-                </div>
-                <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
 
-                <div id="questionsContainer"></div>
-
-                <div class="test-controls">
-                    <button id="prevBtn" class="btn btn-ghost" disabled>← Назад</button>
-                    <button id="nextBtn" class="btn btn-primary">Вперёд →</button>
-                    <button id="finishBtn" class="btn btn-success">✓ Завершить тест</button>
-                </div>
-            </section>
-
-            <!-- Секция результатов -->
-            <section id="resultsSection" class="section hidden">
-                <h2 class="section-title"><span class="num">3</span> Результаты</h2>
-
-                <div class="results-hero">
-                    <div class="student-badge">
-                        <div class="avatar" id="resultAvatar">—</div>
+                    <div class="settings-grid">
                         <div>
-                            <div class="student-label">Студент</div>
-                            <div class="student-name" id="resultStudentName">—</div>
+                            <label class="label">Перемешивать ответы (shuffleanswers)</label>
+                            <select id="qShuffle" class="input-base" onchange="updateShuffle(this.value)">
+                                <option value="true">true — да</option>
+                                <option value="false">false — нет</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="label">Нумерация ответов (answernumbering)</label>
+                            <select id="qNumbering" class="input-base" onchange="updateNumbering(this.value)">
+                                <option value="abc">abc</option>
+                                <option value="ABC">ABC</option>
+                                <option value="123">123</option>
+                                <option value="none">none</option>
+                            </select>
                         </div>
                     </div>
 
-                    <div class="score-wrap">
-                        <svg class="score-ring" width="180" height="180" viewBox="0 0 180 180">
-                            <defs>
-                                <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stop-color="#4f46e5"/>
-                                    <stop offset="100%" stop-color="#a855f7"/>
-                                </linearGradient>
-                            </defs>
-                            <circle class="ring-bg" cx="90" cy="90" r="70"/>
-                            <circle id="scoreRing" class="ring-fill" cx="90" cy="90" r="70"/>
-                        </svg>
-                        <div class="ring-center">
-                            <div class="score" id="score">0%</div>
-                            <div class="grade-pill grade-0" id="gradePill">Оценка: —</div>
+                    <div class="field-block">
+                        <div class="label-row">
+                            <label class="label">Текст вопроса (HTML + LaTeX)</label>
+                            <span class="hint">строчная формула: <code>\( ... \)</code> &nbsp;·&nbsp; выносная: <code>\[ ... \]</code></span>
+                        </div>
+                        <textarea id="qText" class="input-base code" style="min-height: 110px; resize: vertical;"
+                                  oninput="updateQuestionText(this.value)"
+                                  placeholder="<p>Текст вопроса \(формула\)</p>"></textarea>
+                    </div>
+
+                    <!-- Панель вставки формул -->
+                    <div class="fx-bar">
+                        <span class="label" style="margin:0;">Вставить:</span>
+                        <button class="fx-btn" onclick="ins('\\(','\\)')" title="Строчная формула">\(…\)</button>
+                        <button class="fx-btn" onclick="ins('\\[','\\]')" title="Выносная формула">\[…\]</button>
+                        <span class="fx-sep"></span>
+                        <button class="fx-btn" onclick="ins('\\frac{','}{}')" title="Дробь">x/y</button>
+                        <button class="fx-btn" onclick="ins('\\sqrt{','}')" title="Корень">√x</button>
+                        <button class="fx-btn" onclick="ins('^{','}')" title="Степень">xⁿ</button>
+                        <button class="fx-btn" onclick="ins('_{','}')" title="Индекс">xₙ</button>
+                        <button class="fx-btn" onclick="ins('\\text{','}')" title="Текст внутри формулы">text</button>
+                        <span class="fx-sep"></span>
+                        <button class="fx-btn" onclick="ins('\\alpha','')">α</button>
+                        <button class="fx-btn" onclick="ins('\\beta','')">β</button>
+                        <button class="fx-btn" onclick="ins('\\pi','')">π</button>
+                        <button class="fx-btn" onclick="ins('\\times','')">×</button>
+                        <button class="fx-btn" onclick="ins('\\pm','')">±</button>
+                        <button class="fx-btn" onclick="ins('\\leq','')">≤</button>
+                        <button class="fx-btn" onclick="ins('\\geq','')">≥</button>
+                        <button class="fx-btn" onclick="ins('\\neq','')">≠</button>
+                        <button class="fx-btn" onclick="ins('\\infty','')">∞</button>
+                    </div>
+
+                    <div style="border-top: 1px solid var(--border); padding-top: 1rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                            <h3 style="font-size: 1rem; font-weight: 600;">Варианты ответов</h3>
+                            <button class="btn btn-sm" onclick="addAnswer()">+ Добавить ответ</button>
+                        </div>
+                        <div id="answersContainer"></div>
+                        <div class="hint" style="margin-top: 0.6rem;">
+                            Нажмите на кружок слева, чтобы отметить правильный ответ (fraction = 100). Остальные получат fraction = 0.
                         </div>
                     </div>
+                </div>
 
-                    <div class="stats-row">
-                        <div class="stat"><div class="stat-value" id="correctAnswers">0</div><div class="stat-label">Правильных</div></div>
-                        <div class="stat"><div class="stat-value" id="totalAnswers">0</div><div class="stat-label">Всего вопросов</div></div>
-                        <div class="stat"><div class="stat-value" id="timeSpent">00:00:00</div><div class="stat-label">Время</div></div>
+                <!-- Предпросмотр -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Предпросмотр (MathJax)</h2>
+                        <span class="hint">так вопрос увидит студент</span>
                     </div>
-
-                    <div class="results-actions">
-                        <button id="restartBtn" class="btn btn-primary">↻ Пройти тест снова</button>
-                        <button id="changeNameBtn" class="link-btn">Сменить ФИО</button>
-                    </div>
+                    <div id="previewBox" class="preview-box"></div>
                 </div>
 
-                <div id="detailedResults"></div>
-            </section>
-        </div>
+                <!-- Навигация по вопросам -->
+                <div class="nav-bar">
+                    <button id="prevBtn" class="nav-btn" onclick="prevQuestion()" disabled>◀ Назад</button>
+                    <div id="questionTabs" style="display: flex; gap: 4px; flex-wrap: wrap;"></div>
+                    <button id="nextBtn" class="nav-btn" onclick="nextQuestion()">Вперёд ▶</button>
+                    <div style="flex:1"></div>
+                </div>
 
-        <footer>
-            <p>Приложение для тестирования на основе формата Moodle XML с поддержкой формул LaTeX</p>
-        </footer>
-    </div>
-
-    <!-- Приветственное окно: ввод ФИО -->
-    <div id="welcomeOverlay" class="overlay">
-        <div class="overlay-card">
-            <div class="welcome-logo">🎓</div>
-            <h2>Добро пожаловать!</h2>
-            <p>Прежде чем начать тестирование, представьтесь, пожалуйста</p>
-            <div class="name-grid">
-                <div class="field">
-                    <label for="lastNameInput">Фамилия *</label>
-                    <input type="text" id="lastNameInput" placeholder="Иванов" autocomplete="family-name">
-                </div>
-                <div class="field">
-                    <label for="firstNameInput">Имя *</label>
-                    <input type="text" id="firstNameInput" placeholder="Иван" autocomplete="given-name">
-                </div>
-                <div class="field field-full">
-                    <label for="middleNameInput">Группа</label>
-                    <input type="text" id="middleNameInput" placeholder="б1_МЕНЖ-11 (необязательно)" autocomplete="organization">
-                </div>
-            </div>
-            <div id="nameError" class="name-error hidden"></div>
-            <div class="overlay-actions">
-                <button id="confirmNameBtn" class="btn btn-primary">Продолжить →</button>
+                
             </div>
         </div>
-    </div>
 
-    <!-- Модальное окно сканера QR-кода -->
-    <div id="qrModal" class="overlay hidden">
-        <div class="overlay-card" style="text-align:center;">
-            <h2>Сканирование QR-кода</h2>
-            <div style="margin:18px 0;">
-                <video id="qrVideo" playsinline></video>
-                <div id="qrStatus">Наведите камеру на QR-код</div>
+        <div class="resizer" id="resizer"></div>
+
+        <div class="xml-panel" id="xmlPanel">
+            <div class="xml-header">
+                <span>XML (Moodle)</span>
+                <div class="flex-gap">
+                    <button class="btn btn-sm" onclick="document.getElementById('xmlFileInput').click()">Загрузить файл</button>
+                    <input type="file" id="xmlFileInput" accept=".xml,text/xml,application/xml" style="display: none;" onchange="loadXmlFromFile(this)">
+                    <button class="btn btn-sm btn-ai" onclick="askDeepSeek()">Спросить DeepSeek</button>
+                    <button class="btn btn-sm" onclick="copyXml()">Копировать</button>
+                    <button class="btn btn-sm btn-primary" onclick="applyXmlChanges()">Применить изменения</button>
+                </div>
             </div>
-            <div class="qr-instruction">
-                <strong>Инструкция:</strong>
-                <ol>
-                    <li>Наведите камеру на QR-код со ссылкой на тест</li>
-                    <li>Код должен содержать ссылку на Moodle XML файл</li>
-                    <li>Ссылка автоматически вставится в поле загрузки</li>
-                    <li>Окно закроется после сканирования</li>
-                </ol>
-            </div>
-            <div class="overlay-actions">
-                <button id="closeQrBtn" class="btn btn-ghost">Закрыть сканер</button>
+            <textarea id="xmlEditor" class="xml-textarea" spellcheck="false" oninput="onXmlManualEdit()"></textarea>
+        </div>
+
+        <div class="status-bar">
+            <div class="status-item" id="statusText">Готово</div>
+            <div class="status-item" id="statusCount"></div>
+        </div>
+    </main>
+
+    <!-- Модальное окно загрузки GIST -->
+    <div class="modal-overlay" id="loadModal">
+        <div class="modal">
+            <h3 style="margin-bottom: 1rem; font-weight: 600;">Загрузка из GitHub Gist</h3>
+            <label class="label">Ссылка GIST</label>
+            <input type="text" id="loadGistId" class="input-base" placeholder="https://gist.github.com/user/abc123..." style="margin-bottom: 0.5rem;">
+            <p class="hint" style="margin-bottom: 1rem;">Вставьте полную ссылку на GIST, raw-ссылку или просто ID.</p>
+            <div style="display: flex; gap: 0.5rem; justify-content: flex-end;">
+                <button class="btn" onclick="hideLoadModal()">Отмена</button>
+                <button class="btn btn-primary" onclick="loadFromGist()">Загрузить</button>
             </div>
         </div>
     </div>
+
+    <div id="toast" class="toast"></div>
 
     <script>
-        // ===== Глобальные переменные =====
-        let questions = [];
+        // ===== ДАННЫЕ И СОСТОЯНИЕ =====
+        let quizData = { name: '', questions: [] };
         let currentQuestionIndex = 0;
-        let userAnswers = [];
-        let startTime = null;
-        let timerInterval = null;
-        let timeSpent = 0;
-        let studentName = '';
-        let pendingStartAfterName = false;
-        let qrScannerActive = false;
-        let videoStream = null;
-        let checkMode = false;      // CheckMode=true   — мгновенная проверка каждого вопроса
-        let crushMode = false;      // CrushMode=true   — ошибка возвращает на первый вопрос
-        let headerShow = false;     // HeaderShow=true  — показывать заголовок вопроса из <name>
-        let crushState = 'answering'; // 'answering' | 'correct' | 'wrong' — состояние текущего вопроса в CrushMode
-        let checkedQuestions = [];  // какие вопросы уже проверены
-        const LETTERS = ['А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ж', 'З', 'И', 'К'];
-        const YANDEX_API_PREFIX = 'https://cloud-api.yandex.net/v1/disk/public/resources/download?public_key=';
+        let currentGistId = null;
+        let currentGistUrl = null;
+        let currentRawUrl = null;
+        let currentGistFilename = 'quiz.xml';
+        let syncTimeout = null;
+        let autoSaveTimeout = null;
+        let previewTimeout = null;
+        let isSaving = false;
+        let needsAnotherSave = false;
+        let skipNextAutoSave = false;
+        let lastFocused = null;
 
-        // ===== Элементы DOM =====
-        const uploadSection = document.getElementById('uploadSection');
-        const urlInput = document.getElementById('urlInput');
-        const loadUrlBtn = document.getElementById('loadUrlBtn');
-        const qrCodeBtn = document.getElementById('qrCodeBtn');
-        const yandexBtn = document.getElementById('yandexBtn');
-        const demoBtn = document.getElementById('demoBtn');
-        const uploadStatus = document.getElementById('uploadStatus');
-        const testSection = document.getElementById('testSection');
-        const timerElement = document.getElementById('timer');
-        const currentQuestionElement = document.getElementById('currentQuestion');
-        const totalQuestionsElement = document.getElementById('totalQuestions');
-        const progressFill = document.getElementById('progressFill');
-        const questionsContainer = document.getElementById('questionsContainer');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        const finishBtn = document.getElementById('finishBtn');
-        const resultsSection = document.getElementById('resultsSection');
-        const resultAvatar = document.getElementById('resultAvatar');
-        const resultStudentName = document.getElementById('resultStudentName');
-        const scoreRing = document.getElementById('scoreRing');
-        const scoreElement = document.getElementById('score');
-        const gradePill = document.getElementById('gradePill');
-        const correctAnswersElement = document.getElementById('correctAnswers');
-        const totalAnswersElement = document.getElementById('totalAnswers');
-        const timeSpentElement = document.getElementById('timeSpent');
-        const restartBtn = document.getElementById('restartBtn');
-        const changeNameBtn = document.getElementById('changeNameBtn');
-        const detailedResults = document.getElementById('detailedResults');
-        const studentChip = document.getElementById('studentChip');
-        const chipAvatar = document.getElementById('chipAvatar');
-        const chipName = document.getElementById('chipName');
-        const welcomeOverlay = document.getElementById('welcomeOverlay');
-        const lastNameInput = document.getElementById('lastNameInput');
-        const firstNameInput = document.getElementById('firstNameInput');
-        const middleNameInput = document.getElementById('middleNameInput');
-        const nameError = document.getElementById('nameError');
-        const confirmNameBtn = document.getElementById('confirmNameBtn');
-        const qrModal = document.getElementById('qrModal');
-        const qrVideo = document.getElementById('qrVideo');
-        const qrStatus = document.getElementById('qrStatus');
-        const closeQrBtn = document.getElementById('closeQrBtn');
-        const checkBadge = document.getElementById('checkBadge');
-        const crushBadge = document.getElementById('crushBadge');
-        const headerBadge = document.getElementById('headerBadge');
+        const GIST_FILENAME = 'quiz.xml';
+        const TEST_APP_URL = 'https://tregubovvn.github.io/mt/index.html';
 
-        // ===== Вспомогательные функции =====
-        function isAnyOverlayOpen() {
-            return !welcomeOverlay.classList.contains('hidden') ||
-                   !qrModal.classList.contains('hidden');
-        }
-
-        function updateScrollLock() {
-            document.body.style.overflow = isAnyOverlayOpen() ? 'hidden' : 'auto';
-        }
-
-        function formatTime(totalSeconds) {
-            const h = Math.floor(totalSeconds / 3600);
-            const m = Math.floor((totalSeconds % 3600) / 60);
-            const s = totalSeconds % 60;
-            const pad = n => n.toString().padStart(2, '0');
-            return `${pad(h)}:${pad(m)}:${pad(s)}`;
-        }
-
-        function friendlyError(error) {
-            if (error instanceof TypeError && /fetch/i.test(error.message)) {
-                return new Error('Не удалось загрузить файл. Проверьте ссылку, доступность файла и разрешения CORS на сервере.');
-            }
-            return error;
-        }
-
-        function isValidUrl(string) {
-            try { new URL(string); return true; } catch (_) { return false; }
-        }
-
-        function showUploadStatus(message, type) {
-            uploadStatus.textContent = message;
-            uploadStatus.className = 'status-message';
-            if (type) uploadStatus.classList.add(type);
-            uploadStatus.classList.remove('hidden');
-        }
-
-        function applyMathJax() {
-            if (window.MathJax && MathJax.typesetPromise) {
-                MathJax.typesetPromise().catch(err => console.log('Ошибка MathJax: ' + err.message));
-            }
-        }
-
-        // ===== Логика ФИО =====
-        function getFullName() {
-            return [lastNameInput.value.trim(), firstNameInput.value.trim(), middleNameInput.value.trim()]
-                .filter(Boolean).join(' ');
-        }
-
-        function updateStudentUI() {
-            const parts = studentName.split(' ').filter(Boolean);
-            const initials = ((parts[0] || '')[0] || '') + ((parts[1] || '')[0] || '');
-            chipAvatar.textContent = initials || '—';
-            chipName.textContent = parts.length > 1
-                ? `${parts[0]} ${parts[1][0]}.` : studentName;
-            studentChip.classList.remove('hidden');
-            resultStudentName.textContent = studentName;
-            resultAvatar.textContent = initials || '—';
-        }
-
-        function confirmName() {
-            const l = lastNameInput.value.trim();
-            const f = firstNameInput.value.trim();
-            nameError.classList.add('hidden');
-            if (l.length < 2 || f.length < 2) {
-                nameError.textContent = 'Пожалуйста, укажите фамилию и имя (минимум 2 символа)';
-                nameError.classList.remove('hidden');
-                return;
-            }
-            studentName = getFullName();
-            try {
-                localStorage.setItem('quizStudent', JSON.stringify({
-                    l, f, m: middleNameInput.value.trim()
-                }));
-            } catch (e) { console.warn('localStorage недоступен', e); }
-            updateStudentUI();
-            welcomeOverlay.classList.add('hidden');
-            updateScrollLock();
-
-            if (pendingStartAfterName && questions.length > 0) {
-                pendingStartAfterName = false;
-                startTest();
-            } else if (!uploadSection.classList.contains('hidden')) {
-                urlInput.focus();
-            }
-        }
-
-        function openNameOverlay() {
-            try {
-                const saved = JSON.parse(localStorage.getItem('quizStudent') || 'null');
-                if (saved) {
-                    lastNameInput.value = saved.l || '';
-                    firstNameInput.value = saved.f || '';
-                    middleNameInput.value = saved.m || '';
-                }
-            } catch (e) {}
-            pendingStartAfterName = false;
-            nameError.classList.add('hidden');
-            welcomeOverlay.classList.remove('hidden');
-            updateScrollLock();
-        }
-
-        // ===== Чтение параметров из адресной строки =====
-        function getTestUrlFromLocation() {
-            try {
-                const params = new URLSearchParams(window.location.search);
-                return params.get('name') || params.get('test') || params.get('url') || '';
-            } catch (e) {
-                console.error('Ошибка парсинга URL параметров:', e);
-                return '';
-            }
-        }
-
-        // Универсальное чтение флага режима (CheckMode, CrushMode, HeaderShow и т.п.)
-        function getUrlFlag(name) {
-            try {
-                const params = new URLSearchParams(window.location.search);
-                for (const [key, value] of params.entries()) {
-                    if (key.toLowerCase() === name.toLowerCase()) {
-                        // поддерживаем: ?HeaderShow, ?HeaderShow=true / 1 / yes
-                        return value === '' || ['true', '1', 'yes'].includes(value.toLowerCase());
-                    }
-                }
-            } catch (e) {
-                console.error('Ошибка парсинга URL параметров:', e);
-            }
-            return false;
-        }
-
-        // ===== Загрузка и парсинг теста =====
-        async function fetchAndParseTest(url) {
-            let target = url;
-
-            if (url.includes('yadi.sk') || url.includes('disk.yandex')) {
-                const resp = await fetch(YANDEX_API_PREFIX + encodeURIComponent(url));
-                if (!resp.ok) {
-                    if (resp.status === 403) throw new Error('403: Доступ запрещён. Проверьте права доступа к файлу');
-                    if (resp.status === 404) throw new Error('404: Файл не найден. Проверьте ссылку и права доступа');
-                    throw new Error(`Ошибка HTTP: ${resp.status}`);
-                }
-                const data = await resp.json();
-                if (!data.href) throw new Error('Не удалось получить ссылку для скачивания с Яндекс.Диска');
-                target = data.href;
-            }
-
-            const response = await fetch(target);
-            if (!response.ok) throw new Error(`Ошибка HTTP: ${response.status}`);
-            const xmlContent = await response.text();
-            parseMoodleXML(xmlContent);
-
-            if (questions.length === 0) {
-                throw new Error('Не удалось найти вопросы в XML файле');
-            }
-        }
-
-        async function autoLoadTest(url) {
-            try {
-                await fetchAndParseTest(url);
-                console.log(`Автоматически загружен тест с ${questions.length} вопросами`);
-                uploadSection.classList.add('hidden');
-                if (studentName) {
-                    startTest();
-                } else {
-                    pendingStartAfterName = true;
-                }
-            } catch (error) {
-                const err = friendlyError(error);
-                console.error('Ошибка автозагрузки теста:', err);
-                uploadSection.classList.remove('hidden');
-                urlInput.value = url;
-                showUploadStatus(`Ошибка загрузки: ${err.message}`, 'error');
-            }
-        }
-
-        // ===== Демо-тест =====
-        window.loadExampleTest = function () {
-            const exampleXML = `<?xml version="1.0" encoding="UTF-8"?>
+        // Стартовый шаблон — пример вопроса с формулой (в стиле 10_2.xml)
+        const defaultXml = `<?xml version="1.0" encoding="UTF-8"?>
 <quiz>
     <question type="multichoice">
-        <name><text>Пример с формулой 1</text></name>
+        <name>
+            <text>Пример: вопрос с формулой</text>
+        </name>
         <questiontext format="html">
-            <text><![CDATA[<p>Выберите правильную формулу для расчёта коэффициента:</p><p>\\(\\alpha_{\\text{н}} = \\frac{\\text{АД}_{\\text{сэ}}}{\\text{АД}_{\\text{с}}}\\)</p>]]></text>
+            <text><![CDATA[<p>Выберите правильную формулу: \\( \\alpha_{н} = \\frac{АД_{сэ}}{АД_{с}} \\)</p>]]></text>
         </questiontext>
-        <answer fraction="100"><text><![CDATA[\\(\\alpha_{\\text{н}} = \\frac{\\text{АД}_{\\text{сэ}}}{\\text{АД}_{\\text{с}}}\\)]]></text></answer>
-        <answer fraction="0"><text><![CDATA[\\(\\alpha_{\\text{н}} = \\frac{\\text{АД}_{\\text{с}}}{\\text{АД}_{\\text{сэ}}}\\)]]></text></answer>
-        <answer fraction="0"><text><![CDATA[\\(\\alpha_{\\text{н}} = \\text{АД}_{\\text{сэ}} + \\text{АД}_{\\text{с}}\\)]]></text></answer>
-    </question>
-    <question type="multichoice">
-        <name><text>Пример с формулой 2</text></name>
-        <questiontext format="html">
-            <text><![CDATA[<p>Чему равно значение \\(E = mc^2\\) при m = 2, c = 3?</p>]]></text>
-        </questiontext>
-        <answer fraction="0"><text>6</text></answer>
-        <answer fraction="100"><text>18</text></answer>
-        <answer fraction="0"><text>12</text></answer>
-    </question>
-    <question type="multichoice">
-        <name><text>Пример с формулой 3</text></name>
-        <questiontext format="html">
-            <text><![CDATA[<p>Какая формула описывает теорему Пифагора?</p>]]></text>
-        </questiontext>
-        <answer fraction="100"><text><![CDATA[\\(a^2 + b^2 = c^2\\)]]></text></answer>
-        <answer fraction="0"><text><![CDATA[\\(a + b = c\\)]]></text></answer>
-        <answer fraction="0"><text><![CDATA[\\(a^2 = b^2 + c^2\\)]]></text></answer>
+        <answer fraction="100" format="html">
+            <text><![CDATA[\\( \\alpha_{н} = \\frac{АД_{сэ}}{АД_{с}} \\)]]></text>
+        </answer>
+        <answer fraction="0" format="html">
+            <text><![CDATA[\\( \\alpha_{н} = \\frac{АД_{с}}{АД_{сэ}} \\)]]></text>
+        </answer>
+        <answer fraction="0" format="html">
+            <text><![CDATA[\\( \\alpha_{н} = АД_{сэ} + АД_{с} \\)]]></text>
+        </answer>
     </question>
 </quiz>`;
-            parseMoodleXML(exampleXML);
-            if (questions.length > 0) {
-                showUploadStatus(`Загружен демо-тест с ${questions.length} вопросами`, 'success');
-                setTimeout(() => { uploadStatus.classList.add('hidden'); startTest(); }, 1200);
+
+        // ===== ИНИЦИАЛИЗАЦИЯ =====
+        document.addEventListener('DOMContentLoaded', () => {
+            loadTokens();
+            parseXmlToData(defaultXml);
+            renderQuestion();
+            updateXmlOutput();
+            initResizer();
+
+            // Запоминаем последнее активное поле ввода — туда вставляются формулы
+            document.addEventListener('focusin', (e) => {
+                if (e.target.closest('.editor-scroll-container') &&
+                    (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT')) {
+                    lastFocused = e.target;
+                }
+            });
+        });
+
+        // ===== ТОКЕНЫ =====
+        function loadTokens() {
+            document.getElementById('githubToken').value = localStorage.getItem('gh_token') || '';
+            document.getElementById('deepseekToken').value = localStorage.getItem('ds_token') || '';
+        }
+        function saveTokens() {
+            localStorage.setItem('gh_token', document.getElementById('githubToken').value.trim());
+            localStorage.setItem('ds_token', document.getElementById('deepseekToken').value.trim());
+        }
+        function getGithubToken() { return document.getElementById('githubToken').value.trim(); }
+        function getDeepseekToken() { return document.getElementById('deepseekToken').value.trim(); }
+
+        // ===== ПАРСИНГ MOODLE XML =====
+        function parseXmlToData(xmlString) {
+            try {
+                const doc = new DOMParser().parseFromString(xmlString, 'text/xml');
+                if (doc.querySelector('parsererror')) throw new Error('некорректный XML');
+
+                const qs = [];
+                doc.querySelectorAll('question').forEach(node => {
+                    if ((node.getAttribute('type') || '') !== 'multichoice') return; // другие типы пропускаем
+
+                    const nameEl = node.querySelector(':scope > name > text');
+                    const qtEl = node.querySelector(':scope > questiontext > text');
+
+                    const answers = [];
+                    node.querySelectorAll(':scope > answer').forEach(a => {
+                        const tEl = a.querySelector(':scope > text');
+                        const frac = parseFloat(a.getAttribute('fraction') || '0');
+                        answers.push({ text: tEl ? tEl.textContent : '', correct: frac > 0 });
+                    });
+
+                    // Редактор рассчитан на один правильный ответ — оставляем первый
+                    let firstCorrect = true;
+                    answers.forEach(a => {
+                        if (a.correct) {
+                            if (firstCorrect) firstCorrect = false; else a.correct = false;
+                        }
+                    });
+
+                    if (answers.length === 0) return;
+
+                    qs.push({
+                        name: nameEl ? nameEl.textContent : '',
+                        text: qtEl ? qtEl.textContent : '',
+                        shuffleanswers: (node.querySelector(':scope > shuffleanswers')?.textContent || 'true') !== 'false',
+                        answernumbering: node.querySelector(':scope > answernumbering')?.textContent || 'abc',
+                        answers
+                    });
+                });
+
+                if (!qs.length) throw new Error('не найдено вопросов типа multichoice');
+
+                quizData.questions = qs;
+                currentQuestionIndex = 0;
+                renderQuestion();
+                return true;
+            } catch (e) {
+                showToast('Ошибка XML: ' + e.message, true);
+                return false;
             }
+        }
+
+        // ===== ГЕНЕРАЦИЯ MOODLE XML =====
+        function generateXml() {
+            let xml = '<?xml version="1.0" encoding="UTF-8"?>\n<quiz>\n';
+            quizData.questions.forEach(q => {
+                xml += '    <question type="multichoice">\n';
+                xml += `        <name>\n            <text>${escapeXml(q.name)}</text>\n        </name>\n`;
+                xml += `        <questiontext format="html">\n            <text>${cdata(q.text)}</text>\n        </questiontext>\n`;
+                xml += '        <generalfeedback format="html">\n            <text></text>\n        </generalfeedback>\n';
+                xml += '        <defaultgrade>1.0</defaultgrade>\n';
+                xml += '        <penalty>0.3333333</penalty>\n';
+                xml += '        <hidden>0</hidden>\n';
+                xml += '        <single>true</single>\n';
+                xml += `        <shuffleanswers>${q.shuffleanswers ? 'true' : 'false'}</shuffleanswers>\n`;
+                xml += `        <answernumbering>${escapeXml(q.answernumbering || 'abc')}</answernumbering>\n`;
+                q.answers.forEach(a => {
+                    xml += `        <answer fraction="${a.correct ? '100' : '0'}" format="html">\n            <text>${cdata(a.text)}</text>\n        </answer>\n`;
+                });
+                xml += '    </question>\n';
+            });
+            xml += '</quiz>\n';
+            return xml;
+        }
+
+        function escapeXml(str) {
+            return String(str || '')
+                .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        // Оборачивание в CDATA с защитой от последовательности ]]>
+        function cdata(str) {
+            return '<![CDATA[' + String(str || '').replace(/\]\]>/g, ']]]]><![CDATA[>') + ']]>';
+        }
+
+        // ===== ОТРИСОВКА =====
+        function newQuestion() {
+            return {
+                name: 'Вопрос',
+                text: '<p></p>',
+                shuffleanswers: true,
+                answernumbering: 'abc',
+                answers: [{ text: '', correct: true }, { text: '', correct: false }]
+            };
+        }
+
+        function renderQuestion() {
+            if (!quizData.questions.length) quizData.questions.push(newQuestion());
+            const q = quizData.questions[currentQuestionIndex];
+
+            document.getElementById('questionNumber').textContent = currentQuestionIndex + 1;
+            document.getElementById('qName').value = q.name;
+            document.getElementById('qText').value = q.text;
+            document.getElementById('qShuffle').value = q.shuffleanswers ? 'true' : 'false';
+            document.getElementById('qNumbering').value = q.answernumbering || 'abc';
+
+            renderAnswers();
+            renderPreview();
+            updateNavigation();
+            document.getElementById('statusCount').textContent =
+                `Вопросов: ${quizData.questions.length}`;
+        }
+
+        function renderAnswers() {
+            const container = document.getElementById('answersContainer');
+            const q = quizData.questions[currentQuestionIndex];
+
+            if (!q.answers.length) {
+                container.innerHTML = '<div class="empty-hint">Нет вариантов ответа.</div>';
+                return;
+            }
+
+            container.innerHTML = q.answers.map((a, j) => `
+                <div class="answer-row ${a.correct ? 'correct' : ''}">
+                    <div class="radio ${a.correct ? 'selected' : ''}" onclick="setCorrectAnswer(${j})" title="Отметить как правильный"></div>
+                    <span class="frac-badge ${a.correct ? 'frac-100' : 'frac-0'}">${a.correct ? '100%' : '0%'}</span>
+                    <textarea rows="1" placeholder="Текст ответа, может содержать \\(формулу\\)"
+                              oninput="updateAnswerText(${j}, this.value)">${esc(a.text)}</textarea>
+                    <button class="btn-icon" onclick="removeAnswer(${j})" title="Удалить ответ" style="margin-top:0.4rem;">&#10005;</button>
+                </div>
+            `).join('');
+        }
+
+        function letterFor(numbering, j) {
+            const lower = 'abcdefghij', upper = 'ABCDEFGHIJ';
+            if (numbering === 'ABC') return upper[j] || (j + 1);
+            if (numbering === '123') return String(j + 1);
+            if (numbering === 'none') return '•';
+            return lower[j] || (j + 1);
+        }
+
+        function renderPreview() {
+            const q = quizData.questions[currentQuestionIndex];
+            const box = document.getElementById('previewBox');
+
+            let html = `<div class="pv-question">${q.text || '<span class="hint">— текст вопроса пуст —</span>'}</div>`;
+            html += q.answers.map((a, j) => {
+                const L = letterFor(q.answernumbering, j);
+                const label = q.answernumbering === 'none' ? L : L + '.';
+                return `
+                <div class="pv-answer ${a.correct ? 'pv-correct' : ''}">
+                    <span class="pv-letter">${label}</span>
+                    <span class="pv-text">${a.text || '—'}</span>
+                    ${a.correct ? '<span class="pv-check">✓ верно</span>' : ''}
+                </div>`;
+            }).join('');
+
+            box.innerHTML = html;
+            if (window.MathJax && MathJax.typesetPromise) {
+                MathJax.typesetPromise([box]).catch(() => {});
+            }
+        }
+
+        function schedulePreview() {
+            clearTimeout(previewTimeout);
+            previewTimeout = setTimeout(renderPreview, 350);
+        }
+
+        function esc(str) {
+            const div = document.createElement('div');
+            div.textContent = str == null ? '' : String(str);
+            return div.innerHTML.replace(/"/g, '&quot;');
+        }
+
+        function updateNavigation() {
+            document.getElementById('prevBtn').disabled = currentQuestionIndex === 0;
+            document.getElementById('nextBtn').disabled = currentQuestionIndex >= quizData.questions.length - 1;
+            document.getElementById('questionTabs').innerHTML = quizData.questions.map((q, i) =>
+                `<button class="nav-btn ${i === currentQuestionIndex ? 'active' : ''}" onclick="goToQuestion(${i})" title="${esc(q.name)}">${i + 1}</button>`
+            ).join('');
+        }
+
+        // ===== ДЕЙСТВИЯ РЕДАКТОРА =====
+        const updateName = (v) => { quizData.questions[currentQuestionIndex].name = v; updateXmlOutput(); };
+        const updateQuestionText = (v) => { quizData.questions[currentQuestionIndex].text = v; updateXmlOutput(); schedulePreview(); };
+        const updateShuffle = (v) => { quizData.questions[currentQuestionIndex].shuffleanswers = v === 'true'; updateXmlOutput(); };
+        const updateNumbering = (v) => { quizData.questions[currentQuestionIndex].answernumbering = v; updateXmlOutput(); schedulePreview(); };
+        const updateQuizName = () => { quizData.name = document.getElementById('quizName').value; scheduleAutoSave(); };
+
+        function addQuestion() {
+            quizData.questions.push(newQuestion());
+            currentQuestionIndex = quizData.questions.length - 1;
+            renderQuestion();
+            updateXmlOutput();
+        }
+
+        function duplicateQuestion() {
+            const copy = JSON.parse(JSON.stringify(quizData.questions[currentQuestionIndex]));
+            quizData.questions.splice(currentQuestionIndex + 1, 0, copy);
+            currentQuestionIndex++;
+            renderQuestion();
+            updateXmlOutput();
+            showToast('Вопрос продублирован');
+        }
+
+        function deleteQuestion() {
+            if (quizData.questions.length <= 1) return showToast('Нельзя удалить последний вопрос', true);
+            if (!confirm(`Удалить вопрос ${currentQuestionIndex + 1}?`)) return;
+            quizData.questions.splice(currentQuestionIndex, 1);
+            currentQuestionIndex = Math.min(currentQuestionIndex, quizData.questions.length - 1);
+            renderQuestion();
+            updateXmlOutput();
+        }
+
+        const prevQuestion = () => { if (currentQuestionIndex > 0) { currentQuestionIndex--; renderQuestion(); } };
+        const nextQuestion = () => { if (currentQuestionIndex < quizData.questions.length - 1) { currentQuestionIndex++; renderQuestion(); } };
+        const goToQuestion = (i) => { currentQuestionIndex = i; renderQuestion(); };
+
+        function addAnswer() {
+            quizData.questions[currentQuestionIndex].answers.push({ text: '', correct: false });
+            renderAnswers();
+            renderPreview();
+            updateXmlOutput();
+        }
+
+        function removeAnswer(j) {
+            const answers = quizData.questions[currentQuestionIndex].answers;
+            if (answers.length <= 2) return showToast('Минимум 2 варианта ответа', true);
+            answers.splice(j, 1);
+            renderAnswers();
+            renderPreview();
+            updateXmlOutput();
+        }
+
+        function setCorrectAnswer(j) {
+            quizData.questions[currentQuestionIndex].answers.forEach((a, i) => a.correct = i === j);
+            renderAnswers();
+            renderPreview();
+            updateXmlOutput();
+        }
+
+        const updateAnswerText = (j, v) => {
+            quizData.questions[currentQuestionIndex].answers[j].text = v;
+            updateXmlOutput();
+            schedulePreview();
         };
 
-        // ===== Ручная загрузка по URL =====
-        async function handleUrlLoad() {
-            const url = urlInput.value.trim();
-            if (!url) { showUploadStatus('Пожалуйста, введите URL XML файла', 'error'); return; }
-            if (!isValidUrl(url)) { showUploadStatus('Пожалуйста, введите корректный URL', 'error'); return; }
-            if (!url.toLowerCase().includes('.xml')) {
-                if (!confirm('URL не заканчивается на .xml. Продолжить загрузку?')) return;
+        // ===== ВСТАВКА ФОРМУЛ =====
+        function ins(before, after) {
+            const el = lastFocused;
+            if (!el || !el.isConnected) return showToast('Сначала щёлкните в поле текста вопроса или ответа', true);
+            const s = el.selectionStart ?? el.value.length;
+            const e2 = el.selectionEnd ?? s;
+            const sel = el.value.substring(s, e2);
+            el.value = el.value.slice(0, s) + before + sel + after + el.value.slice(e2);
+            el.focus();
+            const pos = s + before.length + sel.length;
+            el.selectionStart = el.selectionEnd = pos;
+            el.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+
+        // ===== XML-ПАНЕЛЬ =====
+        const updateXmlOutput = () => {
+            clearTimeout(syncTimeout);
+            syncTimeout = setTimeout(() => {
+                document.getElementById('xmlEditor').value = generateXml();
+            }, 100);
+            scheduleAutoSave();
+        };
+
+        const onXmlManualEdit = () => { scheduleAutoSave(); };
+
+        function applyXmlChanges() {
+            if (parseXmlToData(document.getElementById('xmlEditor').value)) {
+                renderQuestion();
+                showToast('XML применён к редактору');
             }
+        }
+
+        const copyXml = () => {
+            navigator.clipboard.writeText(document.getElementById('xmlEditor').value);
+            showToast('XML скопирован в буфер обмена');
+        };
+
+        // ===== ЗАГРУЗКА XML ИЗ ЛОКАЛЬНОГО ФАЙЛА =====
+        async function loadXmlFromFile(input) {
+            const file = input.files && input.files[0];
+            input.value = '';
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = async (e) => {
+                const xml = e.target.result;
+                document.getElementById('xmlEditor').value = xml;
+
+                if (!parseXmlToData(xml)) return;
+                document.getElementById('xmlEditor').value = generateXml(); // нормализованный вид
+                showToast(`Загружено вопросов: ${quizData.questions.length}`);
+
+                if (getGithubToken()) await createNewGist();
+            };
+            reader.onerror = () => showToast('Не удалось прочитать файл', true);
+            reader.readAsText(file);
+        }
+
+        // ===== GITHUB GIST =====
+        function updateGistLinkDisplay() {
+            const container = document.getElementById('gistLinkContainer');
+            const link = document.getElementById('gistLinkText');
+            if (!currentGistUrl) { container.classList.add('hidden'); return; }
+            link.href = currentGistUrl;
+            link.textContent = currentGistUrl;
+            container.classList.remove('hidden');
+        }
+
+        async function createNewGist() {
+            const token = getGithubToken();
+            if (!token) return showToast('Требуется GitHub Token', true);
+
             try {
-                showUploadStatus('Загрузка теста...', 'loading');
-                loadUrlBtn.disabled = true;
-                qrCodeBtn.disabled = true;
-                yandexBtn.disabled = true;
-                demoBtn.disabled = true;
-                loadUrlBtn.textContent = 'Загрузка...';
+                setStatus('Создание GIST...');
+                const res = await fetch('https://api.github.com/gists', {
+                    method: 'POST',
+                    headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        description: quizData.name || 'Moodle XML Quiz',
+                        public: false,
+                        files: { [GIST_FILENAME]: { content: document.getElementById('xmlEditor').value || generateXml() } }
+                    })
+                });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.message);
 
-                await fetchAndParseTest(url);
+                currentGistId = data.id;
+                currentGistUrl = data.html_url;
+                currentGistFilename = GIST_FILENAME;
+                currentRawUrl = data.files[GIST_FILENAME]?.raw_url || null;
 
-                showUploadStatus(`Успешно загружен тест с ${questions.length} вопросами`, 'success');
-                setTimeout(() => { uploadStatus.classList.add('hidden'); startTest(); }, 1200);
-            } catch (error) {
-                const err = friendlyError(error);
-                console.error('Ошибка загрузки теста:', err);
-                showUploadStatus(`Ошибка загрузки: ${err.message}`, 'error');
+                updateGistLinkDisplay();
+                setStatus('Новый GIST создан');
+                showToast('Новый GIST создан');
+            } catch (e) {
+                setStatus('Готово');
+                showToast('Ошибка создания: ' + e.message, true);
+            }
+        }
+
+        function scheduleAutoSave() {
+            if (!currentGistId) return;
+            if (skipNextAutoSave) { skipNextAutoSave = false; return; }
+            setStatus('Есть несохранённые изменения...');
+            clearTimeout(autoSaveTimeout);
+            autoSaveTimeout = setTimeout(autoSaveToGist, 1500);
+        }
+
+        async function autoSaveToGist() {
+            const token = getGithubToken();
+            if (!currentGistId || !token) return;
+            if (isSaving) { needsAnotherSave = true; return; }
+            isSaving = true;
+            autoSaveTimeout = null;
+
+            setStatus('Сохранение в GIST...');
+            try {
+                const res = await fetch(`https://api.github.com/gists/${currentGistId}`, {
+                    method: 'PATCH',
+                    headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        description: quizData.name || 'Moodle XML Quiz',
+                        files: { [currentGistFilename]: { content: document.getElementById('xmlEditor').value } }
+                    })
+                });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.message);
+
+                const fd = data.files[currentGistFilename];
+                if (fd && fd.raw_url) currentRawUrl = fd.raw_url;
+                setStatus('Сохранено в GIST в ' + new Date().toLocaleTimeString());
+            } catch (e) {
+                if (String(e.message).toLowerCase().includes('blocked')) {
+                    setStatus('GIST занят, повтор...');
+                    scheduleAutoSave();
+                } else {
+                    setStatus('Ошибка сохранения: ' + e.message);
+                    showToast('Автосохранение не удалось: ' + e.message, true);
+                }
             } finally {
-                loadUrlBtn.disabled = false;
-                qrCodeBtn.disabled = false;
-                yandexBtn.disabled = false;
-                demoBtn.disabled = false;
-                loadUrlBtn.textContent = '🔗 Загрузить';
+                isSaving = false;
+                if (needsAnotherSave) { needsAnotherSave = false; scheduleAutoSave(); }
             }
         }
 
-        function handleYandexLoad() {
-            const link = prompt('Вставьте публичную ссылку на XML-файл на Яндекс.Диске:', urlInput.value);
-            if (!link) return;
-            urlInput.value = link.trim();
-            handleUrlLoad();
+        function copyGistUrl() {
+            if (!currentGistUrl) return showToast('GIST ещё не создан', true);
+            navigator.clipboard.writeText(currentGistUrl);
+            showToast('Ссылка GIST скопирована');
         }
 
-        // ===== QR-сканер =====
-        async function startQRScanner() {
-            if (typeof jsQR !== 'function') {
-                showUploadStatus('Библиотека сканирования не загрузилась. Введите ссылку вручную.', 'error');
-                return;
+        async function openTest() {
+            if (!currentGistId) return showToast('Сначала создайте или загрузите GIST', true);
+
+            // Открываем окно синхронно (иначе блокировщик всплывающих окон), затем сохраняем изменения
+            const win = window.open('about:blank', '_blank');
+            try {
+                if (autoSaveTimeout) {
+                    clearTimeout(autoSaveTimeout);
+                    autoSaveTimeout = null;
+                    await autoSaveToGist();
+                }
+            } catch (e) {}
+
+            if (!currentRawUrl) {
+                if (win) win.close();
+                return showToast('Raw URL недоступен', true);
             }
-            qrModal.classList.remove('hidden');
-            updateScrollLock();
-            qrScannerActive = true;
-            qrStatus.textContent = 'Запуск камеры...';
-            qrStatus.style.color = '';
+
+            const testUrl = TEST_APP_URL + '?name=' + encodeURIComponent(currentRawUrl);
+            try { navigator.clipboard.writeText(testUrl); } catch (e) {}
+            if (win) { win.opener = null; win.location.href = testUrl; }
+            else { window.open(testUrl, '_blank'); }
+            showToast('Ссылка на тест скопирована в буфер');
+        }
+
+        function extractGistId(input) {
+            input = (input || '').trim();
+            if (!input) return null;
+            try {
+                const u = new URL(input);
+                const f = u.searchParams.get('file');
+                if (f) input = f;
+            } catch (e) { /* не URL */ }
+            const m = input.match(/(?:gist\.github\.com|gist\.githubusercontent\.com)\/(?:[^\/\s]+\/)?([0-9a-f]{7,})/i);
+            if (m) return m[1];
+            if (/^[0-9a-f]{7,}$/i.test(input)) return input;
+            return null;
+        }
+
+        async function loadFromGist() {
+            const token = getGithubToken();
+            const input = document.getElementById('loadGistId').value.trim();
+            if (!token || !input) return showToast('Нужны GitHub Token и ссылка GIST', true);
+
+            const id = extractGistId(input);
+            if (!id) return showToast('Не удалось извлечь ID GIST', true);
 
             try {
-                videoStream = await navigator.mediaDevices.getUserMedia({
-                    video: { facingMode: 'environment', width: { ideal: 640 }, height: { ideal: 480 } },
-                    audio: false
+                setStatus('Загрузка GIST...');
+                const res = await fetch(`https://api.github.com/gists/${id}`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
                 });
-                qrVideo.srcObject = videoStream;
-                qrVideo.setAttribute('playsinline', true);
-                await qrVideo.play();
-                qrStatus.textContent = 'Наведите камеру на QR-код';
-                qrStatus.style.color = '';
-                requestAnimationFrame(scanQRCode);
-            } catch (error) {
-                console.error('Ошибка доступа к камере:', error);
-                qrStatus.textContent = 'Ошибка доступа к камере. Разрешите доступ в настройках браузера или введите ссылку вручную в поле выше.';
-                qrStatus.style.color = 'red';
-            }
-        }
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.message);
 
-        function scanQRCode() {
-            if (!qrScannerActive) return;
-            if (qrVideo.readyState === qrVideo.HAVE_ENOUGH_DATA) {
-                const canvas = document.createElement('canvas');
-                canvas.width = qrVideo.videoWidth;
-                canvas.height = qrVideo.videoHeight;
-                const context = canvas.getContext('2d');
-                context.drawImage(qrVideo, 0, 0, canvas.width, canvas.height);
-                const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-                const code = jsQR(imageData.data, imageData.width, imageData.height, {
-                    inversionAttempts: 'dontInvert'
-                });
-                if (code && code.data) {
-                    qrStatus.textContent = 'QR-код распознан!';
-                    qrStatus.style.color = 'green';
-                    urlInput.value = code.data;
-                    setTimeout(() => {
-                        stopQRScanner();
-                        showUploadStatus('Ссылка из QR-кода вставлена', 'success');
-                        setTimeout(() => uploadStatus.classList.add('hidden'), 2500);
-                    }, 800);
-                    return;
-                }
-            }
-            if (qrScannerActive) requestAnimationFrame(scanQRCode);
-        }
-
-        function stopQRScanner() {
-            qrScannerActive = false;
-            qrModal.classList.add('hidden');
-            updateScrollLock();
-            qrStatus.textContent = 'Наведите камеру на QR-код';
-            qrStatus.style.color = '';
-            if (videoStream) {
-                videoStream.getTracks().forEach(track => track.stop());
-                videoStream = null;
-            }
-            if (qrVideo.srcObject) qrVideo.srcObject = null;
-        }
-
-        // ===== Парсинг Moodle XML =====
-        function parseMoodleXML(xmlContent) {
-            questions = [];
-            const parser = new DOMParser();
-            const xmlDoc = parser.parseFromString(xmlContent, 'text/xml');
-            const questionNodes = xmlDoc.getElementsByTagName('question');
-
-            for (let node of questionNodes) {
-                const type = node.getAttribute('type');
-                if (type !== 'multichoice') continue;
-
-                // Название вопроса из тега <name> (для режима HeaderShow)
-                let questionName = '';
-                const nameNodes = node.getElementsByTagName('name');
-                if (nameNodes.length > 0) {
-                    const nameTextNodes = nameNodes[0].getElementsByTagName('text');
-                    if (nameTextNodes.length > 0) questionName = nameTextNodes[0].textContent.trim();
-                }
-
-                // Текст вопроса
-                let questionText = '';
-                const questionTextNodes = node.getElementsByTagName('questiontext');
-                if (questionTextNodes.length > 0) {
-                    const textNodes = questionTextNodes[0].getElementsByTagName('text');
-                    if (textNodes.length > 0) questionText = textNodes[0].textContent.trim();
-                }
-                if (!questionText) continue;
-                questionText = processHtmlContent(questionText);
-
-                // Варианты ответа
-                const answers = [];
-                const answerNodes = node.getElementsByTagName('answer');
-                for (let answerNode of answerNodes) {
-                    let answerText = '';
-                    const textNodes = answerNode.getElementsByTagName('text');
-                    if (textNodes.length > 0) answerText = textNodes[0].textContent.trim();
-                    if (!answerText) continue;
-                    answerText = processHtmlContent(answerText);
-                    const fraction = parseFloat(answerNode.getAttribute('fraction') || 0);
-                    answers.push({ text: answerText, isCorrect: fraction > 0 });
-                }
-
-                if (answers.length === 0) continue;
-                questions.push({ name: questionName, text: questionText, answers, userAnswer: null, isCorrect: false });
-            }
-            console.log(`Найдено ${questions.length} вопросов`);
-        }
-
-        function processHtmlContent(content) {
-            let c = content || '';
-            c = c.replace(/<\/?p>/gi, '');
-            c = c.replace(/<!\[CDATA\[|\]\]>/g, '');
-            c = c.replace(/<br\s*\/?>/gi, '<br>');
-            return c.trim();
-        }
-
-        function renderTextWithMath(text) {
-            const container = document.createElement('div');
-            container.className = 'formula-container';
-            const t = text || '';
-            if (t.includes('\\(') || t.includes('\\[')) {
-                container.innerHTML = t;
-            } else {
-                container.textContent = t;
-            }
-            return container;
-        }
-
-        // ===== Перемешивание вариантов ответов =====
-        // Вопросы идут в исходном порядке — перемешиваются только варианты ответов
-        function shuffleAnswers() {
-            questions.forEach(q => {
-                for (let i = q.answers.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    [q.answers[i], q.answers[j]] = [q.answers[j], q.answers[i]];
-                }
-            });
-        }
-
-        // ===== Таймер =====
-        function updateTimer() {
-            if (!startTime) return;
-            timeSpent = Math.floor((new Date() - startTime) / 1000);
-            timerElement.textContent = formatTime(timeSpent);
-        }
-
-        // ===== Тест =====
-        function startTest() {
-            // Перемешиваются только варианты ответов; вопросы идут в исходном порядке
-            shuffleAnswers();
-
-            userAnswers = new Array(questions.length).fill(null);
-            checkedQuestions = new Array(questions.length).fill(false);
-            currentQuestionIndex = 0;
-            crushState = 'answering';
-
-            uploadSection.classList.add('hidden');
-            testSection.classList.remove('hidden');
-            resultsSection.classList.add('hidden');
-            totalQuestionsElement.textContent = questions.length;
-
-            checkBadge.classList.toggle('hidden', !checkMode);
-            crushBadge.classList.toggle('hidden', !crushMode);
-            headerBadge.classList.toggle('hidden', !headerShow);
-
-            startTime = new Date();
-            timeSpent = 0;
-            clearInterval(timerInterval);
-            updateTimer();
-            timerInterval = setInterval(updateTimer, 1000);
-
-            showQuestion(0);
-            testSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-
-        function showQuestion(index) {
-            currentQuestionIndex = index;
-            currentQuestionElement.textContent = index + 1;
-            progressFill.style.width = `${((index + 1) / questions.length) * 100}%`;
-            questionsContainer.innerHTML = '';
-            if (crushMode) crushState = 'answering';
-
-            const question = questions[index];
-            const questionElement = document.createElement('div');
-            questionElement.className = 'question';
-
-            // ===== Заголовок вопроса (HeaderShow=true в URL) =====
-            if (headerShow && question.name) {
-                const headerElement = document.createElement('div');
-                headerElement.className = 'question-header';
-                headerElement.appendChild(renderTextWithMath(question.name));
-                questionElement.appendChild(headerElement);
-            }
-
-            const questionTextElement = document.createElement('div');
-            questionTextElement.className = 'question-text';
-            questionTextElement.appendChild(renderTextWithMath(question.text));
-            questionElement.appendChild(questionTextElement);
-
-            question.answers.forEach((answer, answerIndex) => {
-                const answerElement = document.createElement('div');
-                answerElement.className = 'answer-option';
-                if (userAnswers[index] === answerIndex) answerElement.classList.add('selected');
-
-                const letter = document.createElement('span');
-                letter.className = 'answer-letter';
-                letter.textContent = LETTERS[answerIndex] || (answerIndex + 1);
-                answerElement.appendChild(letter);
-                answerElement.appendChild(renderTextWithMath(answer.text));
-
-                answerElement.addEventListener('click', () => {
-                    // после проверки в CheckMode ответ изменить нельзя;
-                    // в CrushMode клики блокируются после проверки (ждём «Дальше»)
-                    if (checkMode && checkedQuestions[index]) return;
-                    if (crushMode && crushState !== 'answering') return;
-                    questionElement.querySelectorAll('.answer-option')
-                        .forEach(opt => opt.classList.remove('selected'));
-                    answerElement.classList.add('selected');
-                    userAnswers[index] = answerIndex;
-                    const checkBtn = questionElement.querySelector('.check-answer-btn');
-                    if (checkBtn) checkBtn.disabled = false;
-                    if (crushMode) setCrushFeedback('');
-                });
-
-                questionElement.appendChild(answerElement);
-            });
-
-            // ===== Блок режима проверки (CheckMode=true) =====
-            if (checkMode && !crushMode) {
-                const checkBlock = document.createElement('div');
-                checkBlock.className = 'check-block';
-
-                const checkBtn = document.createElement('button');
-                checkBtn.type = 'button';
-                checkBtn.className = 'btn btn-dark check-answer-btn';
-                checkBtn.textContent = '🔍 Проверить ответ';
-                checkBtn.disabled = userAnswers[index] === null || checkedQuestions[index];
-                checkBtn.addEventListener('click', () => checkCurrentAnswer(index, questionElement, checkBtn));
-                checkBlock.appendChild(checkBtn);
-
-                const feedback = document.createElement('div');
-                feedback.className = 'check-feedback';
-                checkBlock.appendChild(feedback);
-
-                questionElement.appendChild(checkBlock);
-
-                // если вопрос уже проверялся — восстанавливаем подсветку
-                if (checkedQuestions[index]) paintCheckState(index, questionElement);
-            }
-
-            // ===== Поле обратной связи для CrushMode =====
-            if (crushMode) {
-                const crushFeedback = document.createElement('div');
-                crushFeedback.id = 'crushFeedback';
-                crushFeedback.className = 'check-feedback';
-                questionElement.appendChild(crushFeedback);
-            }
-
-            questionsContainer.appendChild(questionElement);
-            applyMathJax();
-            updateNavigationButtons();
-        }
-
-        // ===== Проверка ответа (CheckMode) =====
-        function checkCurrentAnswer(index, questionElement, checkBtn) {
-            if (userAnswers[index] === null || checkedQuestions[index]) return;
-            checkedQuestions[index] = true;
-            if (checkBtn) checkBtn.disabled = true;
-            paintCheckState(index, questionElement);
-        }
-
-        function paintCheckState(index, questionElement) {
-            const question = questions[index];
-            const selected = userAnswers[index];
-            const isRight = selected !== null && question.answers[selected].isCorrect;
-            const options = questionElement.querySelectorAll('.answer-option');
-            options.forEach((opt, i) => {
-                if (i === selected) opt.classList.add(isRight ? 'correct' : 'incorrect');
-                if (!isRight && question.answers[i].isCorrect) opt.classList.add('correct');
-            });
-            const feedback = questionElement.querySelector('.check-feedback');
-            if (feedback) {
-                feedback.innerHTML = isRight
-                    ? '<span class="status-badge correct">✓ Правильно</span>'
-                    : '<span class="status-badge incorrect">✕ Неправильно. Правильный ответ отмечен зелёным</span>';
-            }
-        }
-
-        // ===== CrushMode: проверка при переходе к следующему вопросу =====
-        function handleCrushNext() {
-            const idx = currentQuestionIndex;
-            const question = questions[idx];
-
-            // Правильный ответ уже дан — «Дальше» ведёт к следующему вопросу
-            if (crushState === 'correct') {
-                if (idx < questions.length - 1) {
-                    showQuestion(idx + 1);
+                let fileName = null;
+                if (data.files[GIST_FILENAME]) {
+                    fileName = GIST_FILENAME;
                 } else {
-                    finishTest();
+                    const names = Object.keys(data.files);
+                    fileName = names.find(n => n.toLowerCase().endsWith('.xml')) || names[0];
                 }
-                return;
-            }
+                const file = data.files[fileName];
+                if (!file) throw new Error('В GIST нет файлов');
 
-            // Ошибка уже показана — «Дальше» возвращает к первому вопросу
-            if (crushState === 'wrong') {
-                resetCrushAttempt();
-                return;
-            }
+                if (parseXmlToData(file.content)) {
+                    currentGistId = data.id;
+                    currentGistUrl = data.html_url || `https://gist.github.com/${id}`;
+                    currentGistFilename = fileName;
+                    currentRawUrl = file.raw_url || null;
 
-            // crushState === 'answering' — выполняем проверку
-            if (userAnswers[idx] === null) {
-                setCrushFeedback('Сначала выберите вариант ответа', 'skipped');
-                return;
-            }
+                    quizData.name = data.description && data.description !== 'Moodle XML Quiz' ? data.description : '';
+                    document.getElementById('quizName').value = quizData.name;
 
-            const options = questionsContainer.querySelectorAll('.answer-option');
-            const selectedIsCorrect = question.answers[userAnswers[idx]].isCorrect;
-
-            if (selectedIsCorrect) {
-                // Верно: выделяем зелёным и ждём нажатия «Дальше»
-                crushState = 'correct';
-                checkedQuestions[idx] = true;
-                options.forEach((opt, i) => {
-                    if (i === userAnswers[idx]) opt.classList.add('correct');
-                });
-                setCrushFeedback('✓ Верно! Нажмите «Дальше», чтобы продолжить', 'correct');
-                updateNavigationButtons();
-            } else {
-                // Неверно: выделяем красным только выбранный вариант (правильный не показываем),
-                // ждём нажатия «Дальше», после которого — возврат к первому вопросу
-                crushState = 'wrong';
-                options.forEach((opt, i) => {
-                    if (i === userAnswers[idx]) opt.classList.add('incorrect');
-                });
-                setCrushFeedback('✕ Ошибка! Нажмите «Дальше», чтобы вернуться к первому вопросу', 'incorrect');
-                updateNavigationButtons();
-            }
-        }
-
-        function resetCrushAttempt() {
-            // Полный сброс попытки и возврат к первому вопросу
-            userAnswers = new Array(questions.length).fill(null);
-            checkedQuestions = new Array(questions.length).fill(false);
-            crushState = 'answering';
-            shuffleAnswers(); // варианты снова перемешиваются для новой попытки
-            showQuestion(0);
-            testSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-
-        function setCrushFeedback(message, type) {
-            const box = document.getElementById('crushFeedback');
-            if (!box) return;
-            box.innerHTML = message
-                ? `<span class="status-badge ${type}">${message}</span>`
-                : '';
-        }
-
-        // ===== Навигация =====
-        function updateNavigationButtons() {
-            if (crushMode) {
-                // В CrushMode назад ходить нельзя, завершение — только после последнего правильного ответа
-                prevBtn.style.display = 'none';
-                finishBtn.style.display = 'none';
-                nextBtn.style.display = '';
-                nextBtn.disabled = false;
-                if (crushState === 'answering') {
-                    nextBtn.textContent = currentQuestionIndex === questions.length - 1
-                        ? 'Проверить и завершить ✓'
-                        : 'Проверить ответ →';
+                    updateGistLinkDisplay();
+                    document.getElementById('xmlEditor').value = generateXml();
+                    skipNextAutoSave = true;
+                    renderQuestion();
+                    hideLoadModal();
+                    setStatus('GIST загружен');
+                    showToast('GIST загружен');
                 } else {
-                    // после проверки (верно или неверно) кнопка ждёт действия студента
-                    nextBtn.textContent = 'Дальше →';
+                    setStatus('Готово');
                 }
-            } else {
-                prevBtn.style.display = '';
-                finishBtn.style.display = '';
-                prevBtn.disabled = currentQuestionIndex === 0;
-                nextBtn.disabled = currentQuestionIndex === questions.length - 1;
-                nextBtn.textContent = 'Вперёд →';
+            } catch (e) {
+                setStatus('Готово');
+                showToast('Ошибка загрузки: ' + e.message, true);
             }
         }
 
-        // ===== Завершение и результаты =====
-        function getGrade(percent) {
-            if (percent >= 90) return { g: 5, cls: 'grade-5', label: 'Отлично' };
-            if (percent >= 70) return { g: 4, cls: 'grade-4', label: 'Хорошо' };
-            if (percent >= 50) return { g: 3, cls: 'grade-3', label: 'Удовлетворительно' };
-            return { g: 2, cls: 'grade-2', label: 'Неудовлетворительно' };
-        }
+        // ===== DEEPSEEK =====
+        async function askDeepSeek() {
+            const token = getDeepseekToken();
+            if (!token) return showToast('Требуется DeepSeek Token', true);
 
-        function finishTest() {
-            clearInterval(timerInterval);
-            timeSpent = Math.floor((new Date() - startTime) / 1000);
-            timerElement.textContent = formatTime(timeSpent);
+            const content = document.getElementById('xmlEditor').value;
+            if (!content) return showToast('XML пуст', true);
 
-            questions.forEach((q, i) => {
-                q.userAnswer = userAnswers[i];
-                q.isCorrect = userAnswers[i] !== null && !!q.answers[userAnswers[i]].isCorrect;
-            });
+            showToast('Думаю...', false);
 
-            const correctCount = questions.filter(q => q.isCorrect).length;
-            const total = questions.length;
-            const percent = total ? Math.round((correctCount / total) * 100) : 0;
+            try {
+                const res = await fetch('https://api.deepseek.com/chat/completions', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    body: JSON.stringify({
+                        model: 'deepseek-chat',
+                        messages: [{ role: 'user', content: content }],
+                        stream: false
+                    })
+                });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.error?.message || 'Неизвестная ошибка');
 
-            correctAnswersElement.textContent = correctCount;
-            totalAnswersElement.textContent = total;
-            timeSpentElement.textContent = formatTime(timeSpent);
-            scoreElement.textContent = percent + '%';
-
-            const grade = getGrade(percent);
-            gradePill.textContent = `Оценка: ${grade.g} · ${grade.label}`;
-            gradePill.className = `grade-pill ${grade.cls}`;
-
-            testSection.classList.add('hidden');
-            resultsSection.classList.remove('hidden');
-            renderDetailedResults();
-
-            // Анимация круга прогресса
-            const circumference = 2 * Math.PI * 70;
-            scoreRing.style.strokeDasharray = circumference;
-            scoreRing.style.strokeDashoffset = circumference * (1 - percent / 100);
-
-            resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-
-        // Детальные результаты: только вопросы с ПРАВИЛЬНЫМИ ответами
-        function renderDetailedResults() {
-            detailedResults.innerHTML = '';
-
-            const correctList = questions.filter(q => q.isCorrect);
-
-            const title = document.createElement('h3');
-            title.className = 'detail-title';
-            title.textContent = `Правильно отвеченные вопросы (${correctList.length} из ${questions.length})`;
-            detailedResults.appendChild(title);
-
-            const note = document.createElement('div');
-            note.className = 'detail-note';
-            note.textContent = 'Здесь показаны только вопросы, на которые был дан правильный ответ.';
-            detailedResults.appendChild(note);
-
-            if (correctList.length === 0) {
-                const empty = document.createElement('div');
-                empty.className = 'empty-note';
-                empty.textContent = 'Нет ни одного правильного ответа.';
-                detailedResults.appendChild(empty);
-                return;
-            }
-
-            correctList.forEach(q => {
-                const card = document.createElement('div');
-                card.className = 'question';
-
-                const badge = document.createElement('span');
-                badge.className = 'status-badge correct';
-                badge.textContent = '✓ Правильный ответ';
-                card.appendChild(badge);
-
-                // Заголовок вопроса в результатах — тоже при HeaderShow
-                if (headerShow && q.name) {
-                    const headerElement = document.createElement('div');
-                    headerElement.className = 'question-header';
-                    headerElement.appendChild(renderTextWithMath(q.name));
-                    card.appendChild(headerElement);
+                if (data.choices && data.choices[0] && data.choices[0].message) {
+                    document.getElementById('xmlEditor').value = data.choices[0].message.content;
+                    scheduleAutoSave();
+                    showToast('Ответ получен. Проверьте XML и нажмите «Применить изменения».');
+                } else {
+                    throw new Error('Некорректная структура ответа');
                 }
-
-                const qt = document.createElement('div');
-                qt.className = 'question-text';
-                qt.appendChild(renderTextWithMath(q.text));
-                card.appendChild(qt);
-
-                const line = document.createElement('div');
-                line.className = 'answer-line';
-                const label = document.createElement('strong');
-                label.textContent = 'Ответ: ';
-                line.appendChild(label);
-                line.appendChild(renderTextWithMath(q.answers[q.userAnswer].text));
-                card.appendChild(line);
-
-                detailedResults.appendChild(card);
-            });
-
-            applyMathJax();
+            } catch (e) {
+                console.error(e);
+                showToast('Ошибка DeepSeek: ' + e.message, true);
+            }
         }
 
-        // ===== Инициализация =====
-        checkMode  = getUrlFlag('CheckMode');
-        crushMode  = getUrlFlag('CrushMode');
-        headerShow = getUrlFlag('HeaderShow');
-
-        loadUrlBtn.addEventListener('click', handleUrlLoad);
-        urlInput.addEventListener('keydown', e => { if (e.key === 'Enter') handleUrlLoad(); });
-        qrCodeBtn.addEventListener('click', startQRScanner);
-        closeQrBtn.addEventListener('click', stopQRScanner);
-        yandexBtn.addEventListener('click', handleYandexLoad);
-        demoBtn.addEventListener('click', window.loadExampleTest);
-
-        confirmNameBtn.addEventListener('click', confirmName);
-        [lastNameInput, firstNameInput, middleNameInput].forEach(input => {
-            input.addEventListener('keydown', e => { if (e.key === 'Enter') confirmName(); });
-        });
-
-        prevBtn.addEventListener('click', () => {
-            if (crushMode) return;
-            if (currentQuestionIndex > 0) showQuestion(currentQuestionIndex - 1);
-        });
-
-        nextBtn.addEventListener('click', () => {
-            if (crushMode) { handleCrushNext(); return; }
-            if (currentQuestionIndex < questions.length - 1) showQuestion(currentQuestionIndex + 1);
-        });
-
-        finishBtn.addEventListener('click', () => { if (!crushMode) finishTest(); });
-        restartBtn.addEventListener('click', startTest);
-        changeNameBtn.addEventListener('click', openNameOverlay);
-
-        const autoUrl = getTestUrlFromLocation();
-        if (autoUrl) {
-            urlInput.value = autoUrl;
-            autoLoadTest(autoUrl);
+        // ===== ВСПОМОГАТЕЛЬНЫЕ =====
+        function showToast(msg, isErr = false) {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.className = 'toast show' + (isErr ? ' error' : '');
+            setTimeout(() => t.classList.remove('show'), 3000);
         }
-        updateScrollLock();
+
+        function setStatus(text) {
+            document.getElementById('statusText').textContent = text;
+        }
+
+        function showLoadModal() { document.getElementById('loadModal').classList.add('show'); }
+        function hideLoadModal() { document.getElementById('loadModal').classList.remove('show'); }
+
+        function initResizer() {
+            const resizer = document.getElementById('resizer');
+            const panel = document.getElementById('xmlPanel');
+            let startY, startH;
+
+            const start = (e) => {
+                startY = e.clientY || e.touches[0].clientY;
+                startH = parseInt(getComputedStyle(panel).height);
+                document.addEventListener('mousemove', doDrag);
+                document.addEventListener('mouseup', stopDrag);
+            };
+            const doDrag = (e) => {
+                const h = startH - ((e.clientY || e.touches[0].clientY) - startY);
+                panel.style.height = Math.max(100, Math.min(600, h)) + 'px';
+            };
+            const stopDrag = () => {
+                document.removeEventListener('mousemove', doDrag);
+                document.removeEventListener('mouseup', stopDrag);
+            };
+
+            resizer.addEventListener('mousedown', start);
+        }
     </script>
 </body>
 </html>
