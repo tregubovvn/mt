@@ -177,6 +177,16 @@
         .formula-container { overflow-x: auto; padding: 4px 0; }
         .math-inline, .math-display { font-size: 1.08em; }
 
+        /* Заголовок вопроса (HeaderShow=true в URL) */
+        .question-header {
+            display: inline-flex; align-items: center; max-width: 100%;
+            margin-bottom: 14px; padding: 5px 14px;
+            background: #eef2ff; color: #4338ca;
+            border: 1px solid #c7d2fe; border-radius: 999px;
+            font-size: 13px; font-weight: 700;
+        }
+        .question-header .formula-container { padding: 0; overflow: visible; }
+
         .answer-option {
             display: flex; align-items: center; gap: 13px;
             padding: 13px 15px; margin-bottom: 10px;
@@ -214,8 +224,9 @@
             font-size: 13px; font-weight: 700;
         }
         .mode-pill.hidden { display: none; }
-        .mode-pill.check { background: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; }
-        .mode-pill.crush { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+        .mode-pill.check  { background: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; }
+        .mode-pill.crush  { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+        .mode-pill.header { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
 
         /* ===== Results ===== */
         .results-hero {
@@ -431,6 +442,7 @@
                     <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
                         <span class="mode-pill check hidden" id="checkBadge">🔍 Режим проверки</span>
                         <span class="mode-pill crush hidden" id="crushBadge">💥 Crush Mode</span>
+                        <span class="mode-pill header hidden" id="headerBadge">🏷 Заголовки вопросов</span>
                         <div class="counter-pill">Вопрос <span id="currentQuestion">1</span> из <span id="totalQuestions">0</span></div>
                     </div>
                 </div>
@@ -558,8 +570,9 @@
         let pendingStartAfterName = false;
         let qrScannerActive = false;
         let videoStream = null;
-        let checkMode = false;      // CheckMode=true  — мгновенная проверка каждого вопроса
-        let crushMode = false;      // CrushMode=true  — ошибка возвращает на первый вопрос
+        let checkMode = false;      // CheckMode=true   — мгновенная проверка каждого вопроса
+        let crushMode = false;      // CrushMode=true   — ошибка возвращает на первый вопрос
+        let headerShow = false;     // HeaderShow=true  — показывать заголовок вопроса из <name>
         let crushState = 'answering'; // 'answering' | 'correct' | 'wrong' — состояние текущего вопроса в CrushMode
         let checkedQuestions = [];  // какие вопросы уже проверены
         const LETTERS = ['А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ж', 'З', 'И', 'К'];
@@ -609,6 +622,7 @@
         const closeQrBtn = document.getElementById('closeQrBtn');
         const checkBadge = document.getElementById('checkBadge');
         const crushBadge = document.getElementById('crushBadge');
+        const headerBadge = document.getElementById('headerBadge');
 
         // ===== Вспомогательные функции =====
         function isAnyOverlayOpen() {
@@ -722,13 +736,13 @@
             }
         }
 
-        // Универсальное чтение флага режима (CheckMode, CrushMode и т.п.)
+        // Универсальное чтение флага режима (CheckMode, CrushMode, HeaderShow и т.п.)
         function getUrlFlag(name) {
             try {
                 const params = new URLSearchParams(window.location.search);
                 for (const [key, value] of params.entries()) {
                     if (key.toLowerCase() === name.toLowerCase()) {
-                        // поддерживаем: ?CrushMode, ?CrushMode=true / 1 / yes
+                        // поддерживаем: ?HeaderShow, ?HeaderShow=true / 1 / yes
                         return value === '' || ['true', '1', 'yes'].includes(value.toLowerCase());
                     }
                 }
@@ -943,6 +957,15 @@
                 const type = node.getAttribute('type');
                 if (type !== 'multichoice') continue;
 
+                // Название вопроса из тега <name> (для режима HeaderShow)
+                let questionName = '';
+                const nameNodes = node.getElementsByTagName('name');
+                if (nameNodes.length > 0) {
+                    const nameTextNodes = nameNodes[0].getElementsByTagName('text');
+                    if (nameTextNodes.length > 0) questionName = nameTextNodes[0].textContent.trim();
+                }
+
+                // Текст вопроса
                 let questionText = '';
                 const questionTextNodes = node.getElementsByTagName('questiontext');
                 if (questionTextNodes.length > 0) {
@@ -952,6 +975,7 @@
                 if (!questionText) continue;
                 questionText = processHtmlContent(questionText);
 
+                // Варианты ответа
                 const answers = [];
                 const answerNodes = node.getElementsByTagName('answer');
                 for (let answerNode of answerNodes) {
@@ -965,7 +989,7 @@
                 }
 
                 if (answers.length === 0) continue;
-                questions.push({ text: questionText, answers, userAnswer: null, isCorrect: false });
+                questions.push({ name: questionName, text: questionText, answers, userAnswer: null, isCorrect: false });
             }
             console.log(`Найдено ${questions.length} вопросов`);
         }
@@ -1025,6 +1049,7 @@
 
             checkBadge.classList.toggle('hidden', !checkMode);
             crushBadge.classList.toggle('hidden', !crushMode);
+            headerBadge.classList.toggle('hidden', !headerShow);
 
             startTime = new Date();
             timeSpent = 0;
@@ -1046,6 +1071,14 @@
             const question = questions[index];
             const questionElement = document.createElement('div');
             questionElement.className = 'question';
+
+            // ===== Заголовок вопроса (HeaderShow=true в URL) =====
+            if (headerShow && question.name) {
+                const headerElement = document.createElement('div');
+                headerElement.className = 'question-header';
+                headerElement.appendChild(renderTextWithMath(question.name));
+                questionElement.appendChild(headerElement);
+            }
 
             const questionTextElement = document.createElement('div');
             questionTextElement.className = 'question-text';
@@ -1311,6 +1344,14 @@
                 badge.textContent = '✓ Правильный ответ';
                 card.appendChild(badge);
 
+                // Заголовок вопроса в результатах — тоже при HeaderShow
+                if (headerShow && q.name) {
+                    const headerElement = document.createElement('div');
+                    headerElement.className = 'question-header';
+                    headerElement.appendChild(renderTextWithMath(q.name));
+                    card.appendChild(headerElement);
+                }
+
                 const qt = document.createElement('div');
                 qt.className = 'question-text';
                 qt.appendChild(renderTextWithMath(q.text));
@@ -1331,8 +1372,9 @@
         }
 
         // ===== Инициализация =====
-        checkMode = getUrlFlag('CheckMode');
-        crushMode = getUrlFlag('CrushMode');
+        checkMode  = getUrlFlag('CheckMode');
+        crushMode  = getUrlFlag('CrushMode');
+        headerShow = getUrlFlag('HeaderShow');
 
         loadUrlBtn.addEventListener('click', handleUrlLoad);
         urlInput.addEventListener('keydown', e => { if (e.key === 'Enter') handleUrlLoad(); });
