@@ -132,6 +132,7 @@
             padding: 12px 16px; border-radius: 12px; margin-top: 14px;
             font-size: 14px; font-weight: 500; animation: fadeIn .25s;
         }
+        .status-message.hidden { display: none; }
         .success { background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; }
         .error   { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
         .loading { background: #eef2ff; color: #3730a3; border: 1px solid #c7d2fe; }
@@ -200,12 +201,21 @@
 
         .test-controls { display: flex; gap: 10px; justify-content: space-between; flex-wrap: wrap; margin-top: 8px; }
 
-        /* ===== Режим проверки (CheckMode=true в URL) ===== */
+        /* ===== Режимы проверки (CheckMode / CrushMode) ===== */
         .check-block { margin-top: 18px; }
         .check-feedback { margin-top: 14px; animation: fadeIn .25s; }
         .check-feedback:empty { display: none; }
         .answer-option.correct .answer-letter   { background: var(--success); color: #fff; }
         .answer-option.incorrect .answer-letter { background: var(--danger);  color: #fff; }
+
+        .mode-pill {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 9px 16px; border-radius: 999px;
+            font-size: 13px; font-weight: 700;
+        }
+        .mode-pill.hidden { display: none; }
+        .mode-pill.check { background: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; }
+        .mode-pill.crush { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
 
         /* ===== Results ===== */
         .results-hero {
@@ -275,6 +285,14 @@
             display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap;
             padding: 10px 14px; border-radius: 10px;
             background: #f8fafc; margin-top: 8px; font-size: 14.5px;
+        }
+
+        /* Детальные результаты: только правильные ответы */
+        .detail-title { margin: 0 0 4px; font-size: 16px; font-weight: 700; }
+        .detail-note { font-size: 13px; color: var(--muted); margin-bottom: 14px; }
+        .empty-note {
+            background: #f8fafc; border: 1.5px dashed #e2e8f0; color: var(--muted);
+            border-radius: 14px; padding: 20px; text-align: center; font-size: 14px;
         }
 
         /* ===== Overlays ===== */
@@ -385,7 +403,7 @@
         </header>
 
         <div class="main-content">
-            <!-- Секция загрузки теста (скрывается, если ссылка указана в URL) -->
+            <!-- Секция загрузки теста -->
             <section id="uploadSection" class="section">
                 <h2 class="section-title"><span class="num">1</span> Загрузка теста</h2>
 
@@ -410,7 +428,11 @@
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
                         <span id="timer">00:00:00</span>
                     </div>
-                    <div class="counter-pill">Вопрос <span id="currentQuestion">1</span> из <span id="totalQuestions">0</span></div>
+                    <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+                        <span class="mode-pill check hidden" id="checkBadge">🔍 Режим проверки</span>
+                        <span class="mode-pill crush hidden" id="crushBadge">💥 Crush Mode</span>
+                        <div class="counter-pill">Вопрос <span id="currentQuestion">1</span> из <span id="totalQuestions">0</span></div>
+                    </div>
                 </div>
                 <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
 
@@ -533,10 +555,12 @@
         let timerInterval = null;
         let timeSpent = 0;
         let studentName = '';
-        let pendingStartAfterName = false; // тест загружен, ждём подтверждения ФИО
+        let pendingStartAfterName = false;
         let qrScannerActive = false;
         let videoStream = null;
-        let checkMode = false;      // режим мгновенной проверки (параметр CheckMode=true в URL)
+        let checkMode = false;      // CheckMode=true  — мгновенная проверка каждого вопроса
+        let crushMode = false;      // CrushMode=true  — ошибка возвращает на первый вопрос
+        let crushChecking = false;  // идёт проверка в CrushMode (блокировка кликов)
         let checkedQuestions = [];  // какие вопросы уже проверены
         const LETTERS = ['А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ж', 'З', 'И', 'К'];
         const YANDEX_API_PREFIX = 'https://cloud-api.yandex.net/v1/disk/public/resources/download?public_key=';
@@ -583,6 +607,8 @@
         const qrVideo = document.getElementById('qrVideo');
         const qrStatus = document.getElementById('qrStatus');
         const closeQrBtn = document.getElementById('closeQrBtn');
+        const checkBadge = document.getElementById('checkBadge');
+        const crushBadge = document.getElementById('crushBadge');
 
         // ===== Вспомогательные функции =====
         function isAnyOverlayOpen() {
@@ -662,7 +688,6 @@
             welcomeOverlay.classList.add('hidden');
             updateScrollLock();
 
-            // Если тест уже был загружен автоматически из URL — запускаем его
             if (pendingStartAfterName && questions.length > 0) {
                 pendingStartAfterName = false;
                 startTest();
@@ -680,17 +705,16 @@
                     middleNameInput.value = saved.m || '';
                 }
             } catch (e) {}
-            pendingStartAfterName = false; // смена имени не должна перезапускать тест
+            pendingStartAfterName = false;
             nameError.classList.add('hidden');
             welcomeOverlay.classList.remove('hidden');
             updateScrollLock();
         }
 
-        // ===== Чтение ссылки на тест и режима проверки из адресной строки =====
+        // ===== Чтение параметров из адресной строки =====
         function getTestUrlFromLocation() {
             try {
                 const params = new URLSearchParams(window.location.search);
-                // Поддерживаем несколько имён параметров: name (как раньше), test, url
                 return params.get('name') || params.get('test') || params.get('url') || '';
             } catch (e) {
                 console.error('Ошибка парсинга URL параметров:', e);
@@ -698,15 +722,19 @@
             }
         }
 
-        function getCheckModeFromLocation() {
+        // Универсальное чтение флага режима (CheckMode, CrushMode и т.п.)
+        function getUrlFlag(name) {
             try {
                 const params = new URLSearchParams(window.location.search);
                 for (const [key, value] of params.entries()) {
-                    if (key.toLowerCase() === 'checkmode') {
-                        return ['true', '1', 'yes'].includes(value.toLowerCase());
+                    if (key.toLowerCase() === name.toLowerCase()) {
+                        // поддерживаем: ?CrushMode, ?CrushMode=true / 1 / yes
+                        return value === '' || ['true', '1', 'yes'].includes(value.toLowerCase());
                     }
                 }
-            } catch (e) { console.error('Ошибка парсинга URL параметров:', e); }
+            } catch (e) {
+                console.error('Ошибка парсинга URL параметров:', e);
+            }
             return false;
         }
 
@@ -714,7 +742,6 @@
         async function fetchAndParseTest(url) {
             let target = url;
 
-            // Если это ссылка Яндекс.Диска — сначала получаем прямую ссылку
             if (url.includes('yadi.sk') || url.includes('disk.yandex')) {
                 const resp = await fetch(YANDEX_API_PREFIX + encodeURIComponent(url));
                 if (!resp.ok) {
@@ -742,7 +769,6 @@
                 await fetchAndParseTest(url);
                 console.log(`Автоматически загружен тест с ${questions.length} вопросами`);
                 uploadSection.classList.add('hidden');
-                // Если ФИО уже подтверждено — стартуем сразу, иначе ждём
                 if (studentName) {
                     startTest();
                 } else {
@@ -751,7 +777,6 @@
             } catch (error) {
                 const err = friendlyError(error);
                 console.error('Ошибка автозагрузки теста:', err);
-                // Показываем секцию загрузки снова, чтобы можно было ввести ссылку вручную
                 uploadSection.classList.remove('hidden');
                 urlInput.value = url;
                 showUploadStatus(`Ошибка загрузки: ${err.message}`, 'error');
@@ -918,7 +943,6 @@
                 const type = node.getAttribute('type');
                 if (type !== 'multichoice') continue;
 
-                // Текст вопроса
                 let questionText = '';
                 const questionTextNodes = node.getElementsByTagName('questiontext');
                 if (questionTextNodes.length > 0) {
@@ -928,7 +952,6 @@
                 if (!questionText) continue;
                 questionText = processHtmlContent(questionText);
 
-                // Варианты ответа
                 const answers = [];
                 const answerNodes = node.getElementsByTagName('answer');
                 for (let answerNode of answerNodes) {
@@ -960,41 +983,58 @@
             container.className = 'formula-container';
             const t = text || '';
             if (t.includes('\\(') || t.includes('\\[')) {
-                container.innerHTML = t; // MathJax обработает \( \) и \[ \]
+                container.innerHTML = t;
             } else {
                 container.textContent = t;
             }
             return container;
         }
 
+        // ===== Перемешивание =====
+        function shuffleArray(arr) {
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
 
+        // Перемешивание порядка вопросов (CheckMode / CrushMode)
+        function shuffleQuestions() {
+            shuffleArray(questions);
+        }
 
-// ===== Перемешивание вопросов (режим проверки CheckMode) =====
-function shuffleQuestions() {
-    for (let i = questions.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [questions[i], questions[j]] = [questions[j], questions[i]];
-    }
-}
+        // Перемешивание вариантов ответов внутри каждого вопроса
+        function shuffleAnswers() {
+            questions.forEach(q => shuffleArray(q.answers));
+        }
 
-        
+        // ===== Таймер =====
+        function updateTimer() {
+            if (!startTime) return;
+            timeSpent = Math.floor((new Date() - startTime) / 1000);
+            timerElement.textContent = formatTime(timeSpent);
+        }
+
         // ===== Тест =====
         function startTest() {
+            // В режимах проверки вопросы перемешиваются при каждом запуске
+            if (checkMode || crushMode) shuffleQuestions();
+            // Варианты ответов каждого вопроса перемешиваются
+            shuffleAnswers();
 
-
-    // В режиме проверки вопросы перемешиваются при каждом запуске
-    if (checkMode) {
-        shuffleQuestions();
-    }
-          
             userAnswers = new Array(questions.length).fill(null);
             checkedQuestions = new Array(questions.length).fill(false);
             currentQuestionIndex = 0;
+            crushChecking = false;
 
             uploadSection.classList.add('hidden');
             testSection.classList.remove('hidden');
             resultsSection.classList.add('hidden');
             totalQuestionsElement.textContent = questions.length;
+
+            checkBadge.classList.toggle('hidden', !checkMode);
+            crushBadge.classList.toggle('hidden', !crushMode);
 
             startTime = new Date();
             timeSpent = 0;
@@ -1003,11 +1043,11 @@ function shuffleQuestions() {
             timerInterval = setInterval(updateTimer, 1000);
 
             showQuestion(0);
-            updateNavigationButtons();
             testSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         function showQuestion(index) {
+            currentQuestionIndex = index;
             currentQuestionElement.textContent = index + 1;
             progressFill.style.width = `${((index + 1) / questions.length) * 100}%`;
             questionsContainer.innerHTML = '';
@@ -1033,300 +1073,293 @@ function shuffleQuestions() {
                 answerElement.appendChild(renderTextWithMath(answer.text));
 
                 answerElement.addEventListener('click', () => {
-                    // В режиме проверки после сверки ответ изменить нельзя
-                    if (checkMode && checkedQuestions[index]) return;
+                    // после проверки в CheckMode и во время проверки в CrushMode ответ изменить нельзя
+                    if ((checkMode && checkedQuestions[index]) || crushChecking) return;
                     questionElement.querySelectorAll('.answer-option')
                         .forEach(opt => opt.classList.remove('selected'));
                     answerElement.classList.add('selected');
                     userAnswers[index] = answerIndex;
                     const checkBtn = questionElement.querySelector('.check-answer-btn');
                     if (checkBtn) checkBtn.disabled = false;
+                    if (crushMode) setCrushFeedback('');
                 });
 
                 questionElement.appendChild(answerElement);
             });
 
-            // ===== Блок режима проверки (CheckMode=true в URL) =====
-            if (checkMode) {
-                const checkWrap = document.createElement('div');
-                checkWrap.className = 'check-block';
+            // ===== Блок режима проверки (CheckMode=true) =====
+            if (checkMode && !crushMode) {
+                const checkBlock = document.createElement('div');
+                checkBlock.className = 'check-block';
 
                 const checkBtn = document.createElement('button');
                 checkBtn.type = 'button';
-                checkBtn.className = 'btn btn-primary check-answer-btn';
-                checkBtn.textContent = '🔍 Проверить';
+                checkBtn.className = 'btn btn-dark check-answer-btn';
+                checkBtn.textContent = '🔍 Проверить ответ';
                 checkBtn.disabled = userAnswers[index] === null || checkedQuestions[index];
-                checkBtn.addEventListener('click', () => checkCurrentAnswer(index, questionElement));
+                checkBtn.addEventListener('click', () => checkCurrentAnswer(index, questionElement, checkBtn));
+                checkBlock.appendChild(checkBtn);
 
-                const feedbackBox = document.createElement('div');
-                feedbackBox.className = 'check-feedback';
+                const feedback = document.createElement('div');
+                feedback.className = 'check-feedback';
+                checkBlock.appendChild(feedback);
 
-                checkWrap.appendChild(checkBtn);
-                checkWrap.appendChild(feedbackBox);
-                questionElement.appendChild(checkWrap);
+                questionElement.appendChild(checkBlock);
 
-                // Если вопрос уже проверялся — восстанавливаем результат при возврате
-                if (checkedQuestions[index]) {
-                    applyCheckFeedback(index, questionElement);
-                }
+                // если вопрос уже проверялся — восстанавливаем подсветку
+                if (checkedQuestions[index]) paintCheckState(index, questionElement);
+            }
+
+            // ===== Поле обратной связи для CrushMode =====
+            if (crushMode) {
+                const crushFeedback = document.createElement('div');
+                crushFeedback.id = 'crushFeedback';
+                crushFeedback.className = 'check-feedback';
+                questionElement.appendChild(crushFeedback);
             }
 
             questionsContainer.appendChild(questionElement);
             applyMathJax();
+            updateNavigationButtons();
         }
 
-        // ===== Мгновенная проверка ответа (CheckMode) =====
-        function checkCurrentAnswer(index, questionElement) {
-            if (checkedQuestions[index]) return;
-            const selected = userAnswers[index];
-            if (selected === null || selected === undefined) return;
+        // ===== Проверка ответа (CheckMode) =====
+        function checkCurrentAnswer(index, questionElement, checkBtn) {
+            if (userAnswers[index] === null || checkedQuestions[index]) return;
             checkedQuestions[index] = true;
-            applyCheckFeedback(index, questionElement);
+            if (checkBtn) checkBtn.disabled = true;
+            paintCheckState(index, questionElement);
         }
 
-        function applyCheckFeedback(index, questionElement) {
+        function paintCheckState(index, questionElement) {
             const question = questions[index];
-            const selectedIndex = userAnswers[index];
-            if (selectedIndex === null || selectedIndex === undefined) return;
-
-            const isRight = question.answers[selectedIndex].isCorrect;
-
-            // Подсветка: правильный — зелёным, неверно выбранный — красным
-            questionElement.querySelectorAll('.answer-option').forEach((opt, i) => {
-                opt.classList.remove('selected');
-                opt.classList.toggle('correct', !!question.answers[i].isCorrect);
-                opt.classList.toggle('incorrect', i === selectedIndex && !question.answers[i].isCorrect);
+            const selected = userAnswers[index];
+            const isRight = selected !== null && question.answers[selected].isCorrect;
+            const options = questionElement.querySelectorAll('.answer-option');
+            options.forEach((opt, i) => {
+                if (i === selected) opt.classList.add(isRight ? 'correct' : 'incorrect');
+                if (!isRight && question.answers[i].isCorrect) opt.classList.add('correct');
             });
-
-            const checkBtn = questionElement.querySelector('.check-answer-btn');
-            if (checkBtn) {
-                checkBtn.disabled = true;
-                checkBtn.textContent = '✓ Ответ проверен';
-            }
-
-            const feedbackBox = questionElement.querySelector('.check-feedback');
-            if (feedbackBox) {
-                feedbackBox.innerHTML = '';
-
-                const badge = document.createElement('span');
-                badge.className = 'status-badge ' + (isRight ? 'correct' : 'incorrect');
-                badge.textContent = isRight ? '✓ Верно!' : '✗ Неверно';
-                feedbackBox.appendChild(badge);
-
-                // Показываем правильный ответ (формулы рендерятся через MathJax)
-                const correctIndex = question.answers.findIndex(a => a.isCorrect);
-                if (correctIndex !== -1) {
-                    const line = document.createElement('div');
-                    line.className = 'answer-line';
-                    const label = document.createElement('strong');
-                    label.textContent = `Правильный ответ (${LETTERS[correctIndex] || correctIndex + 1}):`;
-                    line.appendChild(label);
-                    line.appendChild(renderTextWithMath(question.answers[correctIndex].text));
-                    feedbackBox.appendChild(line);
-                    applyMathJax();
-                }
+            const feedback = questionElement.querySelector('.check-feedback');
+            if (feedback) {
+                feedback.innerHTML = isRight
+                    ? '<span class="status-badge correct">✓ Правильно</span>'
+                    : '<span class="status-badge incorrect">✕ Неправильно. Правильный ответ отмечен зелёным</span>';
             }
         }
 
-        function updateNavigationButtons() {
-            prevBtn.disabled = currentQuestionIndex === 0;
-            if (currentQuestionIndex === questions.length - 1) {
-                finishBtn.style.display = 'inline-flex';
-                nextBtn.style.display = 'none';
-            } else {
-                finishBtn.style.display = 'none';
-                nextBtn.style.display = 'inline-flex';
-            }
-        }
+        // ===== CrushMode: проверка при переходе к следующему вопросу =====
+        function handleCrushNext() {
+            if (crushChecking) return;
+            const idx = currentQuestionIndex;
+            const question = questions[idx];
 
-        function updateTimer() {
-            if (!startTime) return;
-            timeSpent = Math.floor((Date.now() - startTime.getTime()) / 1000);
-            timerElement.textContent = formatTime(timeSpent);
-        }
-
-        function finishTest() {
-            const unanswered = userAnswers.filter(a => a === null || a === undefined).length;
-            if (unanswered > 0 &&
-                !confirm(`Вы ответили не на все вопросы (без ответа: ${unanswered}). Завершить тест?`)) {
+            if (userAnswers[idx] === null) {
+                setCrushFeedback('Сначала выберите вариант ответа', 'skipped');
                 return;
             }
 
-            clearInterval(timerInterval);
-            if (startTime) timeSpent = Math.floor((Date.now() - startTime.getTime()) / 1000);
+            crushChecking = true;
+            const selectedIsCorrect = question.answers[userAnswers[idx]].isCorrect;
+            const options = questionsContainer.querySelectorAll('.answer-option');
 
-            let correctCount = 0;
-            questions.forEach((question, index) => {
-                const userAnswerIndex = userAnswers[index];
-                question.userAnswer = (userAnswerIndex === null || userAnswerIndex === undefined)
-                    ? null : userAnswerIndex;
-                question.isCorrect = question.userAnswer !== null &&
-                                     question.answers[question.userAnswer].isCorrect;
-                if (question.isCorrect) correctCount++;
-            });
-
-            showResults(correctCount);
+            if (selectedIsCorrect) {
+                // Верно: подсвечиваем и переходим дальше
+                options.forEach((opt, i) => {
+                    if (question.answers[i].isCorrect) opt.classList.add('correct');
+                });
+                checkedQuestions[idx] = true;
+                setCrushFeedback('Верно! Переходим к следующему вопросу…', 'correct');
+                setTimeout(() => {
+                    crushChecking = false;
+                    if (idx < questions.length - 1) {
+                        showQuestion(idx + 1);
+                    } else {
+                        finishTest();
+                    }
+                }, 900);
+            } else {
+                // Неверно: показываем ошибку и правильный вариант, затем возврат к первому вопросу
+                options.forEach((opt, i) => {
+                    if (i === userAnswers[idx]) opt.classList.add('incorrect');
+                    if (question.answers[i].isCorrect) opt.classList.add('correct');
+                });
+                setCrushFeedback('Неверно! Возврат к первому вопросу…', 'incorrect');
+                setTimeout(() => {
+                    crushChecking = false;
+                    resetCrushAttempt();
+                }, 1800);
+            }
         }
 
-        // ===== Результаты =====
-        function showResults(correctCount) {
-            testSection.classList.add('hidden');
-            resultsSection.classList.remove('hidden');
+        function resetCrushAttempt() {
+            // Полный сброс попытки и возврат к первому вопросу
+            userAnswers = new Array(questions.length).fill(null);
+            checkedQuestions = new Array(questions.length).fill(false);
+            shuffleAnswers(); // варианты снова перемешиваются для новой попытки
+            showQuestion(0);
+            testSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
 
-            const total = questions.length;
-            const percent = total > 0 ? Math.round((correctCount / total) * 100) : 0;
+        function setCrushFeedback(message, type) {
+            const box = document.getElementById('crushFeedback');
+            if (!box) return;
+            box.innerHTML = message
+                ? `<span class="status-badge ${type}">${message}</span>`
+                : '';
+        }
 
-            updateStudentUI();
+        // ===== Навигация =====
+        function updateNavigationButtons() {
+            if (crushMode) {
+                // В CrushMode назад ходить нельзя, завершение — только через последнее предупреждение
+                prevBtn.style.display = 'none';
+                finishBtn.style.display = 'none';
+                nextBtn.style.display = '';
+                nextBtn.disabled = false;
+                nextBtn.textContent = currentQuestionIndex === questions.length - 1
+                    ? 'Проверить и завершить ✓'
+                    : 'Проверить ответ →';
+            } else {
+                prevBtn.style.display = '';
+                finishBtn.style.display = '';
+                prevBtn.disabled = currentQuestionIndex === 0;
+                nextBtn.disabled = currentQuestionIndex === questions.length - 1;
+                nextBtn.textContent = 'Вперёд →';
+            }
+        }
 
-            scoreElement.textContent = percent + '%';
+        // ===== Завершение и результаты =====
+        function getGrade(percent) {
+            if (percent >= 90) return { g: 5, cls: 'grade-5', label: 'Отлично' };
+            if (percent >= 70) return { g: 4, cls: 'grade-4', label: 'Хорошо' };
+            if (percent >= 50) return { g: 3, cls: 'grade-3', label: 'Удовлетворительно' };
+            return { g: 2, cls: 'grade-2', label: 'Неудовлетворительно' };
+        }
 
-            // Анимация кольца
-            scoreRing.style.transition = 'none';
-            scoreRing.style.strokeDashoffset = 440;
-            void scoreRing.getBoundingClientRect();
-            scoreRing.style.transition = '';
-            requestAnimationFrame(() => {
-                scoreRing.style.strokeDashoffset = 440 - (440 * percent / 100);
+        function finishTest() {
+            clearInterval(timerInterval);
+            timeSpent = Math.floor((new Date() - startTime) / 1000);
+            timerElement.textContent = formatTime(timeSpent);
+
+            questions.forEach((q, i) => {
+                q.userAnswer = userAnswers[i];
+                q.isCorrect = userAnswers[i] !== null && !!q.answers[userAnswers[i]].isCorrect;
             });
 
-            // Оценка: 5 — от 85%, 4 — от 70%, 3 — от 50%, иначе 2
-            let grade;
-            if (percent >= 85) grade = 5;
-            else if (percent >= 70) grade = 4;
-            else if (percent >= 50) grade = 3;
-            else grade = 2;
-            gradePill.textContent = 'Оценка: ' + grade;
-            gradePill.className = 'grade-pill grade-' + grade;
+            const correctCount = questions.filter(q => q.isCorrect).length;
+            const total = questions.length;
+            const percent = total ? Math.round((correctCount / total) * 100) : 0;
 
             correctAnswersElement.textContent = correctCount;
             totalAnswersElement.textContent = total;
             timeSpentElement.textContent = formatTime(timeSpent);
+            scoreElement.textContent = percent + '%';
 
+            const grade = getGrade(percent);
+            gradePill.textContent = `Оценка: ${grade.g} · ${grade.label}`;
+            gradePill.className = `grade-pill ${grade.cls}`;
+
+            testSection.classList.add('hidden');
+            resultsSection.classList.remove('hidden');
             renderDetailedResults();
+
+            // Анимация круга прогресса
+            const circumference = 2 * Math.PI * 70;
+            scoreRing.style.strokeDasharray = circumference;
+            scoreRing.style.strokeDashoffset = circumference * (1 - percent / 100);
+
             resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
+        // Детальные результаты: только вопросы с ПРАВИЛЬНЫМИ ответами
         function renderDetailedResults() {
             detailedResults.innerHTML = '';
 
-            questions.forEach((question, index) => {
-                const block = document.createElement('div');
-                block.className = 'question';
+            const correctList = questions.filter(q => q.isCorrect);
+
+            const title = document.createElement('h3');
+            title.className = 'detail-title';
+            title.textContent = `Правильно отвеченные вопросы (${correctList.length} из ${questions.length})`;
+            detailedResults.appendChild(title);
+
+            const note = document.createElement('div');
+            note.className = 'detail-note';
+            note.textContent = 'Здесь показаны только вопросы, на которые был дан правильный ответ.';
+            detailedResults.appendChild(note);
+
+            if (correctList.length === 0) {
+                const empty = document.createElement('div');
+                empty.className = 'empty-note';
+                empty.textContent = 'Нет ни одного правильного ответа.';
+                detailedResults.appendChild(empty);
+                return;
+            }
+
+            correctList.forEach(q => {
+                const card = document.createElement('div');
+                card.className = 'question';
 
                 const badge = document.createElement('span');
-                badge.className = 'status-badge ' +
-                    (question.userAnswer === null ? 'skipped'
-                        : (question.isCorrect ? 'correct' : 'incorrect'));
-                badge.textContent = question.userAnswer === null ? '— Без ответа'
-                    : (question.isCorrect ? '✓ Верно' : '✗ Неверно');
-                block.appendChild(badge);
+                badge.className = 'status-badge correct';
+                badge.textContent = '✓ Правильный ответ';
+                card.appendChild(badge);
 
-                const num = document.createElement('div');
-                num.className = 'question-text';
-                num.appendChild(document.createTextNode(`Вопрос ${index + 1}. `));
-                num.appendChild(renderTextWithMath(question.text));
-                block.appendChild(num);
+                const qt = document.createElement('div');
+                qt.className = 'question-text';
+                qt.appendChild(renderTextWithMath(q.text));
+                card.appendChild(qt);
 
-                if (question.userAnswer !== null) {
-                    const userLine = document.createElement('div');
-                    userLine.className = 'answer-line';
-                    const label = document.createElement('strong');
-                    label.textContent = `Ваш ответ (${LETTERS[question.userAnswer] || question.userAnswer + 1}):`;
-                    userLine.appendChild(label);
-                    userLine.appendChild(renderTextWithMath(question.answers[question.userAnswer].text));
-                    block.appendChild(userLine);
-                } else {
-                    const userLine = document.createElement('div');
-                    userLine.className = 'answer-line';
-                    userLine.textContent = 'Ответ не дан';
-                    block.appendChild(userLine);
-                }
+                const line = document.createElement('div');
+                line.className = 'answer-line';
+                const label = document.createElement('strong');
+                label.textContent = 'Ответ: ';
+                line.appendChild(label);
+                line.appendChild(renderTextWithMath(q.answers[q.userAnswer].text));
+                card.appendChild(line);
 
-                const correctIndex = question.answers.findIndex(a => a.isCorrect);
-                if (correctIndex !== -1 && !question.isCorrect) {
-                    const correctLine = document.createElement('div');
-                    correctLine.className = 'answer-line';
-                    const label = document.createElement('strong');
-                    label.textContent = `Правильный ответ (${LETTERS[correctIndex] || correctIndex + 1}):`;
-                    correctLine.appendChild(label);
-                    correctLine.appendChild(renderTextWithMath(question.answers[correctIndex].text));
-                    block.appendChild(correctLine);
-                }
-
-                detailedResults.appendChild(block);
+                detailedResults.appendChild(card);
             });
+
             applyMathJax();
         }
 
-        function restartTest() {
-            resultsSection.classList.add('hidden');
-            startTest();
-        }
-
-        // ===== События =====
-        confirmNameBtn.addEventListener('click', confirmName);
-        [lastNameInput, firstNameInput, middleNameInput].forEach(inp => {
-            inp.addEventListener('keydown', e => { if (e.key === 'Enter') confirmName(); });
-        });
-        changeNameBtn.addEventListener('click', openNameOverlay);
+        // ===== Инициализация =====
+        checkMode = getUrlFlag('CheckMode');
+        crushMode = getUrlFlag('CrushMode');
 
         loadUrlBtn.addEventListener('click', handleUrlLoad);
-        urlInput.addEventListener('keypress', e => { if (e.key === 'Enter') handleUrlLoad(); });
+        urlInput.addEventListener('keydown', e => { if (e.key === 'Enter') handleUrlLoad(); });
         qrCodeBtn.addEventListener('click', startQRScanner);
-        yandexBtn.addEventListener('click', handleYandexLoad);
-        demoBtn.addEventListener('click', () => window.loadExampleTest());
-
         closeQrBtn.addEventListener('click', stopQRScanner);
-        qrModal.addEventListener('click', e => { if (e.target === qrModal) stopQRScanner(); });
-        document.addEventListener('keydown', e => {
-            if (e.key === 'Escape' && !qrModal.classList.contains('hidden')) stopQRScanner();
+        yandexBtn.addEventListener('click', handleYandexLoad);
+        demoBtn.addEventListener('click', window.loadExampleTest);
+
+        confirmNameBtn.addEventListener('click', confirmName);
+        [lastNameInput, firstNameInput, middleNameInput].forEach(input => {
+            input.addEventListener('keydown', e => { if (e.key === 'Enter') confirmName(); });
         });
 
         prevBtn.addEventListener('click', () => {
-            if (currentQuestionIndex > 0) {
-                currentQuestionIndex--;
-                showQuestion(currentQuestionIndex);
-                updateNavigationButtons();
-            }
+            if (crushMode) return;
+            if (currentQuestionIndex > 0) showQuestion(currentQuestionIndex - 1);
         });
+
         nextBtn.addEventListener('click', () => {
-            if (currentQuestionIndex < questions.length - 1) {
-                currentQuestionIndex++;
-                showQuestion(currentQuestionIndex);
-                updateNavigationButtons();
-            }
+            if (crushMode) { handleCrushNext(); return; }
+            if (currentQuestionIndex < questions.length - 1) showQuestion(currentQuestionIndex + 1);
         });
-        finishBtn.addEventListener('click', finishTest);
-        restartBtn.addEventListener('click', restartTest);
 
-        // ===== Инициализация =====
-        function init() {
-            // Параметр CheckMode=true в URL включает кнопку «Проверить»
-            checkMode = getCheckModeFromLocation();
-            if (checkMode) console.log('Режим проверки (CheckMode) включён');
+        finishBtn.addEventListener('click', () => { if (!crushMode) finishTest(); });
+        restartBtn.addEventListener('click', startTest);
+        changeNameBtn.addEventListener('click', openNameOverlay);
 
-            // Предзаполняем ФИО, если сохранялось ранее
-            try {
-                const saved = JSON.parse(localStorage.getItem('quizStudent') || 'null');
-                if (saved) {
-                    lastNameInput.value = saved.l || '';
-                    firstNameInput.value = saved.f || '';
-                    middleNameInput.value = saved.m || '';
-                }
-            } catch (e) {}
-
-            updateScrollLock();
-
-            // Автозагрузка теста, если ссылка передана в URL (?name= / ?test= / ?url=)
-            const testUrl = getTestUrlFromLocation();
-            if (testUrl) {
-                uploadSection.classList.add('hidden');
-                urlInput.value = testUrl;
-                autoLoadTest(testUrl);
-            }
+        const autoUrl = getTestUrlFromLocation();
+        if (autoUrl) {
+            urlInput.value = autoUrl;
+            autoLoadTest(autoUrl);
         }
-
-        init();
+        updateScrollLock();
     </script>
 </body>
 </html>
