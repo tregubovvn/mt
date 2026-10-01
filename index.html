@@ -224,9 +224,10 @@
             font-size: 13px; font-weight: 700;
         }
         .mode-pill.hidden { display: none; }
-        .mode-pill.check  { background: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; }
-        .mode-pill.crush  { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
-        .mode-pill.header { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
+        .mode-pill.check    { background: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; }
+        .mode-pill.crush    { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+        .mode-pill.header   { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
+        .mode-pill.attempts { background: #fffbeb; color: #b45309; border: 1px solid #fde68a; }
 
         /* ===== Results ===== */
         .results-hero {
@@ -275,6 +276,14 @@
         .grade-4 { background: #eff6ff; color: #2563eb; }
         .grade-3 { background: #fffbeb; color: #b45309; }
         .grade-0, .grade-1, .grade-2 { background: #fef2f2; color: #dc2626; }
+
+        /* Сообщение о провале теста в CrushMode */
+        .crush-fail-note {
+            margin-top: 18px; padding: 11px 16px; border-radius: 12px;
+            background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca;
+            font-weight: 600; font-size: 14px;
+        }
+
         .stats-row {
             display: grid; grid-template-columns: repeat(3, 1fr);
             gap: 12px; margin-top: 20px;
@@ -443,6 +452,7 @@
                         <span class="mode-pill check hidden" id="checkBadge">🔍 Режим проверки</span>
                         <span class="mode-pill crush hidden" id="crushBadge">💥 Crush Mode</span>
                         <span class="mode-pill header hidden" id="headerBadge">🏷 Заголовки вопросов</span>
+                        <span class="mode-pill attempts hidden" id="crushAttemptsPill">🎯 Попытка 1 из 3</span>
                         <div class="counter-pill">Вопрос <span id="currentQuestion">1</span> из <span id="totalQuestions">0</span></div>
                     </div>
                 </div>
@@ -486,6 +496,8 @@
                             <div class="grade-pill grade-0" id="gradePill">Оценка: —</div>
                         </div>
                     </div>
+
+                    <div class="crush-fail-note hidden" id="crushFailNote"></div>
 
                     <div class="stats-row">
                         <div class="stat"><div class="stat-value" id="correctAnswers">0</div><div class="stat-label">Правильных</div></div>
@@ -573,8 +585,14 @@
         let checkMode = false;      // CheckMode=true   — мгновенная проверка каждого вопроса
         let crushMode = false;      // CrushMode=true   — ошибка возвращает на первый вопрос
         let headerShow = false;     // HeaderShow=true  — показывать заголовок вопроса из <name>
-        let crushState = 'answering'; // 'answering' | 'correct' | 'wrong' — состояние текущего вопроса в CrushMode
+        let crushState = 'answering'; // 'answering' | 'correct' | 'wrong' | 'failed'
         let checkedQuestions = [];  // какие вопросы уже проверены
+
+        // ===== CrushMode: попытки =====
+        const CRUSH_MAX_ERRORS = 3;  // максимум ошибок (= попыток) на весь тест
+        let crushErrors = 0;         // сколько ошибок уже сделано
+        let crushTestFailed = false; // тест провален (исчерпаны все попытки)
+
         const LETTERS = ['А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ж', 'З', 'И', 'К'];
         const YANDEX_API_PREFIX = 'https://cloud-api.yandex.net/v1/disk/public/resources/download?public_key=';
 
@@ -623,6 +641,8 @@
         const checkBadge = document.getElementById('checkBadge');
         const crushBadge = document.getElementById('crushBadge');
         const headerBadge = document.getElementById('headerBadge');
+        const crushAttemptsPill = document.getElementById('crushAttemptsPill');
+        const crushFailNote = document.getElementById('crushFailNote');
 
         // ===== Вспомогательные функции =====
         function isAnyOverlayOpen() {
@@ -742,7 +762,7 @@
                 const params = new URLSearchParams(window.location.search);
                 for (const [key, value] of params.entries()) {
                     if (key.toLowerCase() === name.toLowerCase()) {
-                        // поддерживаем: ?HeaderShow, ?HeaderShow=true / 1 / yes
+                        // поддерживаем: ?CrushMode, ?CrushMode=true / 1 / yes
                         return value === '' || ['true', '1', 'yes'].includes(value.toLowerCase());
                     }
                 }
@@ -1032,6 +1052,17 @@
             timerElement.textContent = formatTime(timeSpent);
         }
 
+        // ===== Индикатор попыток в CrushMode =====
+        function updateCrushAttemptsUI() {
+            if (!crushMode) return;
+            crushAttemptsPill.classList.remove('hidden');
+            if (crushErrors >= CRUSH_MAX_ERRORS) {
+                crushAttemptsPill.textContent = `💥 Попытки исчерпаны (${crushErrors} из ${CRUSH_MAX_ERRORS})`;
+            } else {
+                crushAttemptsPill.textContent = `🎯 Попытка ${crushErrors + 1} из ${CRUSH_MAX_ERRORS}`;
+            }
+        }
+
         // ===== Тест =====
         function startTest() {
             // Перемешиваются только варианты ответов; вопросы идут в исходном порядке
@@ -1041,6 +1072,12 @@
             checkedQuestions = new Array(questions.length).fill(false);
             currentQuestionIndex = 0;
             crushState = 'answering';
+
+            // Сброс счётчика попыток CrushMode
+            crushErrors = 0;
+            crushTestFailed = false;
+            crushFailNote.classList.add('hidden');
+            updateCrushAttemptsUI();
 
             uploadSection.classList.add('hidden');
             testSection.classList.remove('hidden');
@@ -1189,9 +1226,15 @@
                 return;
             }
 
-            // Ошибка уже показана — «Дальше» возвращает к первому вопросу
+            // Ошибка показана — «Дальше» начинает новую попытку с первого вопроса
             if (crushState === 'wrong') {
                 resetCrushAttempt();
+                return;
+            }
+
+            // Попытки исчерпаны — «Дальше» показывает результаты (тест не пройден)
+            if (crushState === 'failed') {
+                finishTest(true);
                 return;
             }
 
@@ -1214,23 +1257,41 @@
                 setCrushFeedback('✓ Верно! Нажмите «Дальше», чтобы продолжить', 'correct');
                 updateNavigationButtons();
             } else {
-                // Неверно: выделяем красным только выбранный вариант (правильный не показываем),
-                // ждём нажатия «Дальше», после которого — возврат к первому вопросу
+                // Неверно: выделяем красным только выбранный вариант (правильный не показываем)
                 crushState = 'wrong';
+                crushErrors++;
                 options.forEach((opt, i) => {
                     if (i === userAnswers[idx]) opt.classList.add('incorrect');
                 });
-                setCrushFeedback('✕ Ошибка! Нажмите «Дальше», чтобы вернуться к первому вопросу', 'incorrect');
+                updateCrushAttemptsUI();
+
+                if (crushErrors >= CRUSH_MAX_ERRORS) {
+                    // Третья ошибка — попытки исчерпаны, тест провален
+                    crushState = 'failed';
+                    setCrushFeedback(
+                        `✕ Тест не пройден: использованы все ${CRUSH_MAX_ERRORS} попытки. Нажмите «Дальше», чтобы увидеть результаты`,
+                        'incorrect'
+                    );
+                } else {
+                    const left = CRUSH_MAX_ERRORS - crushErrors;
+                    const attemptNum = crushErrors + 1;
+                    const lastWarn = attemptNum === CRUSH_MAX_ERRORS ? ' (последняя!)' : '';
+                    setCrushFeedback(
+                        `✕ Ошибка! Осталось попыток: ${left}. Нажмите «Дальше», чтобы начать попытку ${attemptNum} из ${CRUSH_MAX_ERRORS}${lastWarn}`,
+                        'incorrect'
+                    );
+                }
                 updateNavigationButtons();
             }
         }
 
         function resetCrushAttempt() {
-            // Полный сброс попытки и возврат к первому вопросу
+            // Сброс состояния попытки к исходному и возврат к первому вопросу
             userAnswers = new Array(questions.length).fill(null);
             checkedQuestions = new Array(questions.length).fill(false);
             crushState = 'answering';
             shuffleAnswers(); // варианты снова перемешиваются для новой попытки
+            updateCrushAttemptsUI();
             showQuestion(0);
             testSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
@@ -1255,6 +1316,8 @@
                     nextBtn.textContent = currentQuestionIndex === questions.length - 1
                         ? 'Проверить и завершить ✓'
                         : 'Проверить ответ →';
+                } else if (crushState === 'failed') {
+                    nextBtn.textContent = 'К результатам →';
                 } else {
                     // после проверки (верно или неверно) кнопка ждёт действия студента
                     nextBtn.textContent = 'Дальше →';
@@ -1268,7 +1331,7 @@
             }
         }
 
-        // ===== Завершение и результаты =====
+        // ===== Оценки =====
         function getGrade(percent) {
             if (percent >= 90) return { g: 5, cls: 'grade-5', label: 'Отлично' };
             if (percent >= 70) return { g: 4, cls: 'grade-4', label: 'Хорошо' };
@@ -1276,10 +1339,26 @@
             return { g: 2, cls: 'grade-2', label: 'Неудовлетворительно' };
         }
 
-        function finishTest() {
+        // Оценка в CrushMode — по числу ошибок за весь тест
+        function getCrushGrade(errors) {
+            if (errors === 0) return { g: 5, cls: 'grade-5', label: 'Отлично, без ошибок' };
+            if (errors === 1) return { g: 4, cls: 'grade-4', label: 'Хорошо (1 ошибка)' };
+            if (errors === 2) return { g: 3, cls: 'grade-3', label: 'Удовлетворительно (2 ошибки)' };
+            return { g: 2, cls: 'grade-2', label: 'Тест не пройден' };
+        }
+
+        // ===== Завершение и результаты =====
+        function finishTest(crushFailed = false) {
             clearInterval(timerInterval);
             timeSpent = Math.floor((new Date() - startTime) / 1000);
             timerElement.textContent = formatTime(timeSpent);
+
+            crushTestFailed = !!crushFailed;
+
+            // При провале ответы последней попытки не учитываются
+            if (crushTestFailed) {
+                userAnswers = new Array(questions.length).fill(null);
+            }
 
             questions.forEach((q, i) => {
                 q.userAnswer = userAnswers[i];
@@ -1295,9 +1374,16 @@
             timeSpentElement.textContent = formatTime(timeSpent);
             scoreElement.textContent = percent + '%';
 
-            const grade = getGrade(percent);
+            // В CrushMode оценка зависит от числа ошибок, а не от процента
+            const grade = crushMode ? getCrushGrade(crushErrors) : getGrade(percent);
             gradePill.textContent = `Оценка: ${grade.g} · ${grade.label}`;
             gradePill.className = `grade-pill ${grade.cls}`;
+
+            crushFailNote.classList.toggle('hidden', !crushTestFailed);
+            if (crushTestFailed) {
+                crushFailNote.textContent =
+                    `💥 Использованы все ${CRUSH_MAX_ERRORS} попытки — тест не пройден. Нажмите «Пройти тест снова», чтобы начать заново.`;
+            }
 
             testSection.classList.add('hidden');
             resultsSection.classList.remove('hidden');
@@ -1319,12 +1405,19 @@
 
             const title = document.createElement('h3');
             title.className = 'detail-title';
-            title.textContent = `Правильно отвеченные вопросы (${correctList.length} из ${questions.length})`;
-            detailedResults.appendChild(title);
 
             const note = document.createElement('div');
             note.className = 'detail-note';
-            note.textContent = 'Здесь показаны только вопросы, на которые был дан правильный ответ.';
+
+            if (crushMode && crushTestFailed) {
+                title.textContent = `Тест не пройден — использованы все ${CRUSH_MAX_ERRORS} попытки`;
+                note.textContent = 'К сожалению, попытки исчерпаны. Нажмите «Пройти тест снова», чтобы попробовать ещё раз.';
+            } else {
+                title.textContent = `Правильно отвеченные вопросы (${correctList.length} из ${questions.length})`;
+                note.textContent = 'Здесь показаны только вопросы, на которые был дан правильный ответ.';
+            }
+
+            detailedResults.appendChild(title);
             detailedResults.appendChild(note);
 
             if (correctList.length === 0) {
