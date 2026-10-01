@@ -939,9 +939,9 @@
             }
 
            let flagsString =
-    (document.getElementById('myCheckMode').checked  ? '&CheckMode=true'  : '') +
-    (document.getElementById('myShowHeader').checked ? '&ShowHeader=true' : '') +
-    (document.getElementById('myCrushMode').checked  ? '&CrushMode=true'  : '');
+    (document.getElementById('myCheckMode').checked  ? '&checkmode=true'  : '') +
+    (document.getElementById('myShowHeader').checked ? '&headershow=true' : '') +
+    (document.getElementById('myCrushMode').checked  ? '&crushmode=true'  : '');
             
             const testUrl = TEST_APP_URL + '?name=' + encodeURIComponent(currentRawUrl)+flagsString;
             try { navigator.clipboard.writeText(testUrl); } catch (e) {}
