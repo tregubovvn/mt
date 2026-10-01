@@ -257,9 +257,11 @@
                 <h1 style="font-size: 1.25rem; font-weight: 700; letter-spacing: -0.5px;">Moodle XML Редактор</h1>
             </div>
             <div class="flex-gap">
-              <button class="btn" onclick="window.open('https://gist.githubusercontent.com/tregubovvn/5abee72a0846a0481506b5947e0fb270/raw/7275ff630153751aefb44572a0ed0c44562ed428/XMLTestBuilder.md', '_blank')"">Промпт для заданий</button>
-              <button class="btn" onclick="showLoadModal()">Загрузить GIST</button>
-              <button class="btn btn-primary" onclick="createNewGist()">Новый GIST</button>
+             <button class="btn" onclick="showLoadModal()">Загрузить задание из GIST</button>
+             <button class="btn btn-primary" onclick="createNewGist()">Создать новое задание</button>
+             <button class="btn" onclick="window.open('https://gist.githubusercontent.com/tregubovvn/5abee72a0846a0481506b5947e0fb270', '_blank')"">Промпт для тестов с формулами</button>
+             <button class="btn" onclick="window.open('https://gist.github.com/tregubovvn/0637360f442f65ed457f133096a3c4b3', '_blank')"">Промпт для создания задач</button>
+              
             </div>
         </div>
 
@@ -936,7 +938,12 @@
                 return showToast('Raw URL недоступен', true);
             }
 
-            const testUrl = TEST_APP_URL + '?name=' + encodeURIComponent(currentRawUrl);
+           let flagsString =
+    (document.getElementById('myCheckMode').checked  ? '&CheckMode=true'  : '') +
+    (document.getElementById('myShowHeader').checked ? '&ShowHeader=true' : '') +
+    (document.getElementById('myCrushMode').checked  ? '&CrushMode=true'  : '');
+            
+            const testUrl = TEST_APP_URL + '?name=' + encodeURIComponent(currentRawUrl)+flagsString;
             try { navigator.clipboard.writeText(testUrl); } catch (e) {}
             if (win) { win.opener = null; win.location.href = testUrl; }
             else { window.open(testUrl, '_blank'); }
