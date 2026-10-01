@@ -277,13 +277,6 @@
         .grade-3 { background: #fffbeb; color: #b45309; }
         .grade-0, .grade-1, .grade-2 { background: #fef2f2; color: #dc2626; }
 
-        /* Сообщение о провале теста в CrushMode */
-        .crush-fail-note {
-            margin-top: 18px; padding: 11px 16px; border-radius: 12px;
-            background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca;
-            font-weight: 600; font-size: 14px;
-        }
-
         .stats-row {
             display: grid; grid-template-columns: repeat(3, 1fr);
             gap: 12px; margin-top: 20px;
@@ -452,7 +445,7 @@
                         <span class="mode-pill check hidden" id="checkBadge">🔍 Режим проверки</span>
                         <span class="mode-pill crush hidden" id="crushBadge">💥 Crush Mode</span>
                         <span class="mode-pill header hidden" id="headerBadge">🏷 Заголовки вопросов</span>
-                        <span class="mode-pill attempts hidden" id="crushAttemptsPill">🎯 Попытка 1 из 3</span>
+                        <span class="mode-pill attempts hidden" id="crushAttemptsPill">🎯 Осталось попыток: 3</span>
                         <div class="counter-pill">Вопрос <span id="currentQuestion">1</span> из <span id="totalQuestions">0</span></div>
                     </div>
                 </div>
@@ -496,8 +489,6 @@
                             <div class="grade-pill grade-0" id="gradePill">Оценка: —</div>
                         </div>
                     </div>
-
-                    <div class="crush-fail-note hidden" id="crushFailNote"></div>
 
                     <div class="stats-row">
                         <div class="stat"><div class="stat-value" id="correctAnswers">0</div><div class="stat-label">Правильных</div></div>
@@ -583,15 +574,14 @@
         let qrScannerActive = false;
         let videoStream = null;
         let checkMode = false;      // CheckMode=true   — мгновенная проверка каждого вопроса
-        let crushMode = false;      // CrushMode=true   — ошибка возвращает на первый вопрос
+        let crushMode = false;      // CrushMode=true   — проверка при переходе, 3 ошибки = старт заново
         let headerShow = false;     // HeaderShow=true  — показывать заголовок вопроса из <name>
-        let crushState = 'answering'; // 'answering' | 'correct' | 'wrong' | 'failed'
+        let crushState = 'answering'; // 'answering' | 'correct' | 'restart' — состояние в CrushMode
         let checkedQuestions = [];  // какие вопросы уже проверены
 
         // ===== CrushMode: попытки =====
-        const CRUSH_MAX_ERRORS = 3;  // максимум ошибок (= попыток) на весь тест
-        let crushErrors = 0;         // сколько ошибок уже сделано
-        let crushTestFailed = false; // тест провален (исчерпаны все попытки)
+        const CRUSH_MAX_ERRORS = 3; // максимум ошибок за одну сессию прохождения
+        let crushErrors = 0;        // сколько ошибок сделано в текущей сессии
 
         const LETTERS = ['А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ж', 'З', 'И', 'К'];
         const YANDEX_API_PREFIX = 'https://cloud-api.yandex.net/v1/disk/public/resources/download?public_key=';
@@ -642,7 +632,6 @@
         const crushBadge = document.getElementById('crushBadge');
         const headerBadge = document.getElementById('headerBadge');
         const crushAttemptsPill = document.getElementById('crushAttemptsPill');
-        const crushFailNote = document.getElementById('crushFailNote');
 
         // ===== Вспомогательные функции =====
         function isAnyOverlayOpen() {
@@ -1056,11 +1045,10 @@
         function updateCrushAttemptsUI() {
             if (!crushMode) return;
             crushAttemptsPill.classList.remove('hidden');
-            if (crushErrors >= CRUSH_MAX_ERRORS) {
-                crushAttemptsPill.textContent = `💥 Попытки исчерпаны (${crushErrors} из ${CRUSH_MAX_ERRORS})`;
-            } else {
-                crushAttemptsPill.textContent = `🎯 Попытка ${crushErrors + 1} из ${CRUSH_MAX_ERRORS}`;
-            }
+            const left = CRUSH_MAX_ERRORS - crushErrors;
+            crushAttemptsPill.textContent = left > 0
+                ? `🎯 Осталось попыток: ${left} из ${CRUSH_MAX_ERRORS}`
+                : `💥 Попытки исчерпаны`;
         }
 
         // ===== Тест =====
@@ -1073,10 +1061,8 @@
             currentQuestionIndex = 0;
             crushState = 'answering';
 
-            // Сброс счётчика попыток CrushMode
+            // Сброс счётчика ошибок CrushMode
             crushErrors = 0;
-            crushTestFailed = false;
-            crushFailNote.classList.add('hidden');
             updateCrushAttemptsUI();
 
             uploadSection.classList.add('hidden');
@@ -1135,11 +1121,12 @@
 
                 answerElement.addEventListener('click', () => {
                     // после проверки в CheckMode ответ изменить нельзя;
-                    // в CrushMode клики блокируются после проверки (ждём «Дальше»)
+                    // в CrushMode выбор заблокирован после верного ответа и после 3-й ошибки
                     if (checkMode && checkedQuestions[index]) return;
-                    if (crushMode && crushState !== 'answering') return;
+                    if (crushMode && (crushState === 'correct' || crushState === 'restart')) return;
+                    // снимаем прежний выбор и подсветку ошибки
                     questionElement.querySelectorAll('.answer-option')
-                        .forEach(opt => opt.classList.remove('selected'));
+                        .forEach(opt => opt.classList.remove('selected', 'incorrect', 'correct'));
                     answerElement.classList.add('selected');
                     userAnswers[index] = answerIndex;
                     const checkBtn = questionElement.querySelector('.check-answer-btn');
@@ -1216,25 +1203,19 @@
             const idx = currentQuestionIndex;
             const question = questions[idx];
 
-            // Правильный ответ уже дан — «Дальше» ведёт к следующему вопросу
+            // Верный ответ уже дан — «Дальше» ведёт к следующему вопросу
             if (crushState === 'correct') {
                 if (idx < questions.length - 1) {
                     showQuestion(idx + 1);
                 } else {
-                    finishTest();
+                    finishTest(); // итоги — только при прохождении до конца
                 }
                 return;
             }
 
-            // Ошибка показана — «Дальше» начинает новую попытку с первого вопроса
-            if (crushState === 'wrong') {
-                resetCrushAttempt();
-                return;
-            }
-
-            // Попытки исчерпаны — «Дальше» показывает результаты (тест не пройден)
-            if (crushState === 'failed') {
-                finishTest(true);
+            // Все 3 ошибки исчерпаны — «Начать заново» возвращает к первому вопросу
+            if (crushState === 'restart') {
+                resetCrushSession();
                 return;
             }
 
@@ -1258,26 +1239,24 @@
                 updateNavigationButtons();
             } else {
                 // Неверно: выделяем красным только выбранный вариант (правильный не показываем)
-                crushState = 'wrong';
                 crushErrors++;
+                updateCrushAttemptsUI();
                 options.forEach((opt, i) => {
                     if (i === userAnswers[idx]) opt.classList.add('incorrect');
                 });
-                updateCrushAttemptsUI();
 
                 if (crushErrors >= CRUSH_MAX_ERRORS) {
-                    // Третья ошибка — попытки исчерпаны, тест провален
-                    crushState = 'failed';
+                    // Третья ошибка — тест начинается заново с первого вопроса
+                    crushState = 'restart';
                     setCrushFeedback(
-                        `✕ Тест не пройден: использованы все ${CRUSH_MAX_ERRORS} попытки. Нажмите «Дальше», чтобы увидеть результаты`,
+                        `✕ Использованы все ${CRUSH_MAX_ERRORS} попытки. Нажмите «Начать заново», чтобы пройти тест с первого вопроса`,
                         'incorrect'
                     );
                 } else {
-                    const left = CRUSH_MAX_ERRORS - crushErrors;
-                    const attemptNum = crushErrors + 1;
-                    const lastWarn = attemptNum === CRUSH_MAX_ERRORS ? ' (последняя!)' : '';
+                    // Ошибка учтена, но остаёмся на вопросе — студент выбирает другой ответ
+                    crushState = 'answering';
                     setCrushFeedback(
-                        `✕ Ошибка! Осталось попыток: ${left}. Нажмите «Дальше», чтобы начать попытку ${attemptNum} из ${CRUSH_MAX_ERRORS}${lastWarn}`,
+                        `✕ Ошибка! Осталось попыток: ${CRUSH_MAX_ERRORS - crushErrors}. Выберите другой вариант и нажмите «Проверить ответ»`,
                         'incorrect'
                     );
                 }
@@ -1285,12 +1264,13 @@
             }
         }
 
-        function resetCrushAttempt() {
-            // Сброс состояния попытки к исходному и возврат к первому вопросу
+        function resetCrushSession() {
+            // Полный сброс сессии: попытки восстанавливаются, возврат к первому вопросу
             userAnswers = new Array(questions.length).fill(null);
             checkedQuestions = new Array(questions.length).fill(false);
+            crushErrors = 0;
             crushState = 'answering';
-            shuffleAnswers(); // варианты снова перемешиваются для новой попытки
+            shuffleAnswers(); // варианты снова перемешиваются
             updateCrushAttemptsUI();
             showQuestion(0);
             testSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1307,20 +1287,20 @@
         // ===== Навигация =====
         function updateNavigationButtons() {
             if (crushMode) {
-                // В CrushMode назад ходить нельзя, завершение — только после последнего правильного ответа
+                // В CrushMode назад ходить нельзя, завершение — только через последний вопрос
                 prevBtn.style.display = 'none';
                 finishBtn.style.display = 'none';
                 nextBtn.style.display = '';
                 nextBtn.disabled = false;
-                if (crushState === 'answering') {
+                if (crushState === 'restart') {
+                    nextBtn.textContent = 'Начать заново ↻';
+                } else if (crushState === 'correct') {
+                    // после верного ответа кнопка ждёт действия студента
+                    nextBtn.textContent = 'Дальше →';
+                } else {
                     nextBtn.textContent = currentQuestionIndex === questions.length - 1
                         ? 'Проверить и завершить ✓'
                         : 'Проверить ответ →';
-                } else if (crushState === 'failed') {
-                    nextBtn.textContent = 'К результатам →';
-                } else {
-                    // после проверки (верно или неверно) кнопка ждёт действия студента
-                    nextBtn.textContent = 'Дальше →';
                 }
             } else {
                 prevBtn.style.display = '';
@@ -1339,26 +1319,18 @@
             return { g: 2, cls: 'grade-2', label: 'Неудовлетворительно' };
         }
 
-        // Оценка в CrushMode — по числу ошибок за весь тест
+        // Оценка в CrushMode — по числу ошибок за пройденный тест
         function getCrushGrade(errors) {
             if (errors === 0) return { g: 5, cls: 'grade-5', label: 'Отлично, без ошибок' };
             if (errors === 1) return { g: 4, cls: 'grade-4', label: 'Хорошо (1 ошибка)' };
-            if (errors === 2) return { g: 3, cls: 'grade-3', label: 'Удовлетворительно (2 ошибки)' };
-            return { g: 2, cls: 'grade-2', label: 'Тест не пройден' };
+            return { g: 3, cls: 'grade-3', label: 'Удовлетворительно (2 ошибки)' };
         }
 
         // ===== Завершение и результаты =====
-        function finishTest(crushFailed = false) {
+        function finishTest() {
             clearInterval(timerInterval);
             timeSpent = Math.floor((new Date() - startTime) / 1000);
             timerElement.textContent = formatTime(timeSpent);
-
-            crushTestFailed = !!crushFailed;
-
-            // При провале ответы последней попытки не учитываются
-            if (crushTestFailed) {
-                userAnswers = new Array(questions.length).fill(null);
-            }
 
             questions.forEach((q, i) => {
                 q.userAnswer = userAnswers[i];
@@ -1378,12 +1350,6 @@
             const grade = crushMode ? getCrushGrade(crushErrors) : getGrade(percent);
             gradePill.textContent = `Оценка: ${grade.g} · ${grade.label}`;
             gradePill.className = `grade-pill ${grade.cls}`;
-
-            crushFailNote.classList.toggle('hidden', !crushTestFailed);
-            if (crushTestFailed) {
-                crushFailNote.textContent =
-                    `💥 Использованы все ${CRUSH_MAX_ERRORS} попытки — тест не пройден. Нажмите «Пройти тест снова», чтобы начать заново.`;
-            }
 
             testSection.classList.add('hidden');
             resultsSection.classList.remove('hidden');
@@ -1405,19 +1371,12 @@
 
             const title = document.createElement('h3');
             title.className = 'detail-title';
+            title.textContent = `Правильно отвеченные вопросы (${correctList.length} из ${questions.length})`;
+            detailedResults.appendChild(title);
 
             const note = document.createElement('div');
             note.className = 'detail-note';
-
-            if (crushMode && crushTestFailed) {
-                title.textContent = `Тест не пройден — использованы все ${CRUSH_MAX_ERRORS} попытки`;
-                note.textContent = 'К сожалению, попытки исчерпаны. Нажмите «Пройти тест снова», чтобы попробовать ещё раз.';
-            } else {
-                title.textContent = `Правильно отвеченные вопросы (${correctList.length} из ${questions.length})`;
-                note.textContent = 'Здесь показаны только вопросы, на которые был дан правильный ответ.';
-            }
-
-            detailedResults.appendChild(title);
+            note.textContent = 'Здесь показаны только вопросы, на которые был дан правильный ответ.';
             detailedResults.appendChild(note);
 
             if (correctList.length === 0) {
