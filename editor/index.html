@@ -92,6 +92,20 @@
             font-size: 13px; padding: 1rem; resize: none; outline: none; line-height: 1.5;
         }
 
+
+
+        /* Контейнер для выравнивания текста и флажка в одну строку */
+.custom-checkbox {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.875rem; /* Размер шрифта как у вашей .btn */
+    color: var(--fg);
+    user-select: none;
+    gap: 0.5rem; /* Отступ между квадратиком и текстом */
+}
+
         .btn {
             background: var(--bg-card); border: 1px solid var(--border); color: var(--fg);
             padding: 0.5rem 1rem; border-radius: var(--radius); cursor: pointer;
@@ -275,6 +289,11 @@
                         <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
                     </button>
                     <button class="btn btn-sm" onclick="openTest()" title="Открыть тест в приложении тестирования и скопировать ссылку">Открыть тест</button>
+                    <input   type="checkbox" class="custom-checkbox"  title="" id="myCheckMode" name="CheckMode" value="yes">CheckMode</input>
+                    <input   type="checkbox" class="custom-checkbox"  title="" id="myShowHeader" name="ShowHeader" value="yes">ShowHeader</input>
+                    <input   type="checkbox" class="custom-checkbox"  title="" id="myCrushMode" name="CrushMode" value="yes">CrushMode</input>
+
+                    
                 </div>
             </div>
         </div>
