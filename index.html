@@ -229,6 +229,35 @@
         .mode-pill.header   { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
         .mode-pill.attempts { background: #fffbeb; color: #b45309; border: 1px solid #fde68a; }
 
+        /* ===== Итоговая сводка (последний шаг) ===== */
+        .results-summary {
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            background: linear-gradient(180deg, #fafbff, #fff);
+            padding: 8px 20px;
+            margin-bottom: 20px;
+            counter-reset: summary;
+        }
+        .summary-row {
+            display: flex; align-items: baseline; gap: 14px;
+            padding: 11px 0;
+            border-bottom: 1px solid #eef1f6;
+            font-size: 14.5px;
+            counter-increment: summary;
+        }
+        .summary-row:last-child { border-bottom: none; }
+        .summary-label {
+            color: var(--muted); font-weight: 600; flex-shrink: 0;
+        }
+        .summary-label::before {
+            content: counter(summary) '. ';
+            color: #a5b4fc; font-weight: 800;
+        }
+        .summary-value {
+            font-weight: 700; text-align: right;
+            margin-left: auto; word-break: break-word;
+        }
+
         /* ===== Results ===== */
         .results-hero {
             border: 1px solid var(--border); border-radius: 20px;
@@ -406,6 +435,8 @@
             .name-grid { grid-template-columns: 1fr; }
             .input-row .btn, .test-controls .btn, .check-block .btn { width: 100%; }
             .stats-row { grid-template-columns: 1fr; }
+            .summary-row { flex-direction: column; gap: 2px; }
+            .summary-value { text-align: left; margin-left: 0; }
         }
     </style>
     <!-- Библиотека сканирования QR-кодов -->
@@ -496,6 +527,9 @@
             <!-- Секция результатов -->
             <section id="resultsSection" class="section hidden">
                 <h2 class="section-title"><span class="num">3</span> Результаты</h2>
+
+                <!-- Итоговая сводка: ФИО → дата/время окончания → тема → оценка → время -->
+                <div id="resultsSummary" class="results-summary"></div>
 
                 <div class="results-hero">
                     <div class="student-badge">
@@ -612,6 +646,7 @@
         let crushState = 'answering'; // 'answering' | 'advancing' | 'restart' — состояние в CrushMode
         let checkedQuestions = [];  // какие вопросы уже проверены (CheckMode)
         let feedbackStore = [];     // {ok, correctTexts} для восстановления фидбэка при навигации (CheckMode)
+        let testTopicName = '';     // содержимое <topicName> из XML (если есть)
 
         // ===== CrushMode: попытки =====
         const CRUSH_MAX_ERRORS = 3; // максимум ошибок за одну сессию прохождения
@@ -638,6 +673,7 @@
         const nextBtn = document.getElementById('nextBtn');
         const finishBtn = document.getElementById('finishBtn');
         const resultsSection = document.getElementById('resultsSection');
+        const resultsSummary = document.getElementById('resultsSummary');
         const resultAvatar = document.getElementById('resultAvatar');
         const resultStudentName = document.getElementById('resultStudentName');
         const scoreRing = document.getElementById('scoreRing');
@@ -870,6 +906,7 @@
         window.loadExampleTest = function () {
             const exampleXML = `<?xml version="1.0" encoding="UTF-8"?>
 <quiz>
+    <topicName>Демо: формулы и таблицы</topicName>
     <question type="multichoice">
         <name><text>Пример с формулой 1</text></name>
         <questiontext format="html">
@@ -1018,8 +1055,17 @@
         // ===== Парсинг Moodle XML =====
         function parseMoodleXML(xmlContent) {
             questions = [];
+            testTopicName = '';
             const parser = new DOMParser();
             const xmlDoc = parser.parseFromString(xmlContent, 'text/xml');
+
+            // Название темы: тег <topicName> (берём первое вхождение в файле, если оно есть)
+            const topicNodes = xmlDoc.getElementsByTagName('topicName');
+            if (topicNodes.length > 0) {
+                const tn = (topicNodes[0].textContent || '').trim();
+                if (tn) testTopicName = tn;
+            }
+
             const questionNodes = xmlDoc.getElementsByTagName('question');
 
             for (let node of questionNodes) {
@@ -1060,7 +1106,7 @@
                 if (answers.length === 0) continue;
                 questions.push({ name: questionName, text: questionText, answers, isCorrect: false, _checked: false });
             }
-            console.log(`Найдено ${questions.length} вопросов`);
+            console.log(`Найдено ${questions.length} вопросов` + (testTopicName ? `, тема: ${testTopicName}` : ''));
         }
 
         // Обработка HTML-содержимого из CDATA:
@@ -1438,6 +1484,46 @@
             renderQuestion();
         }
 
+        // ===== Итоговая сводка (последний шаг) =====
+        function addSummaryRow(container, label, value) {
+            const row = document.createElement('div');
+            row.className = 'summary-row';
+
+            const l = document.createElement('span');
+            l.className = 'summary-label';
+            l.textContent = label;
+
+            const v = document.createElement('span');
+            v.className = 'summary-value';
+            v.textContent = value;
+
+            row.appendChild(l);
+            row.appendChild(v);
+            container.appendChild(row);
+            return row;
+        }
+
+        function renderResultsSummary(endDateTimeStr, grade) {
+            resultsSummary.innerHTML = '';
+
+            // 1. ФИО студента
+            addSummaryRow(resultsSummary, 'Студент', studentName || '—');
+
+            // 2. Дата и время окончания теста
+            addSummaryRow(resultsSummary, 'Дата и время окончания теста', endDateTimeStr);
+
+            // 3. Название темы — только если в XML есть <topicName>
+            if (testTopicName) {
+                addSummaryRow(resultsSummary, 'Тема', testTopicName);
+            }
+
+            // 4. Полученная оценка
+            addSummaryRow(resultsSummary, 'Оценка', String(grade));
+
+            // 5. Затраченное время
+            addSummaryRow(resultsSummary, 'Затраченное время', formatTime(timeSpent));
+        }
+
         // ===== Завершение теста =====
         function finishTest() {
             const unanswered = userAnswers.filter(a => a === null).length;
@@ -1474,6 +1560,13 @@
             setTimeout(() => {
                 scoreRing.style.strokeDashoffset = 440 - (440 * pct / 100);
             }, 100);
+
+            // Итоговая сводка: ФИО → дата/время окончания → тема (если есть) → оценка → время
+            const endDateTimeStr = new Date().toLocaleString('ru-RU', {
+                day: '2-digit', month: '2-digit', year: 'numeric',
+                hour: '2-digit', minute: '2-digit', second: '2-digit'
+            });
+            renderResultsSummary(endDateTimeStr, grade);
 
             renderDetailedResults();
             applyMathJax();
