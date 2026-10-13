@@ -640,7 +640,7 @@
         let pendingStartAfterName = false;
         let qrScannerActive = false;
         let videoStream = null;
-        let checkMode = false;      // CheckMode=true   — мгновенная проверка каждого вопроса
+        let checkMode = false;      // CheckMode=true   — мгновенная проверка + случайный порядок вопросов
         let crushMode = false;      // CrushMode=true   — проверка при переходе, 3 ошибки = старт заново
         let headerShow = false;     // HeaderShow=true  — показывать заголовок вопроса из <name>
         let crushState = 'answering'; // 'answering' | 'advancing' | 'restart' — состояние в CrushMode
@@ -1147,8 +1147,18 @@
             return container;
         }
 
+        // ===== Перемешивание вопросов =====
+        // Используется только в режиме CheckMode — там порядок вопросов случайный.
+        // В остальных режимах вопросы идут последовательно от первого
+        function shuffleQuestions() {
+            for (let i = questions.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [questions[i], questions[j]] = [questions[j], questions[i]];
+            }
+        }
+
         // ===== Перемешивание вариантов ответов =====
-        // Вопросы идут в исходном порядке — перемешиваются только варианты ответов
+        // Выполняется во всех режимах — варианты всегда выводятся случайным образом
         function shuffleAnswers() {
             questions.forEach(q => {
                 for (let i = q.answers.length - 1; i > 0; i--) {
@@ -1173,6 +1183,11 @@
             timeSpent = 0;
             startTime = Date.now();
 
+            // Порядок вопросов: в CheckMode — случайный, в остальных режимах —
+            // последовательно от первого (как в XML)
+            if (checkMode) shuffleQuestions();
+
+            // Варианты ответов перемешиваются во всех режимах
             shuffleAnswers();
 
             // Таймер
@@ -1480,6 +1495,8 @@
             currentQuestionIndex = 0;
             nextBtn.textContent = 'Проверить →';
             updateCrushAttemptsPill();
+            // Вопросы остаются в прежнем порядке (последовательность),
+            // варианты ответов перемешиваются заново
             shuffleAnswers();
             renderQuestion();
         }
