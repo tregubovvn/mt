@@ -302,7 +302,7 @@
         .answer-line .answer-label { font-weight: 700; color: var(--muted); font-size: 13px; flex-shrink: 0; }
         .answer-line .formula-container { flex: 1; min-width: 0; padding: 0; }
 
-        /* Детальные результаты */
+        /* Детальные результаты: только правильные ответы */
         .detail-title { margin: 0 0 4px; font-size: 16px; font-weight: 700; }
         .detail-note { font-size: 13px; color: var(--muted); margin-bottom: 14px; }
         .empty-note {
@@ -609,9 +609,9 @@
         let checkMode = false;      // CheckMode=true   — мгновенная проверка каждого вопроса
         let crushMode = false;      // CrushMode=true   — проверка при переходе, 3 ошибки = старт заново
         let headerShow = false;     // HeaderShow=true  — показывать заголовок вопроса из <name>
-        let crushState = 'answering'; // 'answering' | 'correct' | 'restart' — состояние в CrushMode
-        let checkedQuestions = [];  // какие вопросы уже проверены
-        let feedbackStore = [];     // {ok, correctTexts} для восстановления фидбэка при навигации
+        let crushState = 'answering'; // 'answering' | 'advancing' | 'restart' — состояние в CrushMode
+        let checkedQuestions = [];  // какие вопросы уже проверены (CheckMode)
+        let feedbackStore = [];     // {ok, correctTexts} для восстановления фидбэка при навигации (CheckMode)
 
         // ===== CrushMode: попытки =====
         const CRUSH_MAX_ERRORS = 3; // максимум ошибок за одну сессию прохождения
@@ -1058,7 +1058,7 @@
                 }
 
                 if (answers.length === 0) continue;
-                questions.push({ name: questionName, text: questionText, answers, isCorrect: false });
+                questions.push({ name: questionName, text: questionText, answers, isCorrect: false, _checked: false });
             }
             console.log(`Найдено ${questions.length} вопросов`);
         }
@@ -1075,7 +1075,6 @@
             // и корректно показывает спецсимволы (&nbsp; -> пробел и т.п.)
             if (/&(lt|gt|amp|quot|apos|nbsp|#\d+|#x[0-9a-fA-F]+);/i.test(c)) {
                 const decoded = decodeEntities(c);
-                // Декодируем, если результат содержит теги или исходный — не содержит
                 if (containsHtml(decoded) || !containsHtml(c)) {
                     c = decoded;
                 }
@@ -1095,9 +1094,6 @@
             const t = text || '';
 
             if (containsHtml(t) || containsMath(t)) {
-                // Есть HTML-разметка и/или формулы — рендерим как HTML.
-                // MathJax подхватит \( \) и \[ \] при следующем typeset,
-                // а угловые скобки внутри формул защищаем от парсинга как тегов
                 container.innerHTML = containsMath(t) ? protectMathAngles(t) : t;
             } else {
                 container.textContent = t;
@@ -1125,7 +1121,7 @@
             userAnswers = new Array(questions.length).fill(null);
             checkedQuestions = new Array(questions.length).fill(false);
             feedbackStore = new Array(questions.length).fill(null);
-            questions.forEach(q => { q.isCorrect = false; });
+            questions.forEach(q => { q.isCorrect = false; q._checked = false; });
             crushErrors = 0;
             crushState = 'answering';
             timeSpent = 0;
@@ -1200,8 +1196,17 @@
                 // Восстановление выбранного/проверенного состояния
                 if (userAnswers[currentQuestionIndex] === i) option.classList.add('selected');
                 if (isChecked(currentQuestionIndex)) {
-                    if (answer.isCorrect) option.classList.add('correct');
-                    else if (userAnswers[currentQuestionIndex] === i) option.classList.add('incorrect');
+                    const sel = userAnswers[currentQuestionIndex];
+                    if (crushMode) {
+                        // CrushMode: правильный ответ не раскрываем.
+                        // Зелёным — только найденный пользователем верный вариант,
+                        // красным — его же неверный выбор
+                        if (q.isCorrect && answer.isCorrect) option.classList.add('correct');
+                        else if (!q.isCorrect && i === sel) option.classList.add('incorrect');
+                    } else {
+                        if (answer.isCorrect) option.classList.add('correct');
+                        else if (i === sel) option.classList.add('incorrect');
+                    }
                 }
 
                 option.addEventListener('click', () => selectAnswer(i));
@@ -1251,7 +1256,7 @@
         function selectAnswer(i) {
             // В CheckMode после проверки менять ответ нельзя
             if (checkMode && checkedQuestions[currentQuestionIndex]) return;
-            if (crushMode && crushState === 'restart') return;
+            if (crushMode && (crushState === 'restart' || crushState === 'advancing')) return;
 
             userAnswers[currentQuestionIndex] = i;
 
@@ -1288,13 +1293,25 @@
             const options = questionsContainer.querySelectorAll('.answer-option');
             options.forEach((el, i) => {
                 el.classList.remove('correct', 'incorrect');
-                if (q.answers[i].isCorrect) el.classList.add('correct');
-                else if (i === selected) el.classList.add('incorrect');
+                if (crushMode) {
+                    // CrushMode: правильный ответ НЕ раскрываем.
+                    // Красным отмечаем только неверный выбор пользователя,
+                    // зелёным — верный вариант, который он нашёл сам
+                    if (isCorrect && q.answers[i].isCorrect) el.classList.add('correct');
+                    else if (!isCorrect && i === selected) el.classList.add('incorrect');
+                } else {
+                    // Обычный режим / CheckMode: показываем правильный вариант
+                    if (q.answers[i].isCorrect) el.classList.add('correct');
+                    else if (i === selected) el.classList.add('incorrect');
+                }
             });
 
-            // Формирование фидбэка
-            const correctTexts = q.answers.filter(a => a.isCorrect).map(a => a.text);
-            feedbackStore[idx] = { ok: isCorrect, correctTexts };
+            // Тексты правильных ответов сохраняем только для CheckMode
+            // (там они выводятся в фидбэке). В CrushMode ответ не раскрываем.
+            if (!crushMode) {
+                const correctTexts = q.answers.filter(a => a.isCorrect).map(a => a.text);
+                feedbackStore[idx] = { ok: isCorrect, correctTexts };
+            }
 
             if (checkMode) {
                 checkedQuestions[idx] = true;
@@ -1357,12 +1374,13 @@
                 restartCrushSession();
                 return;
             }
+            // Идёт автоматический переход после верного ответа — игнорируем клики
+            if (crushState === 'advancing') return;
 
             const q = questions[currentQuestionIndex];
 
-            // Уже проверен и верно — просто идём дальше
+            // Уже отвечен верно — просто идём дальше
             if (q_wasChecked(currentQuestionIndex) && q.isCorrect) {
-                crushState = 'answering';
                 if (currentQuestionIndex < questions.length - 1) {
                     goToQuestion(currentQuestionIndex + 1);
                 } else {
@@ -1379,10 +1397,11 @@
             const isCorrect = checkCurrentAnswer();
 
             if (isCorrect) {
-                crushState = 'correct';
-                crushState = 'answering';
+                // Верный ответ — зелёная подсветка уже стоит, переходим дальше
+                crushState = 'advancing';
                 nextBtn.textContent = 'Вперёд →';
                 setTimeout(() => {
+                    crushState = 'answering';
                     if (currentQuestionIndex < questions.length - 1) {
                         goToQuestion(currentQuestionIndex + 1);
                     } else {
@@ -1398,6 +1417,7 @@
                     nextBtn.textContent = '⟲ Начать заново';
                     alert(`Допущено ${CRUSH_MAX_ERRORS} ошибки. Тест начнётся заново!`);
                 } else {
+                    // Правильный ответ не раскрываем — только сообщение об ошибке
                     alert(`Неверно! Попробуйте ещё раз. Осталось попыток: ${CRUSH_MAX_ERRORS - crushErrors}`);
                 }
             }
@@ -1460,7 +1480,7 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // ===== Детальные результаты =====
+        // ===== Детальные результаты: только правильно отвеченные вопросы =====
         function renderDetailedResults() {
             detailedResults.innerHTML = '';
 
@@ -1471,53 +1491,46 @@
 
             const note = document.createElement('p');
             note.className = 'detail-note';
-            note.textContent = 'Ваши ответы и правильные варианты по каждому вопросу';
+            note.textContent = 'Показаны только вопросы, на которые был дан правильный ответ';
             detailedResults.appendChild(note);
 
-            questions.forEach((q, i) => {
+            // Индексы вопросов, на которые получен правильный ответ
+            const correctIndexes = questions
+                .map((q, i) => i)
+                .filter(i => userAnswers[i] !== null && questions[i].answers[userAnswers[i]].isCorrect);
+
+            if (correctIndexes.length === 0) {
+                const empty = document.createElement('div');
+                empty.className = 'empty-note';
+                empty.textContent = 'Нет вопросов, отвеченных правильно';
+                detailedResults.appendChild(empty);
+                return;
+            }
+
+            correctIndexes.forEach(i => {
+                const q = questions[i];
                 const item = document.createElement('div');
                 item.className = 'detail-item';
 
-                // Статус
                 const status = document.createElement('div');
-                let statusClass, statusText;
-                if (userAnswers[i] === null) {
-                    statusClass = 'skipped'; statusText = '⏭ Без ответа';
-                } else if (q.answers[userAnswers[i]].isCorrect) {
-                    statusClass = 'correct'; statusText = '✓ Верно';
-                } else {
-                    statusClass = 'incorrect'; statusText = '✗ Неверно';
-                }
-                status.className = `status-badge ${statusClass}`;
-                status.textContent = `Вопрос ${i + 1}. ${statusText}`;
+                status.className = 'status-badge correct';
+                status.textContent = `Вопрос ${i + 1}. ✓ Верно`;
                 item.appendChild(status);
 
                 // Текст вопроса (HTML + LaTeX)
                 item.appendChild(renderTextWithMath(q.text));
 
-                // Ответ пользователя
-                if (userAnswers[i] !== null) {
-                    const userLine = document.createElement('div');
-                    userLine.className = 'answer-line';
-                    const ul = document.createElement('span');
-                    ul.className = 'answer-label';
-                    ul.textContent = 'Ваш ответ:';
-                    userLine.appendChild(ul);
-                    userLine.appendChild(renderTextWithMath(q.answers[userAnswers[i]].text));
-                    item.appendChild(userLine);
-                }
-
-                // Правильный ответ(ы)
-                const correctLine = document.createElement('div');
-                correctLine.className = 'answer-line';
-                const cl = document.createElement('span');
-                cl.className = 'answer-label';
-                cl.textContent = 'Правильный ответ:';
-                correctLine.appendChild(cl);
+                // Ответ (он же правильный, т.к. вопрос отвечен верно)
+                const answerLine = document.createElement('div');
+                answerLine.className = 'answer-line';
+                const al = document.createElement('span');
+                al.className = 'answer-label';
+                al.textContent = 'Ответ:';
+                answerLine.appendChild(al);
                 q.answers.filter(a => a.isCorrect).forEach(a => {
-                    correctLine.appendChild(renderTextWithMath(a.text));
+                    answerLine.appendChild(renderTextWithMath(a.text));
                 });
-                item.appendChild(correctLine);
+                item.appendChild(answerLine);
 
                 detailedResults.appendChild(item);
             });
